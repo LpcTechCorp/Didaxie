@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Didaxie</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/index.css" />
+  <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/3.0.0/uicons-brands/css/uicons-brands.css">
+<link rel="stylesheet" href="https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-rounded/css/uicons-solid-rounded.css">
+</head>
+<body>
+  <header class="hero" id="home">
+    <nav class="navbar container">
+      <a href="#home">Home</a>
+      <a href="#materiais">Materiais</a>
+      <a class="brand" href="#home">DIDAXIE</a>
+      <a href="#aulas">Aulas</a>
+      <a href="#correcoes">Correções</a>
+    </nav>
+
+    <div class="hero-content container">
+      <h1>Crie experiências de<br><strong>aprendizagem</strong></h1>
+      <div class="hero-actions">
+        <button class="btn btn-outline" id="startBtn">Iniciar agora</button>
+        <button class="btn btn-light" id="loginBtn">Já tenho cadastro</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="about" id="aulas">
+      <div class="container about-inner">
+        <h2>NOSSO SITE</h2>
+        <p>Didaxie nasceu para <span>simplificar</span> a rotina dos professores e<br class="desktop-only"> transformar a experiência de ensino.</p>
+
+        <div class="cards">
+          <article class="feature-card yellow card-left">
+            <h3>PLANEJE COM<br>FACILIDADE</h3>
+            <p>Organize conteúdos,<br>cronogramas e atividades<br>em um ambiente intuitivo.</p>
+          </article>
+
+          <article class="feature-card purple card-center" id="materiais">
+            <h3>CENTRALIZE<br>MATERIAIS</h3>
+            <p>Armazene PDFs, exercícios e<br>apresentações em um só<br>lugar, com acesso rápido.</p>
+          </article>
+
+          <article class="feature-card pink card-right" id="correcoes">
+            <h3>CORRIJA ATIVIDADES<br>COM MAIS AGILIDADE</h3>
+            <p>Acompanhe entregas, envie<br>feedbacks e organize<br>correções de forma prática.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <h3>DIDAXIE</h3>
+        <p>Transformando a experiência de ensino<br>por meio da tecnologia.</p>
+        <small>© 2026 Didaxie. Todos os direitos reservados.</small>
+      </div>
+
+      <div class="socials" aria-label="Redes sociais">
+        <a href="#" title="YouTube"><i class="fi fi-brands-youtube"></i></a>
+        <a href="#" title="Instagram"><i class="fi fi-brands-instagram"></i></a>
+        <a href="#" title="E-mail"><i class="fi fi-sr-envelope"></i></a>
+      </div>
+
+      <ul class="footer-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#">News</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Our Team</a></li>
+        <li><a href="#">Contact us</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="javaScript/index.js"></script>
+</body>
+</html>
