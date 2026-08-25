@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Conta | Didaxie</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="DIDAXIE/css/computer.css">
+</head>
+<body>
+    <main class="cadastro-page">
+        <section class="lado-esquerdo">
+            <h1 class="logo">DIDAXIE</h1>
+            <div class="ilustracao">
+                <img src="DIDAXIE/img/computer.png" alt="Ilustração Didaxie">
+            </div>
+        </section>
+
+        <section class="lado-direito">
+            <div class="card-cadastro">
+                <div class="cabecalho">
+                    <div class="icone-usuario">
+                        <svg viewBox="0 0 64 64">
+                            <circle cx="32" cy="21" r="13"></circle>
+                            <path d="M12 55c0-12 9-21 20-21s20 9 20 21"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h2>Criar Conta</h2>
+                        <p>Preencha seus dados para criar sua conta Didaxie.</p>
+                    </div>
+                </div>
+
+                <form action="#" method="post">
+                    <div class="campos">
+                        <div class="campo">
+                            <label for="nome">Nome Completo</label>
+                            <input type="text" id="nome" name="nome" required minlength="3">
+                        </div>
+
+                        <div class="campo">
+                            <label for="email">E-mail</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+
+                        <div class="campo">
+                            <label for="senha">Senha</label>
+                            <input type="password" id="senha" name="senha" required minlength="8"
+                                   pattern="(?=.*[A-Za-z])(?=.*[0-9]).{8,}"
+                                   title="A senha deve possuir no mínimo 8 caracteres, incluindo letras e números.">
+                        </div>
+
+                        <div class="campo">
+                            <label for="repetir-senha">Repetir senha</label>
+                            <input type="password" id="repetir-senha" name="repetir-senha" required minlength="8">
+                        </div>
+                    </div>
+
+                    <label class="termos">
+                        <input type="checkbox" name="termos" required>
+                        <span>Eu concordo com os <a href="#">Termos de Uso</a> e a <a href="#">Política de Privacidade.</a></span>
+                    </label>
+
+                    <button type="submit" class="botao-criar">Criar minha conta</button>
+
+                    <p class="login">Já tem uma conta? <a href="#">Entrar</a></p>
+
+                    <div class="divisor">
+                        <span></span>
+                        <p>ou cadastre-se com</p>
+                        <span></span>
+                    </div>
+
+                    <div class="login-social">
+                        <button type="button" class="botao-social">
+                            <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
+                            Google
+                        </button>
+
+                        <button type="button" class="botao-social">
+                            <svg class="microsoft-icon" viewBox="0 0 24 24">
+                                <rect x="2" y="2" width="9" height="9" fill="#f25022"/>
+                                <rect x="13" y="2" width="9" height="9" fill="#7fba00"/>
+                                <rect x="2" y="13" width="9" height="9" fill="#00a4ef"/>
+                                <rect x="13" y="13" width="9" height="9" fill="#ffb900"/>
+                            </svg>
+                            Microsoft
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
