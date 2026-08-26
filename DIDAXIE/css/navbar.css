@@ -1,0 +1,561 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+
+/* ==============================
+   CONFIGURAÇÕES
+============================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --sidebar-aberta: 220px;
+    --sidebar-fechada: 72px;
+
+    --roxo: #7127e8;
+    --roxo-claro: #843cf0;
+    --roxo-hover: #7d36ec;
+
+    --branco: #ffffff;
+
+    --transicao: 0.3s ease;
+}
+
+
+/* ==============================
+   SIDEBAR
+============================== */
+
+.sidebar {
+    width: var(--sidebar-aberta);
+    height: 100vh;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    background: var(--roxo);
+
+    color: var(--branco);
+
+    font-family: "Poppins", sans-serif;
+
+    overflow: hidden;
+
+    z-index: 1000;
+
+    transition:
+        width var(--transicao),
+        transform var(--transicao),
+        box-shadow var(--transicao);
+}
+
+
+/* ==============================
+   CABEÇALHO
+============================== */
+
+.sidebar-header {
+    min-height: 105px;
+
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0 18px;
+}
+
+
+/* LOGO */
+
+.logo {
+    color: white;
+    text-decoration: none;
+
+    font-size: 24px;
+    font-weight: 700;
+
+    white-space: nowrap;
+}
+
+
+.logo-reduzido {
+    display: none;
+}
+
+
+/* ==============================
+   BOTÃO DE RECOLHER
+============================== */
+
+.sidebar-toggle {
+    width: 30px;
+    height: 30px;
+
+    position: absolute;
+    right: 6px;
+
+    border: none;
+    border-radius: 8px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: transparent;
+
+    color: white;
+
+    font-size: 21px;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.3s ease;
+}
+
+
+.sidebar-toggle:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+
+/* ==============================
+   MENU
+============================== */
+
+.sidebar-menu {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+}
+
+
+.menu-item {
+    width: 100%;
+    min-height: 54px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 16px;
+
+    padding: 0 22px;
+
+    color: white;
+
+    text-decoration: none;
+
+    font-size: 16px;
+    font-weight: 500;
+
+    white-space: nowrap;
+
+    transition:
+        background 0.2s ease,
+        padding 0.3s ease;
+}
+
+
+/* ÍCONES */
+
+.menu-item i {
+    min-width: 28px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 20px;
+
+    line-height: 1;
+}
+
+
+.menu-item:hover {
+    background: rgba(255, 255, 255, 0.10);
+}
+
+
+.menu-item.active {
+    background: var(--roxo-claro);
+}
+
+
+/* ==============================
+   PERFIL
+============================== */
+
+.profile-card {
+    min-height: 60px;
+
+    margin: auto 16px 20px;
+
+    padding: 8px 12px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    border-radius: 10px;
+
+    background: rgba(255, 255, 255, 0.13);
+
+    color: white;
+    text-decoration: none;
+
+    overflow: hidden;
+
+    transition:
+        background 0.2s ease,
+        margin 0.3s ease,
+        padding 0.3s ease;
+}
+
+
+.profile-card:hover {
+    background: rgba(255, 255, 255, 0.20);
+}
+
+
+.profile-avatar {
+    min-width: 40px;
+    width: 40px;
+    height: 40px;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #6020ce;
+
+    font-size: 14px;
+}
+
+
+.profile-info {
+    min-width: 90px;
+
+    display: flex;
+    flex-direction: column;
+
+    line-height: 1.2;
+}
+
+
+.profile-info strong {
+    font-size: 12px;
+    font-weight: 500;
+}
+
+
+.profile-info span {
+    font-size: 11px;
+}
+
+
+.profile-arrow {
+    margin-left: auto;
+}
+
+
+/* ==============================
+   NAVBAR RECOLHIDA
+============================== */
+
+.sidebar.collapsed {
+    width: var(--sidebar-fechada);
+}
+
+
+/* LOGO */
+
+.sidebar.collapsed .logo-completo {
+    display: none;
+}
+
+
+.sidebar.collapsed .logo-reduzido {
+    display: inline;
+}
+
+
+/* MENU */
+
+.sidebar.collapsed .menu-item {
+    padding: 0;
+
+    justify-content: center;
+}
+
+
+.sidebar.collapsed .menu-item span {
+    display: none;
+}
+
+
+/* PERFIL */
+
+.sidebar.collapsed .profile-card {
+    margin: auto 8px 20px;
+
+    padding: 8px;
+
+    justify-content: center;
+}
+
+
+.sidebar.collapsed .profile-info,
+.sidebar.collapsed .profile-arrow {
+    display: none;
+}
+
+
+/* SETA */
+
+.sidebar.collapsed .sidebar-toggle {
+    right: 50%;
+
+    transform: translateX(50%) rotate(180deg);
+}
+
+
+/* ==============================
+   ABERTURA PELO MOUSE
+
+   IMPORTANTE:
+   Só abre temporariamente se estiver
+   recolhida pelo usuário.
+============================== */
+
+@media (min-width: 769px) {
+
+    .sidebar.collapsed.hover-open {
+        width: var(--sidebar-aberta);
+
+        box-shadow: 8px 0 25px rgba(0, 0, 0, 0.12);
+    }
+
+
+    /* LOGO */
+
+    .sidebar.collapsed.hover-open .logo-completo {
+        display: inline;
+    }
+
+
+    .sidebar.collapsed.hover-open .logo-reduzido {
+        display: none;
+    }
+
+
+    /* MENU */
+
+    .sidebar.collapsed.hover-open .menu-item {
+        justify-content: flex-start;
+
+        padding: 0 22px;
+    }
+
+
+    .sidebar.collapsed.hover-open .menu-item span {
+        display: inline;
+    }
+
+
+    /* PERFIL */
+
+    .sidebar.collapsed.hover-open .profile-card {
+        margin: auto 16px 20px;
+
+        padding: 8px 12px;
+
+        justify-content: flex-start;
+    }
+
+
+    .sidebar.collapsed.hover-open .profile-info {
+        display: flex;
+    }
+
+
+    .sidebar.collapsed.hover-open .profile-arrow {
+        display: block;
+    }
+
+
+    /* SETA */
+
+    .sidebar.collapsed.hover-open .sidebar-toggle {
+        right: 6px;
+
+        transform: rotate(180deg);
+    }
+
+}
+
+
+/* ==============================
+   BOTÃO MOBILE
+============================== */
+
+.mobile-menu-button {
+    display: none;
+
+    width: 44px;
+    height: 44px;
+
+    position: fixed;
+
+    top: 15px;
+    left: 15px;
+
+    border: none;
+    border-radius: 10px;
+
+    align-items: center;
+    justify-content: center;
+
+    background: var(--roxo);
+
+    color: white;
+
+    font-size: 20px;
+
+    cursor: pointer;
+
+    z-index: 900;
+}
+
+
+/* ==============================
+   OVERLAY MOBILE
+============================== */
+
+.sidebar-overlay {
+    display: none;
+
+    position: fixed;
+
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.4);
+
+    z-index: 950;
+}
+
+
+/* ==============================
+   MOBILE / TABLET
+============================== */
+
+@media (max-width: 768px) {
+
+    .sidebar,
+    .sidebar.collapsed {
+        width: 230px;
+
+        transform: translateX(-100%);
+    }
+
+
+    .sidebar.mobile-open {
+        transform: translateX(0);
+    }
+
+
+    /* Sempre mostra conteúdo quando abre no mobile */
+
+    .sidebar .logo-completo,
+    .sidebar.collapsed .logo-completo {
+        display: inline;
+    }
+
+
+    .sidebar .logo-reduzido,
+    .sidebar.collapsed .logo-reduzido {
+        display: none;
+    }
+
+
+    .sidebar .menu-item,
+    .sidebar.collapsed .menu-item {
+        padding: 0 22px;
+
+        justify-content: flex-start;
+    }
+
+
+    .sidebar .menu-item span,
+    .sidebar.collapsed .menu-item span {
+        display: inline;
+    }
+
+
+    .sidebar .profile-card,
+    .sidebar.collapsed .profile-card {
+        margin: auto 16px 20px;
+
+        padding: 8px 12px;
+
+        justify-content: flex-start;
+    }
+
+
+    .sidebar .profile-info,
+    .sidebar.collapsed .profile-info {
+        display: flex;
+    }
+
+
+    .sidebar .profile-arrow,
+    .sidebar.collapsed .profile-arrow {
+        display: block;
+    }
+
+
+    .sidebar .sidebar-toggle,
+    .sidebar.collapsed .sidebar-toggle {
+        right: 6px;
+
+        transform: none;
+    }
+
+
+    .mobile-menu-button {
+        display: flex;
+    }
+
+
+    .sidebar-overlay.active {
+        display: block;
+    }
+
+}
+
+
+/* ==============================
+   CELULARES PEQUENOS
+============================== */
+
+@media (max-width: 400px) {
+
+    .sidebar,
+    .sidebar.collapsed {
+        width: 85%;
+    }
+
+}
