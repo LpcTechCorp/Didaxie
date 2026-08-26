@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Planos de aula | Didaxie</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link
+        rel="stylesheet"
+        href="https://cdn-uicons.flaticon.com/4.0.0/uicons-regular-rounded/css/uicons-regular-rounded.css"
+    >
+
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/plano_aula.css">
+</head>
+
+<body>
+
+<button
+    class="mobile-menu-button"
+    id="mobileMenuButton"
+    aria-label="Abrir menu"
+>
+    <i class="fi fi-rr-menu-burger"></i>
+</button>
+
+<aside class="sidebar" id="sidebar">
+
+    <div class="sidebar-header">
+
+        <a href="painel.html" class="logo">
+            <span class="logo-completo">DIDAXIE</span>
+            <span class="logo-reduzido">D</span>
+        </a>
+
+        <button
+            class="sidebar-toggle"
+            id="sidebarToggle"
+            aria-label="Recolher menu"
+        >
+            <i class="fi fi-rr-angle-small-left"></i>
+        </button>
+
+    </div>
+
+    <nav class="sidebar-menu">
+
+        <a href="painel.html" class="menu-item" data-label="Início">
+            <i class="fi fi-rr-home"></i>
+            <span>Início</span>
+        </a>
+
+        <a href="plano_aula.html" class="menu-item active" data-label="Plano de aula">
+            <i class="fi fi-rr-book-open-cover"></i>
+            <span>Plano de aula</span>
+        </a>
+
+        <a href="materiais.html" class="menu-item" data-label="Materiais">
+            <i class="fi fi-rr-folder-open"></i>
+            <span>Materiais</span>
+        </a>
+
+        <a href="atividades.html" class="menu-item" data-label="Atividades">
+            <i class="fi fi-rr-document"></i>
+            <span>Atividades</span>
+        </a>
+
+        <a href="#" class="menu-item" data-label="Correção">
+            <i class="fi fi-rr-edit"></i>
+            <span>Correção</span>
+        </a>
+
+        <a href="calendario.html" class="menu-item" data-label="Calendário">
+            <i class="fi fi-rr-calendar"></i>
+            <span>Calendário</span>
+        </a>
+
+    </nav>
+
+    <a href="cadastro_professor.html" class="profile-card">
+
+        <div class="profile-avatar">
+            PF
+        </div>
+
+        <div class="profile-info">
+            <strong>Professor</strong>
+            <span>Ver perfil</span>
+        </div>
+
+        <i class="fi fi-rr-angle-small-right profile-arrow"></i>
+
+    </a>
+
+</aside>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<main class="planos-page">
+
+    <header class="planos-header">
+
+        <h1>Planos de aula</h1>
+
+        <div class="busca-planos">
+
+            <i class="fi fi-rr-search"></i>
+
+            <input
+                type="search"
+                id="buscarPlano"
+                placeholder="Buscar planos de aula"
+                autocomplete="off"
+            >
+
+        </div>
+
+    </header>
+
+    <section class="secao-planos">
+
+        <div class="secao-titulo">
+
+            <h2>Planos recentes</h2>
+
+            <div class="titulo-linha"></div>
+
+        </div>
+
+        <div class="recentes-grid">
+
+            <button
+                class="adicionar-card"
+                id="adicionarPlano"
+                type="button"
+            >
+
+                <i class="fi fi-rr-plus"></i>
+
+                <span>Adicionar</span>
+
+            </button>
+
+            <div
+                class="recentes-lista"
+                id="planosRecentes"
+            ></div>
+
+        </div>
+
+    </section>
+
+    <section class="secao-planos todos-planos">
+
+        <div class="secao-titulo">
+
+            <h2>Todos os planos</h2>
+
+            <div class="titulo-linha"></div>
+
+        </div>
+
+        <div
+            class="planos-grid"
+            id="todosPlanos"
+        ></div>
+
+    </section>
+
+</main>
+
+<div
+    class="menu-plano"
+    id="menuPlano"
+>
+
+    <div class="menu-cabecalho">
+
+        <strong id="menuNomePlano"></strong>
+
+        <span id="menuTurmaPlano"></span>
+
+    </div>
+
+    <div class="menu-separador"></div>
+
+    <button
+        type="button"
+        class="menu-opcao"
+        data-acao="editar"
+    >
+        <i class="fi fi-rr-edit"></i>
+        <span>Editar plano</span>
+    </button>
+
+    <button
+        type="button"
+        class="menu-opcao"
+        data-acao="visualizar"
+    >
+        <i class="fi fi-rr-eye"></i>
+        <span>Visualizar plano</span>
+    </button>
+
+    <div class="menu-separador"></div>
+
+    <button
+        type="button"
+        class="menu-opcao"
+        data-acao="copiar"
+    >
+        <i class="fi fi-rr-copy"></i>
+        <span>Fazer uma cópia</span>
+    </button>
+
+    <button
+        type="button"
+        class="menu-opcao"
+        data-acao="compartilhar"
+    >
+        <i class="fi fi-rr-share"></i>
+        <span>Compartilhar</span>
+    </button>
+
+    <button
+        type="button"
+        class="menu-opcao"
+        data-acao="arquivar"
+    >
+        <i class="fi fi-rr-box"></i>
+        <span>Arquivar</span>
+    </button>
+
+    <div class="menu-separador"></div>
+
+    <button
+        type="button"
+        class="menu-opcao excluir"
+        data-acao="excluir"
+    >
+        <i class="fi fi-rr-trash"></i>
+        <span>Excluir</span>
+    </button>
+
+</div>
+
+<script src="javaScript/navbar.js"></script>
+<script src="javaScript/plano_aula.js"></script>
+
+</body>
+</html>
