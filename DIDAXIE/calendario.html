@@ -1,3 +1,5 @@
+Agora entendi exatamente o estilo que você quer: sem aquelas separações enormes, mas com um pulo entre cada classe/bloco. Também mantive atributos quebrados só quando realmente fica mais legível.
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -8,16 +10,8 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
-        rel="stylesheet"
-    >
-
-    <link
-        rel="stylesheet"
-        href="https://cdn-uicons.flaticon.com/4.0.0/uicons-regular-rounded/css/uicons-regular-rounded.css"
-    >
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/4.0.0/uicons-regular-rounded/css/uicons-regular-rounded.css">
 
     <link rel="stylesheet" href="css/navbar.css">
     <link rel="stylesheet" href="css/calendario.css">
@@ -25,486 +19,273 @@
 
 <body>
 
-<button
-    class="mobile-menu-button"
-    id="mobileMenuButton"
-    aria-label="Abrir menu"
->
-    <i class="fi fi-rr-menu-burger"></i>
-</button>
-
-<aside class="sidebar" id="sidebar">
-
-    <div class="sidebar-header">
-
-        <a href="" class="logo">
-            <span class="logo-completo">DIDAXIE</span>
-            <span class="logo-reduzido">D</span>
-        </a>
-
-        <button
-            class="sidebar-toggle"
-            id="sidebarToggle"
-            aria-label="Recolher menu"
-        >
-            <i class="fi fi-rr-angle-small-left"></i>
-        </button>
-
-    </div>
-
-    <nav class="sidebar-menu">
-
-        <a
-            href="painel.html"
-            class="menu-item"
-            data-label="Início"
-        >
-            <i class="fi fi-rr-home"></i>
-            <span>Início</span>
-        </a>
-
-        <a
-            href="#"
-            class="menu-item"
-            data-label="Plano de aula"
-        >
-            <i class="fi fi-rr-book-open-cover"></i>
-            <span>Plano de aula</span>
-        </a>
-
-        <a
-            href="#"
-            class="menu-item"
-            data-label="Materiais"
-        >
-            <i class="fi fi-rr-folder-open"></i>
-            <span>Materiais</span>
-        </a>
-
-        <a
-            href="#"
-            class="menu-item"
-            data-label="Atividades"
-        >
-            <i class="fi fi-rr-document"></i>
-            <span>Atividades</span>
-        </a>
-
-        <a
-            href="#"
-            class="menu-item"
-            data-label="Correção"
-        >
-            <i class="fi fi-rr-edit"></i>
-            <span>Correção</span>
-        </a>
-
-        <a
-            href="calendario.html"
-            class="menu-item active"
-            data-label="Calendário"
-        >
-            <i class="fi fi-rr-calendar"></i>
-            <span>Calendário</span>
-        </a>
-
-    </nav>
-
-    <a href="cadastro_professor.html" class="profile-card">
-
-        <div class="profile-avatar">
-            PF
-        </div>
-
-        <div class="profile-info">
-            <strong>Professor</strong>
-            <span>Ver perfil</span>
-        </div>
-
-        <i class="fi fi-rr-angle-small-right profile-arrow"></i>
-
-    </a>
-
-</aside>
-
-<div class="sidebar-overlay" id="sidebarOverlay"></div>
-
-<main class="calendar-page">
-
-    <h1>Calendário</h1>
-
-    <div class="calendar-layout">
-
-        <section class="calendar-card">
-
-            <div class="calendar-top">
-
-                <button
-                    class="month-button"
-                    id="previousMonth"
-                    aria-label="Mês anterior"
-                >
-                    <i class="fi fi-rr-angle-left"></i>
-                </button>
-
-                <h2 id="monthTitle"></h2>
-
-                <button
-                    class="month-button"
-                    id="nextMonth"
-                    aria-label="Próximo mês"
-                >
-                    <i class="fi fi-rr-angle-right"></i>
-                </button>
-
-            </div>
-
-            <div class="calendar-weekdays">
-
-                <div class="sunday">Dom</div>
-                <div>Seg</div>
-                <div>Ter</div>
-                <div>Qua</div>
-                <div>Qui</div>
-                <div>Sex</div>
-                <div>Sáb</div>
-
-            </div>
-
-            <div
-                class="calendar-days"
-                id="calendarDays"
-            ></div>
-
-            <div class="calendar-legend">
-
-                <div class="legend-item lesson">
-                    <span></span>
-                    Planos de aula
-                </div>
-
-                <div class="legend-item activity">
-                    <span></span>
-                    Atividades
-                </div>
-
-                <div class="legend-item correction">
-                    <span></span>
-                    Correções
-                </div>
-
-                <div class="legend-item delivery">
-                    <span></span>
-                    Entregas
-                </div>
-
-            </div>
-
-        </section>
-
-        <aside class="calendar-side">
-
-            <section class="side-card today-card">
-
-                <p>
-                    Hoje •
-                    <strong id="todayDate"></strong>
-                </p>
-
-                <div
-                    class="side-events"
-                    id="todayEvents"
-                ></div>
-
-            </section>
-
-            <section class="side-card recent-card">
-
-                <h3>Atividades recentes</h3>
-
-                <div
-                    class="side-events"
-                    id="recentEvents"
-                ></div>
-
-            </section>
-
-        </aside>
-
-    </div>
-
-</main>
-
-<div
-    class="modal-backdrop"
-    id="modalBackdrop"
-></div>
-
-<div
-    class="event-modal"
-    id="eventModal"
-    role="dialog"
-    aria-modal="true"
->
-
-    <div class="modal-header">
-
-        <h2 id="modalTitle">
-            Adicionar ao calendário
-        </h2>
-
-        <button
-            class="modal-close"
-            id="modalClose"
-            type="button"
-        >
-            <i class="fi fi-rr-cross-small"></i>
-        </button>
-
-    </div>
-
-    <form id="eventForm">
-
-        <input
-            type="text"
-            id="eventTitle"
-            class="event-title-input"
-            placeholder="Ex: entrega notas 2º ano"
-            maxlength="80"
-            required
-        >
-
-        <label>
-            Tipo de evento
-        </label>
-
-        <div
-            class="event-select"
-            id="eventSelect"
-        >
-
-            <button
-                class="event-select-button"
-                id="eventSelectButton"
-                type="button"
-            >
-
-                <span
-                    class="type-dot lesson-dot"
-                    id="selectedTypeDot"
-                ></span>
-
-                <span id="selectedTypeText">
-                    Planos de aula
-                </span>
-
-                <i class="fi fi-rr-angle-small-down"></i>
-
-            </button>
-
-            <div
-                class="event-options"
-                id="eventOptions"
-            >
-
-                <button
-                    type="button"
-                    class="event-option"
-                    data-value="lesson"
-                >
-                    <span class="type-dot lesson-dot"></span>
-                    Planos de aula
-                </button>
-
-                <button
-                    type="button"
-                    class="event-option"
-                    data-value="activity"
-                >
-                    <span class="type-dot activity-dot"></span>
-                    Atividades
-                </button>
-
-                <button
-                    type="button"
-                    class="event-option"
-                    data-value="correction"
-                >
-                    <span class="type-dot correction-dot"></span>
-                    Correções
-                </button>
-
-                <button
-                    type="button"
-                    class="event-option"
-                    data-value="delivery"
-                >
-                    <span class="type-dot delivery-dot"></span>
-                    Entregas
-                </button>
-
-            </div>
-
-        </div>
-
-        <div class="date-row">
-
-            <div class="form-group">
-
-                <label for="startDate">
-                    Data de início
-                </label>
-
-                <input
-                    type="date"
-                    id="startDate"
-                    required
-                >
-
-            </div>
-
-            <div
-                class="form-group"
-                id="endDateGroup"
-            >
-
-                <label for="endDate">
-                    Data de término
-                </label>
-
-                <input
-                    type="date"
-                    id="endDate"
-                >
-
-            </div>
-
-        </div>
-
-        <label class="all-day">
-
-            <input
-                type="checkbox"
-                id="allDay"
-            >
-
-            <span class="custom-checkbox"></span>
-
-            Dia todo
-
-        </label>
-
-        <div class="comment-group">
-
-            <label for="eventComment">
-                Comentários
-                <span>(opcional)</span>
-            </label>
-
-            <textarea
-                id="eventComment"
-                maxlength="300"
-                placeholder="Adicione alguma observação..."
-            ></textarea>
-
-        </div>
-
-        <div class="modal-buttons">
-
-            <button
-                type="button"
-                class="delete-button hidden"
-                id="deleteButton"
-            >
-                <i class="fi fi-rr-trash"></i>
-                Excluir
-            </button>
-
-            <div class="modal-actions">
-
-                <button
-                    type="button"
-                    class="discard-button"
-                    id="discardButton"
-                >
-                    Descartar
-                </button>
-
-                <button
-                    type="submit"
-                    class="save-button"
-                >
-                    Salvar
-                </button>
-
-            </div>
-
-        </div>
-
-    </form>
-
-</div>
-
-<div
-    class="event-preview"
-    id="eventPreview"
->
-
-    <div class="event-preview-header">
-
-        <div>
-
-            <span
-                class="type-dot"
-                id="previewDot"
-            ></span>
-
-            <strong id="previewTitle"></strong>
-
-        </div>
-
-    </div>
-
-    <div class="event-preview-info">
-
-        <p>
-            <span>Tipo</span>
-            <strong id="previewType"></strong>
-        </p>
-
-        <p>
-            <span>Início</span>
-            <strong id="previewStart"></strong>
-        </p>
-
-        <p id="previewEndRow">
-            <span>Término</span>
-            <strong id="previewEnd"></strong>
-        </p>
-
-        <p
-            class="preview-comment-row"
-            id="previewCommentRow"
-        >
-            <span>Comentário</span>
-            <strong id="previewComment"></strong>
-        </p>
-
-    </div>
-
-    <button
-        type="button"
-        class="preview-edit-button"
-        id="previewEditButton"
-    >
-        <i class="fi fi-rr-edit"></i>
-        Editar
+    <button class="mobile-menu-button" id="mobileMenuButton" aria-label="Abrir menu">
     </button>
 
-</div>
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="" class="logo">
+                <span class="logo-completo">DIDAXIE</span>
+                <span class="logo-reduzido">D</span>
+            </a>
 
-<script src="javaScript/navbar.js"></script>
-<script src="javaScript/calendario.js"></script>
+            <button class="sidebar-toggle" id="sidebarToggle" aria-label="Recolher menu">
+                <i class="fi fi-rr-angle-small-left"></i>
+            </button>
+        </div>
+
+        <nav class="sidebar-menu">
+            <a href="painel.html" class="menu-item" data-label="Início">
+                <i class="fi fi-rr-home"></i>
+                <span>Início</span>
+            </a>
+
+            <a href="#" class="menu-item" data-label="Plano de aula">
+                <i class="fi fi-rr-book-open-cover"></i>
+                <span>Plano de aula</span>
+            </a>
+
+            <a href="#" class="menu-item" data-label="Materiais">
+                <i class="fi fi-rr-folder-open"></i>
+                <span>Materiais</span>
+            </a>
+
+            <a href="#" class="menu-item" data-label="Atividades">
+                <i class="fi fi-rr-document"></i>
+                <span>Atividades</span>
+            </a>
+
+            <a href="#" class="menu-item" data-label="Correção">
+                <i class="fi fi-rr-edit"></i>
+                <span>Correção</span>
+            </a>
+
+            <a href="calendario.html" class="menu-item active" data-label="Calendário">
+                <i class="fi fi-rr-calendar"></i>
+                <span>Calendário</span>
+            </a>
+        </nav>
+
+        <a href="cadastro_professor.html" class="profile-card">
+            <div class="profile-avatar">PF</div>
+
+            <div class="profile-info">
+                <strong>Professor</strong>
+                <span>Ver perfil</span>
+            </div>
+
+            <i class="fi fi-rr-angle-small-right profile-arrow"></i>
+        </a>
+    </aside>
+
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <main class="calendar-page">
+        <h1>Calendário</h1>
+
+        <div class="calendar-layout">
+            <section class="calendar-card">
+                <div class="calendar-top">
+                    <button class="month-button" id="previousMonth" aria-label="Mês anterior">
+                        <i class="fi fi-rr-angle-left"></i>
+                    </button>
+
+                    <h2 id="monthTitle"></h2>
+
+                    <button class="month-button" id="nextMonth" aria-label="Próximo mês">
+                        <i class="fi fi-rr-angle-right"></i>
+                    </button>
+                </div>
+
+                <div class="calendar-weekdays">
+                    <div class="sunday">Dom</div>
+                    <div>Seg</div>
+                    <div>Ter</div>
+                    <div>Qua</div>
+                    <div>Qui</div>
+                    <div>Sex</div>
+                    <div>Sáb</div>
+                </div>
+
+                <div class="calendar-days" id="calendarDays"></div>
+
+                <div class="calendar-legend">
+                    <div class="legend-item lesson">
+                        <span></span>
+                        Planos de aula
+                    </div>
+
+                    <div class="legend-item activity">
+                        <span></span>
+                        Atividades
+                    </div>
+
+                    <div class="legend-item correction">
+                        <span></span>
+                        Correções
+                    </div>
+
+                    <div class="legend-item delivery">
+                        <span></span>
+                        Entregas
+                    </div>
+                </div>
+            </section>
+
+            <aside class="calendar-side">
+                <section class="side-card today-card">
+                    <p>Hoje • <strong id="todayDate"></strong></p>
+                    <div class="side-events" id="todayEvents"></div>
+                </section>
+
+                <section class="side-card recent-card">
+                    <h3>Atividades recentes</h3>
+                    <div class="side-events" id="recentEvents"></div>
+                </section>
+            </aside>
+        </div>
+    </main>
+
+    <div class="modal-backdrop" id="modalBackdrop"></div>
+
+    <div class="event-modal" id="eventModal" role="dialog" aria-modal="true">
+        <div class="modal-header">
+            <h2 id="modalTitle">Adicionar ao calendário</h2>
+
+            <button class="modal-close" id="modalClose" type="button">
+                <i class="fi fi-rr-cross-small"></i>
+            </button>
+        </div>
+
+        <form id="eventForm">
+            <input
+                type="text"
+                id="eventTitle"
+                class="event-title-input"
+                placeholder="Ex: entrega notas 2º ano"
+                maxlength="80"
+                required
+            >
+
+            <label>Tipo de evento</label>
+
+            <div class="event-select" id="eventSelect">
+                <button class="event-select-button" id="eventSelectButton" type="button">
+                    <span class="type-dot lesson-dot" id="selectedTypeDot"></span>
+                    <span id="selectedTypeText">Planos de aula</span>
+                    <i class="fi fi-rr-angle-small-down"></i>
+                </button>
+
+                <div class="event-options" id="eventOptions">
+                    <button type="button" class="event-option" data-value="lesson">
+                        <span class="type-dot lesson-dot"></span>
+                        Planos de aula
+                    </button>
+
+                    <button type="button" class="event-option" data-value="activity">
+                        <span class="type-dot activity-dot"></span>
+                        Atividades
+                    </button>
+
+                    <button type="button" class="event-option" data-value="correction">
+                        <span class="type-dot correction-dot"></span>
+                        Correções
+                    </button>
+
+                    <button type="button" class="event-option" data-value="delivery">
+                        <span class="type-dot delivery-dot"></span>
+                        Entregas
+                    </button>
+                </div>
+            </div>
+
+            <div class="date-row">
+                <div class="form-group">
+                    <label for="startDate">Data de início</label>
+                    <input type="date" id="startDate" required>
+                </div>
+
+                <div class="form-group" id="endDateGroup">
+                    <label for="endDate">Data de término</label>
+                    <input type="date" id="endDate">
+                </div>
+            </div>
+
+            <label class="all-day">
+                <input type="checkbox" id="allDay">
+                <span class="custom-checkbox"></span>
+                Dia todo
+            </label>
+
+            <div class="comment-group">
+                <label for="eventComment">
+                    Comentários <span>(opcional)</span>
+                </label>
+
+                <textarea
+                    id="eventComment"
+                    maxlength="300"
+                    placeholder="Adicione alguma observação..."
+                ></textarea>
+            </div>
+
+            <div class="modal-buttons">
+                <button type="button" class="delete-button hidden" id="deleteButton">
+                    <i class="fi fi-rr-trash"></i>
+                    Excluir
+                </button>
+
+                <div class="modal-actions">
+                    <button type="button" class="discard-button" id="discardButton">
+                        Descartar
+                    </button>
+
+                    <button type="submit" class="save-button">
+                        Salvar
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="event-preview" id="eventPreview">
+        <div class="event-preview-header">
+            <div>
+                <span class="type-dot" id="previewDot"></span>
+                <strong id="previewTitle"></strong>
+            </div>
+        </div>
+
+        <div class="event-preview-info">
+            <p>
+                <span>Tipo</span>
+                <strong id="previewType"></strong>
+            </p>
+
+            <p>
+                <span>Início</span>
+                <strong id="previewStart"></strong>
+            </p>
+
+            <p id="previewEndRow">
+                <span>Término</span>
+                <strong id="previewEnd"></strong>
+            </p>
+
+            <p class="preview-comment-row" id="previewCommentRow">
+                <span>Comentário</span>
+                <strong id="previewComment"></strong>
+            </p>
+        </div>
+
+        <button type="button" class="preview-edit-button" id="previewEditButton">
+            <i class="fi fi-rr-edit"></i>
+            Editar
+        </button>
+    </div>
+
+    <script src="javaScript/navbar.js"></script>
+    <script src="javaScript/calendario.js"></script>
 
 </body>
 </html>
