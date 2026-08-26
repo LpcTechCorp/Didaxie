@@ -8,266 +8,196 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-
     <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/4.0.0/uicons-regular-rounded/css/uicons-regular-rounded.css">
-
     <link rel="stylesheet" href="css/navbar.css">
     <link rel="stylesheet" href="css/painel.css">
 </head>
 
 <body>
+    <button class="mobile-menu-button" id="mobileMenuButton" aria-label="Abrir menu">
+        <i class="fi fi-rr-menu-burger"></i>
+    </button>
 
-<button class="mobile-menu-button" id="mobileMenuButton" aria-label="Abrir menu">
-    <i class="fi fi-rr-menu-burger"></i>
-</button>
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="" class="logo">
+                <span class="logo-completo">DIDAXIE</span>
+                <span class="logo-reduzido">D</span>
+            </a>
 
-<aside class="sidebar" id="sidebar">
-
-    <div class="sidebar-header">
-        <a href="" class="logo">
-            <span class="logo-completo">DIDAXIE</span>
-            <span class="logo-reduzido">D</span>
-        </a>
-
-        <button class="sidebar-toggle" id="sidebarToggle" aria-label="Recolher menu">
-            <i class="fi fi-rr-angle-small-left"></i>
-        </button>
-    </div>
-
-    <nav class="sidebar-menu">
-
-        <a href="painel.html" class="menu-item active" data-label="Início">
-            <i class="fi fi-rr-home"></i>
-            <span>Início</span>
-        </a>
-
-        <a href="#" class="menu-item" data-label="Plano de aula">
-            <i class="fi fi-rr-book-open-cover"></i>
-            <span>Plano de aula</span>
-        </a>
-
-        <a href="#" class="menu-item" data-label="Materiais">
-            <i class="fi fi-rr-folder-open"></i>
-            <span>Materiais</span>
-        </a>
-
-        <a href="#" class="menu-item" data-label="Atividades">
-            <i class="fi fi-rr-document"></i>
-            <span>Atividades</span>
-        </a>
-
-        <a href="#" class="menu-item" data-label="Correção">
-            <i class="fi fi-rr-edit"></i>
-            <span>Correção</span>
-        </a>
-
-        <a href="calendario.html" class="menu-item" data-label="Calendário">
-            <i class="fi fi-rr-calendar"></i>
-            <span>Calendário</span>
-        </a>
-
-    </nav>
-
-    <a href="cadastro_professor.html" class="profile-card">
-
-        <div class="profile-avatar">PF</div>
-
-        <div class="profile-info">
-            <strong>Professor</strong>
-            <span>Ver perfil</span>
+            <button class="sidebar-toggle" id="sidebarToggle" aria-label="Recolher menu">
+                <i class="fi fi-rr-angle-small-left"></i>
+            </button>
         </div>
 
-        <i class="fi fi-rr-angle-small-right profile-arrow"></i>
+         <nav class="sidebar-menu">
+            <a href="painel.html" class="menu-item" data-label="Início">
+                <i class="fi fi-rr-home"></i>
+                <span>Início</span>
+            </a>
+            <a href="plano_aula.html" class="menu-item" data-label="Plano de aula">
+                <i class="fi fi-rr-book-open-cover"></i>
+                <span>Plano de aula</span>
+            </a>
+            <a href="materiais.html" class="menu-item" data-label="Materiais">
+                <i class="fi fi-rr-folder-open"></i>
+                <span>Materiais</span>
+            </a>
+            <a href="atividades.html" class="menu-item active" data-label="Atividades">
+                <i class="fi fi-rr-document"></i>
+                <span>Atividades</span>
+            </a>
+            <a href="#" class="menu-item" data-label="Correção">
+                <i class="fi fi-rr-edit"></i>
+                <span>Correção</span>
+            </a>
+            <a href="calendario.html" class="menu-item" data-label="Calendário">
+                <i class="fi fi-rr-calendar"></i>
+                <span>Calendário</span>
+            </a>
+        </nav>
 
-    </a>
+        <a href="cadastro_professor.html" class="profile-card">
+            <div class="profile-avatar">PF</div>
 
-</aside>
-
-<div class="sidebar-overlay" id="sidebarOverlay"></div>
-
-<main class="painel">
-
-    <header class="painel-header">
-
-        <h1>
-            Bem vinda, <span id="nomeProfessor">-----</span>!
-        </h1>
-
-        <p id="dataAtual"></p>
-
-    </header>
-
-    <section class="resumo">
-
-        <article class="resumo-card card-planos">
-
-            <div class="card-topo">
-
-                <div class="card-icone">
-                    <i class="fi fi-rr-book-open-cover"></i>
-                </div>
-
-                <div class="card-info">
-                    <strong id="totalPlanos" class="numero vazio">0</strong>
-                    <span>Planos de aulas</span>
-                </div>
-
+            <div class="profile-info">
+                <strong>Professor</strong>
+                <span>Ver perfil</span>
             </div>
 
-            <a href="#" class="card-link">
-                Ver todos
-                <i class="fi fi-rr-arrow-small-right"></i>
-            </a>
+            <i class="fi fi-rr-angle-small-right profile-arrow"></i>
+        </a>
+    </aside>
 
-        </article>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-        <article class="resumo-card card-materiais">
+    <main class="painel">
+        <header class="painel-header">
+            <h1>Bem vinda, <span id="nomeProfessor">-----</span>!</h1>
+            <p id="dataAtual"></p>
+        </header>
 
-            <div class="card-topo">
+        <section class="resumo">
+            <article class="resumo-card card-planos">
+                <div class="card-topo">
+                    <div class="card-icone">
+                        <i class="fi fi-rr-book-open-cover"></i>
+                    </div>
 
-                <div class="card-icone">
-                    <i class="fi fi-rr-folder-open"></i>
-                </div>
-
-                <div class="card-info">
-                    <strong id="totalMateriais" class="numero vazio">0</strong>
-                    <span>Materiais</span>
-                </div>
-
-            </div>
-
-            <a href="#" class="card-link">
-                Ver todos
-                <i class="fi fi-rr-arrow-small-right"></i>
-            </a>
-
-        </article>
-
-        <article class="resumo-card card-atividades">
-
-            <div class="card-topo">
-
-                <div class="card-icone">
-                    <i class="fi fi-rr-document"></i>
-                </div>
-
-                <div class="card-info">
-                    <strong id="totalAtividades" class="numero vazio">0</strong>
-                    <span>Atividades</span>
-                </div>
-
-            </div>
-
-            <a href="#" class="card-link">
-                Ver todos
-                <i class="fi fi-rr-arrow-small-right"></i>
-            </a>
-
-        </article>
-
-        <article class="resumo-card card-correcoes">
-
-            <div class="card-topo">
-
-                <div class="card-icone">
-                    <i class="fi fi-rr-edit"></i>
-                </div>
-
-                <div class="card-info">
-                    <strong id="totalCorrecoes" class="numero vazio">0</strong>
-                    <span>Correções</span>
-                </div>
-
-            </div>
-
-            <a href="#" class="card-link">
-                Ver todos
-                <i class="fi fi-rr-arrow-small-right"></i>
-            </a>
-
-        </article>
-
-    </section>
-
-    <section class="painel-conteudo">
-
-        <article class="semana-card">
-
-            <header class="semana-header">
-
-                <div class="semana-icone">
-                    <i class="fi fi-rr-chart-histogram"></i>
-                </div>
-
-                <div>
-                    <h2>Resumo da semana</h2>
-                    <p>Acompanhe o que você fez essa semana</p>
-                </div>
-
-            </header>
-
-            <div class="linha"></div>
-
-            <div class="progresso-container">
-
-                <div class="progresso-circulo" id="progressoCirculo">
-                    <div class="progresso-centro">
-                        <span id="progressoValor">0%</span>
+                    <div class="card-info">
+                        <strong id="totalPlanos" class="numero vazio">0</strong>
+                        <span>Planos de aulas</span>
                     </div>
                 </div>
 
-                <div class="progresso-info">
-
-                    <h3>Progresso de atividades</h3>
-
-                    <p id="progressoTexto">
-                        Nenhuma atividade planejada para essa semana.
-                    </p>
-
-                    <a href="#" class="botao-atividades">
-                        Ver atividades
-                    </a>
-
-                </div>
-
-            </div>
-
-        </article>
-
-        <article class="recentes-card">
-
-            <header class="recentes-header">
-
-                <h2>Atividades recentes</h2>
-
-                <a href="#">
-                    Ver mais
+                <a href="#" class="card-link">
+                    Ver todos
+                    <i class="fi fi-rr-arrow-small-right"></i>
                 </a>
+            </article>
 
-            </header>
+            <article class="resumo-card card-materiais">
+                <div class="card-topo">
+                    <div class="card-icone">
+                        <i class="fi fi-rr-folder-open"></i>
+                    </div>
 
-            <div class="recentes-lista" id="atividadesRecentes">
-
-                <div class="estado-vazio">
-
-                    <i class="fi fi-rr-calendar-clock"></i>
-
-                    <span>
-                        Nenhuma atividade recente
-                    </span>
-
+                    <div class="card-info">
+                        <strong id="totalMateriais" class="numero vazio">0</strong>
+                        <span>Materiais</span>
+                    </div>
                 </div>
 
-            </div>
+                <a href="#" class="card-link">
+                    Ver todos
+                    <i class="fi fi-rr-arrow-small-right"></i>
+                </a>
+            </article>
 
-        </article>
+            <article class="resumo-card card-atividades">
+                <div class="card-topo">
+                    <div class="card-icone">
+                        <i class="fi fi-rr-document"></i>
+                    </div>
 
-    </section>
+                    <div class="card-info">
+                        <strong id="totalAtividades" class="numero vazio">0</strong>
+                        <span>Atividades</span>
+                    </div>
+                </div>
 
-</main>
+                <a href="#" class="card-link">
+                    Ver todos
+                    <i class="fi fi-rr-arrow-small-right"></i>
+                </a>
+            </article>
 
-<script src="javaScript/navbar.js"></script>
-<script src="javaScript/painel.js"></script>
+            <article class="resumo-card card-correcoes">
+                <div class="card-topo">
+                    <div class="card-icone">
+                        <i class="fi fi-rr-edit"></i>
+                    </div>
 
+                    <div class="card-info">
+                        <strong id="totalCorrecoes" class="numero vazio">0</strong>
+                        <span>Correções</span>
+                    </div>
+                </div>
+
+                <a href="#" class="card-link">
+                    Ver todos
+                    <i class="fi fi-rr-arrow-small-right"></i>
+                </a>
+            </article>
+        </section>
+
+        <section class="painel-conteudo">
+            <article class="semana-card">
+                <header class="semana-header">
+                    <div class="semana-icone">
+                        <i class="fi fi-rr-chart-histogram"></i>
+                    </div>
+
+                    <div>
+                        <h2>Resumo da semana</h2>
+                        <p>Acompanhe o que você fez essa semana</p>
+                    </div>
+                </header>
+
+                <div class="linha"></div>
+
+                <div class="progresso-container">
+                    <div class="progresso-circulo" id="progressoCirculo">
+                        <div class="progresso-centro">
+                            <span id="progressoValor">0%</span>
+                        </div>
+                    </div>
+
+                    <div class="progresso-info">
+                        <h3>Progresso de atividades</h3>
+                        <p id="progressoTexto">Nenhuma atividade planejada para essa semana.</p>
+                        <a href="#" class="botao-atividades">Ver atividades</a>
+                    </div>
+                </div>
+            </article>
+
+            <article class="recentes-card">
+                <header class="recentes-header">
+                    <h2>Atividades recentes</h2>
+                    <a href="#">Ver mais</a>
+                </header>
+
+                <div class="recentes-lista" id="atividadesRecentes">
+                    <div class="estado-vazio">
+                        <i class="fi fi-rr-calendar-clock"></i>
+                        <span>Nenhuma atividade recente</span>
+                    </div>
+                </div>
+            </article>
+        </section>
+    </main>
+
+    <script src="javaScript/navbar.js"></script>
+    <script src="javaScript/painel.js"></script>
 </body>
 </html>
