@@ -1,0 +1,638 @@
+:root {
+    --painel-roxo: #7127e8;
+    --painel-amarelo: #ffcc63;
+    --painel-rosa: #f38ca5;
+    --painel-lilas: #873cff;
+    --painel-cinza: #b5b5b5;
+    --painel-texto: #171717;
+    --painel-sombra: 0 8px 28px rgba(0, 0, 0, 0.07);
+}
+
+body {
+    min-height: 100vh;
+    background: #fff;
+    color: var(--painel-texto);
+    font-family: "Poppins", sans-serif;
+}
+
+.painel {
+    min-height: 100vh;
+    margin-left: var(--sidebar-aberta);
+    padding: 40px 48px 45px;
+    transition: margin-left var(--transicao);
+}
+
+body:has(.sidebar.collapsed:not(.hover-open)) .painel {
+    margin-left: var(--sidebar-fechada);
+}
+
+/* CABEÇALHO */
+
+.painel-header {
+    margin-bottom: 38px;
+}
+
+.painel-header h1 {
+    margin: 0;
+    color: var(--painel-roxo);
+    font-size: clamp(28px, 3vw, 38px);
+    line-height: 1.1;
+    font-weight: 700;
+}
+
+.painel-header p {
+    margin: 4px 0 0 13px;
+    color: #c7a4f7;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* CARDS SUPERIORES */
+
+.resumo {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.resumo-card {
+    min-width: 0;
+    min-height: 115px;
+    padding: 16px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: #fff;
+    box-shadow: var(--painel-sombra);
+}
+
+.card-topo {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+}
+
+.card-icone {
+    width: 50px;
+    height: 50px;
+    flex: 0 0 50px;
+    border-radius: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 20px;
+}
+
+.card-planos .card-icone,
+.card-correcoes .card-icone {
+    background: var(--painel-amarelo);
+}
+
+.card-materiais .card-icone {
+    background: var(--painel-lilas);
+}
+
+.card-atividades .card-icone {
+    background: var(--painel-rosa);
+}
+
+.card-info {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-info .numero {
+    font-size: 27px;
+    line-height: 1;
+    font-weight: 700;
+}
+
+.card-info span {
+    margin-top: 6px;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+.numero.vazio {
+    color: var(--painel-cinza) !important;
+}
+
+.card-planos .numero:not(.vazio),
+.card-correcoes .numero:not(.vazio) {
+    color: #eeb942;
+}
+
+.card-materiais .numero:not(.vazio) {
+    color: var(--painel-roxo);
+}
+
+.card-atividades .numero:not(.vazio) {
+    color: #e97490;
+}
+
+/* LINKS DOS CARDS */
+
+.card-link {
+    width: 102px;
+    height: 23px;
+    margin-left: auto;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-decoration: none;
+    font-size: 7px;
+    font-weight: 600;
+    transition: transform .2s ease, filter .2s ease;
+}
+
+.card-link:hover {
+    transform: translateY(-1px);
+    filter: brightness(.97);
+}
+
+.card-planos .card-link,
+.card-correcoes .card-link {
+    background: #fff8e9;
+    color: #d7a42b;
+}
+
+.card-materiais .card-link {
+    background: #f0e6ff;
+    color: var(--painel-roxo);
+}
+
+.card-atividades .card-link {
+    background: #fff0f4;
+    color: #e86f8b;
+}
+
+/* CONTEÚDO INFERIOR */
+
+.painel-conteudo {
+    margin-top: 42px;
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    gap: 28px;
+}
+
+.semana-card,
+.recentes-card {
+    min-width: 0;
+    min-height: 275px;
+    padding: 26px 28px;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: var(--painel-sombra);
+}
+
+/* RESUMO DA SEMANA */
+
+.semana-header {
+    display: flex;
+    align-items: center;
+    gap: 17px;
+}
+
+.semana-icone {
+    width: 44px;
+    height: 44px;
+    flex: 0 0 44px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #d8c0f5;
+    color: #fff;
+    font-size: 18px;
+}
+
+.semana-header h2,
+.recentes-header h2 {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.semana-header p {
+    margin: 4px 0 0;
+    color: #999;
+    font-size: 12px;
+}
+
+.linha {
+    height: 1px;
+    margin: 17px 0 28px;
+    background: #aaa;
+}
+
+/* PROGRESSO */
+
+.progresso-container {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.progresso-circulo {
+    --progresso: 0deg;
+
+    width: 105px;
+    height: 105px;
+    flex: 0 0 105px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+
+    background:
+        conic-gradient(
+            var(--painel-cinza) var(--progresso),
+            #ededed var(--progresso)
+        );
+}
+
+.progresso-circulo.com-progresso {
+    background:
+        conic-gradient(
+            var(--painel-roxo) var(--progresso),
+            #e9d8ff var(--progresso)
+        );
+}
+
+.progresso-centro {
+    width: 82px;
+    height: 82px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: #fff;
+}
+
+.progresso-centro span {
+    color: var(--painel-cinza);
+    font-size: 21px;
+    font-weight: 700;
+}
+
+.progresso-circulo.com-progresso .progresso-centro span {
+    color: #111;
+}
+
+.progresso-info {
+    min-width: 0;
+}
+
+.progresso-info h3 {
+    margin: 0;
+    font-size: 12px;
+}
+
+.progresso-info p {
+    max-width: 270px;
+    margin: 5px 0 17px;
+    color: #999;
+    font-size: 10px;
+    line-height: 1.5;
+}
+
+.botao-atividades {
+    width: 125px;
+    height: 29px;
+    border: 1px solid #aaa;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--painel-roxo);
+    text-decoration: none;
+    font-size: 9px;
+    font-weight: 600;
+    transition: background .2s ease, border-color .2s ease;
+}
+
+.botao-atividades:hover {
+    border-color: var(--painel-roxo);
+    background: #f8f3ff;
+}
+
+/* ATIVIDADES RECENTES */
+
+.recentes-header {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.recentes-header a {
+    color: var(--painel-roxo);
+    text-decoration: none;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.recentes-lista {
+    display: flex;
+    flex-direction: column;
+}
+
+.atividade-recente {
+    min-height: 65px;
+    padding: 9px 7px;
+    border-bottom: 1px solid #aaa;
+    display: grid;
+    grid-template-columns: 38px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 12px;
+}
+
+.atividade-recente:last-child {
+    border-bottom: none;
+}
+
+.atividade-icone {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #d9c3f4;
+    color: #fff;
+    font-size: 14px;
+}
+
+.atividade-info {
+    min-width: 0;
+}
+
+.atividade-info strong {
+    display: block;
+    font-size: 10px;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.atividade-info span,
+.atividade-horario {
+    color: #999;
+    font-size: 8px;
+}
+
+.atividade-horario {
+    white-space: nowrap;
+}
+
+/* ESTADO SEM DADOS */
+
+.estado-vazio {
+    min-height: 175px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: #aaa;
+    text-align: center;
+}
+
+.estado-vazio i {
+    font-size: 26px;
+}
+
+.estado-vazio span {
+    font-size: 10px;
+}
+
+/* ==========================================
+   NOTEBOOK / TELAS MÉDIAS
+========================================== */
+
+@media (max-width: 1200px) {
+
+    .painel {
+        padding: 34px 30px 40px;
+    }
+
+    .resumo {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* ==========================================
+   TABLET
+========================================== */
+
+@media (max-width: 950px) {
+
+    .painel-conteudo {
+        grid-template-columns: 1fr;
+        margin-top: 25px;
+    }
+
+    .semana-card,
+    .recentes-card {
+        min-height: auto;
+    }
+}
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width: 768px) {
+
+    .painel,
+    body:has(.sidebar.collapsed:not(.hover-open)) .painel {
+        margin-left: 0;
+        padding: 82px 16px 30px;
+    }
+
+    .painel-header {
+        margin-bottom: 24px;
+    }
+
+    .painel-header h1 {
+        font-size: 27px;
+    }
+
+    .painel-header p {
+        margin-left: 2px;
+        font-size: 11px;
+    }
+
+    .resumo {
+        gap: 12px;
+    }
+
+    .resumo-card {
+        min-height: 105px;
+        padding: 13px;
+    }
+
+    .card-icone {
+        width: 43px;
+        height: 43px;
+        flex-basis: 43px;
+        font-size: 17px;
+    }
+
+    .card-info .numero {
+        font-size: 23px;
+    }
+
+    .card-info span {
+        font-size: 10px;
+        white-space: normal;
+    }
+
+    .card-link {
+        width: 88px;
+    }
+
+    .painel-conteudo {
+        gap: 15px;
+    }
+
+    .semana-card,
+    .recentes-card {
+        padding: 20px 18px;
+    }
+}
+
+/* ==========================================
+   CELULAR
+========================================== */
+
+@media (max-width: 520px) {
+
+    .painel {
+        padding-left: 11px;
+        padding-right: 11px;
+    }
+
+    .painel-header h1 {
+        font-size: 24px;
+    }
+
+    .resumo {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+    }
+
+    .resumo-card {
+        min-height: 100px;
+        padding: 10px;
+    }
+
+    .card-topo {
+        gap: 8px;
+    }
+
+    .card-icone {
+        width: 38px;
+        height: 38px;
+        flex-basis: 38px;
+        border-radius: 8px;
+        font-size: 15px;
+    }
+
+    .card-info .numero {
+        font-size: 20px;
+    }
+
+    .card-info span {
+        margin-top: 4px;
+        font-size: 8.5px;
+    }
+
+    .card-link {
+        width: 78px;
+        height: 21px;
+        font-size: 6.5px;
+    }
+
+    .semana-header {
+        align-items: flex-start;
+        gap: 11px;
+    }
+
+    .semana-icone {
+        width: 40px;
+        height: 40px;
+        flex-basis: 40px;
+    }
+
+    .semana-header h2,
+    .recentes-header h2 {
+        font-size: 13px;
+    }
+
+    .semana-header p {
+        font-size: 9px;
+    }
+
+    .linha {
+        margin: 15px 0 20px;
+    }
+
+    .progresso-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 17px;
+    }
+
+    .progresso-circulo {
+        width: 100px;
+        height: 100px;
+        flex-basis: 100px;
+    }
+
+    .progresso-info {
+        width: 100%;
+        text-align: center;
+    }
+
+    .progresso-info p {
+        max-width: none;
+    }
+
+    .botao-atividades {
+        margin: 0 auto;
+    }
+
+    .atividade-recente {
+        grid-template-columns: 35px minmax(0, 1fr);
+        gap: 9px;
+    }
+
+    .atividade-horario {
+        grid-column: 2;
+    }
+}
+
+/* ==========================================
+   CELULARES MUITO PEQUENOS
+========================================== */
+
+@media (max-width: 360px) {
+
+    .resumo {
+        grid-template-columns: 1fr;
+    }
+
+    .resumo-card {
+        min-height: 96px;
+    }
+
+    .card-info span {
+        font-size: 10px;
+    }
+}

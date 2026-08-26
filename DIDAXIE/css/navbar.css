@@ -386,6 +386,18 @@
         justify-content: flex-start;
     }
 
+    .sidebar.collapsed.hover-open .sidebar-toggle {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.sidebar.collapsed .sidebar-toggle {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
 
     .sidebar.collapsed.hover-open .profile-info {
         display: flex;
