@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Correção | Didaxie</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/4.0.0/uicons-regular-rounded/css/uicons-regular-rounded.css">
+
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/correcao.css">
+</head>
+<body>
+
+<button class="mobile-menu-button" id="mobileMenuButton" aria-label="Abrir menu">
+    <i class="fi fi-rr-menu-burger"></i>
+</button>
+
+<aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <a href="painel.html" class="logo">
+            <span class="logo-completo">DIDAXIE</span>
+            <span class="logo-reduzido">D</span>
+        </a>
+
+        <button class="sidebar-toggle" id="sidebarToggle" aria-label="Recolher menu">
+            <i class="fi fi-rr-angle-small-left"></i>
+        </button>
+    </div>
+
+    <nav class="sidebar-menu">
+        <a href="painel.html" class="menu-item" data-label="Início">
+            <i class="fi fi-rr-home"></i>
+            <span>Início</span>
+        </a>
+
+        <a href="plano_aula.html" class="menu-item" data-label="Plano de aula">
+            <i class="fi fi-rr-book-open-cover"></i>
+            <span>Plano de aula</span>
+        </a>
+
+        <a href="materiais.html" class="menu-item" data-label="Materiais">
+            <i class="fi fi-rr-folder-open"></i>
+            <span>Materiais</span>
+        </a>
+
+        <a href="atividades.html" class="menu-item" data-label="Atividades">
+            <i class="fi fi-rr-document"></i>
+            <span>Atividades</span>
+        </a>
+
+        <a href="correcao.html" class="menu-item active" data-label="Correção">
+            <i class="fi fi-rr-edit"></i>
+            <span>Correção</span>
+        </a>
+
+        <a href="calendario.html" class="menu-item" data-label="Calendário">
+            <i class="fi fi-rr-calendar"></i>
+            <span>Calendário</span>
+        </a>
+    </nav>
+
+    <a href="cadastro_professor.html" class="profile-card">
+        <div class="profile-avatar">PF</div>
+
+        <div class="profile-info">
+            <strong>Professor</strong>
+            <span>Ver perfil</span>
+        </div>
+
+        <i class="fi fi-rr-angle-small-right profile-arrow"></i>
+    </a>
+</aside>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<main class="desempenho-page">
+
+    <header class="desempenho-header">
+        <h1>Desempenho das suas turmas</h1>
+        <p>Acompanhe o progresso das suas turmas, atividades e avaliações</p>
+    </header>
+
+    <section class="metricas-grid">
+
+        <article class="metrica-card alunos">
+            <span>Alunos ativos</span>
+            <strong id="totalAlunos" class="valor-vazio">0</strong>
+            <small id="textoAlunos">Nenhum dado disponível</small>
+        </article>
+
+        <article class="metrica-card presenca">
+            <span>Taxa média de presença</span>
+            <strong id="taxaPresenca" class="valor-vazio">0%</strong>
+            <small id="textoPresenca">Nenhum dado disponível</small>
+        </article>
+
+        <article class="metrica-card entregas">
+            <span>Atividades entregues</span>
+            <strong id="taxaEntregas" class="valor-vazio">0%</strong>
+            <small id="textoEntregas">Nenhum dado disponível</small>
+        </article>
+
+    </section>
+
+    <section class="desempenho-grid">
+
+        <article class="grafico-card">
+            <header class="card-header">
+                <h2>Média geral das turmas</h2>
+                <a href="#" class="ver-mais">Veja mais</a>
+            </header>
+
+            <div class="grafico-area" id="graficoTurmas">
+                <div class="grafico-vazio">
+                    <i class="fi fi-rr-chart-histogram"></i>
+                    <span>Nenhuma turma cadastrada</span>
+                </div>
+            </div>
+        </article>
+
+        <article class="media-card">
+            <h2>Média geral das turmas</h2>
+
+            <div class="media-conteudo">
+                <strong id="mediaGeral" class="valor-vazio">0,0</strong>
+                <span id="textoMedia">Nenhum dado disponível</span>
+            </div>
+        </article>
+
+    </section>
+
+    <section class="status-grid">
+
+        <article class="status-card corrigidas">
+            <div>
+                <span>Atividades corrigidas</span>
+                <strong id="totalCorrigidas" class="status-numero valor-vazio">0</strong>
+            </div>
+
+            <a href="#" class="status-link">
+                Ver todos
+                <i class="fi fi-rr-arrow-small-right"></i>
+            </a>
+        </article>
+
+        <article class="status-card pendentes">
+            <div>
+                <span>Atividades pendentes</span>
+                <strong id="totalPendentes" class="status-numero valor-vazio">0</strong>
+            </div>
+
+            <a href="#" class="status-link">
+                Ver todos
+                <i class="fi fi-rr-arrow-small-right"></i>
+            </a>
+        </article>
+
+        <article class="status-card expiradas">
+            <div>
+                <span>Atividades expiradas</span>
+                <strong id="totalExpiradas" class="status-numero valor-vazio">0</strong>
+            </div>
+
+            <a href="#" class="status-link">
+                Ver todos
+                <i class="fi fi-rr-arrow-small-right"></i>
+            </a>
+        </article>
+
+    </section>
+
+</main>
+
+<script src="javaScript/navbar.js"></script>
+<script src="javaScript/correcao.js"></script>
+
+</body>
+</html>

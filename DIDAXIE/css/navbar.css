@@ -14,13 +14,10 @@
 :root {
     --sidebar-aberta: 220px;
     --sidebar-fechada: 72px;
-
     --roxo: #7127e8;
     --roxo-claro: #843cf0;
     --roxo-hover: #7d36ec;
-
     --branco: #ffffff;
-
     --transicao: 0.3s ease;
 }
 
@@ -50,13 +47,10 @@
 
 .sidebar-header {
     min-height: 105px;
-
     position: relative;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     padding: 0 18px;
 }
 
@@ -66,10 +60,8 @@
 .logo {
     color: white;
     text-decoration: none;
-
     font-size: 24px;
     font-weight: 700;
-
     white-space: nowrap;
 }
 
@@ -86,25 +78,17 @@
 .sidebar-toggle {
     width: 30px;
     height: 30px;
-
     position: absolute;
     right: 6px;
-
     border: none;
     border-radius: 8px;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     background: transparent;
-
     color: white;
-
     font-size: 21px;
-
     cursor: pointer;
-
     transition:
         background 0.2s ease,
         transform 0.3s ease;
@@ -122,7 +106,6 @@
 
 .sidebar-menu {
     width: 100%;
-
     display: flex;
     flex-direction: column;
 }
@@ -131,23 +114,15 @@
 .menu-item {
     width: 100%;
     min-height: 54px;
-
     display: flex;
     align-items: center;
-
     gap: 16px;
-
     padding: 0 22px;
-
     color: white;
-
     text-decoration: none;
-
     font-size: 16px;
     font-weight: 500;
-
     white-space: nowrap;
-
     transition:
         background 0.2s ease,
         padding 0.3s ease;
@@ -158,13 +133,10 @@
 
 .menu-item i {
     min-width: 28px;
-
     display: flex;
     justify-content: center;
     align-items: center;
-
     font-size: 20px;
-
     line-height: 1;
 }
 
@@ -185,25 +157,16 @@
 
 .profile-card {
     min-height: 60px;
-
     margin: auto 16px 20px;
-
     padding: 8px 12px;
-
     display: flex;
     align-items: center;
-
     gap: 10px;
-
     border-radius: 10px;
-
     background: rgba(255, 255, 255, 0.13);
-
     color: white;
     text-decoration: none;
-
     overflow: hidden;
-
     transition:
         background 0.2s ease,
         margin 0.3s ease,
@@ -220,25 +183,19 @@
     min-width: 40px;
     width: 40px;
     height: 40px;
-
     border-radius: 50%;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     background: #6020ce;
-
     font-size: 14px;
 }
 
 
 .profile-info {
     min-width: 90px;
-
     display: flex;
     flex-direction: column;
-
     line-height: 1.2;
 }
 
@@ -284,7 +241,6 @@
 
 .sidebar.collapsed .menu-item {
     padding: 0;
-
     justify-content: center;
 }
 
@@ -298,9 +254,7 @@
 
 .sidebar.collapsed .profile-card {
     margin: auto 8px 20px;
-
     padding: 8px;
-
     justify-content: center;
 }
 
@@ -315,7 +269,6 @@
 
 .sidebar.collapsed .sidebar-toggle {
     right: 50%;
-
     transform: translateX(50%) rotate(180deg);
 }
 
@@ -332,7 +285,6 @@
 
     .sidebar.collapsed.hover-open {
         width: var(--sidebar-aberta);
-
         box-shadow: 8px 0 25px rgba(0, 0, 0, 0.12);
     }
 
@@ -353,7 +305,6 @@
 
     .sidebar.collapsed.hover-open .menu-item {
         justify-content: flex-start;
-
         padding: 0 22px;
     }
 
@@ -367,9 +318,7 @@
 
     .sidebar.collapsed.hover-open .profile-card {
         margin: auto 16px 20px;
-
         padding: 8px 12px;
-
         justify-content: flex-start;
     }
 
@@ -400,7 +349,6 @@
 
     .sidebar.collapsed.hover-open .sidebar-toggle {
         right: 6px;
-
         transform: rotate(180deg);
     }
 
@@ -413,29 +361,19 @@
 
 .mobile-menu-button {
     display: none;
-
     width: 44px;
     height: 44px;
-
     position: fixed;
-
     top: 15px;
     left: 15px;
-
     border: none;
     border-radius: 10px;
-
     align-items: center;
     justify-content: center;
-
     background: var(--roxo);
-
     color: white;
-
     font-size: 20px;
-
     cursor: pointer;
-
     z-index: 900;
 }
 
@@ -446,13 +384,9 @@
 
 .sidebar-overlay {
     display: none;
-
     position: fixed;
-
     inset: 0;
-
     background: rgba(0, 0, 0, 0.4);
-
     z-index: 950;
 }
 
@@ -466,7 +400,6 @@
     .sidebar,
     .sidebar.collapsed {
         width: 230px;
-
         transform: translateX(-100%);
     }
 
@@ -493,7 +426,6 @@
     .sidebar .menu-item,
     .sidebar.collapsed .menu-item {
         padding: 0 22px;
-
         justify-content: flex-start;
     }
 
@@ -507,9 +439,7 @@
     .sidebar .profile-card,
     .sidebar.collapsed .profile-card {
         margin: auto 16px 20px;
-
         padding: 8px 12px;
-
         justify-content: flex-start;
     }
 
@@ -529,7 +459,6 @@
     .sidebar .sidebar-toggle,
     .sidebar.collapsed .sidebar-toggle {
         right: 6px;
-
         transform: none;
     }
 
