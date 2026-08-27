@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enviar Materiais | Didaxie</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/4.0.0/uicons-regular-rounded/css/uicons-regular-rounded.css">
+    <link rel="stylesheet" href="css/enviar_material.css">
+</head>
+<body>
+
+<main class="enviar-page">
+
+    <header class="enviar-header">
+        <a href="materiais.html" class="voltar">
+            <i class="fi fi-rr-angle-left"></i>
+            Voltar
+        </a>
+
+        <h1>Enviar Materiais</h1>
+
+        <button type="button" class="btn-salvar" id="btnSalvar">
+            Salvar
+        </button>
+    </header>
+
+    <form id="materialForm">
+
+        <div class="campo campo-nome">
+            <label for="nomeMaterial">Nome do material</label>
+            <input
+                type="text"
+                id="nomeMaterial"
+                placeholder="Ex: Introdução ao Desenvolvimento Web"
+                maxlength="100"
+            >
+            <small class="campo-erro" id="erroNome"></small>
+        </div>
+
+        <div class="campos-grid">
+
+            <div class="campo">
+                <label for="disciplina">Disciplina</label>
+
+                <select id="disciplina">
+                    <option value="">Selecione uma disciplina</option>
+                </select>
+
+                <small class="campo-ajuda">
+                    As disciplinas serão carregadas quando houver dados cadastrados.
+                </small>
+
+                <small class="campo-erro" id="erroDisciplina"></small>
+            </div>
+
+            <div class="campo">
+                <label for="plano">Associar a um plano <span>(opcional)</span></label>
+
+                <select id="plano">
+                    <option value="">Nenhum plano</option>
+                </select>
+
+                <small class="campo-ajuda">
+                    Os planos disponíveis serão carregados do sistema.
+                </small>
+            </div>
+
+        </div>
+
+        <section class="upload-area" id="uploadArea" tabindex="0" role="button" aria-label="Adicionar arquivo">
+
+            <input
+                type="file"
+                id="inputArquivo"
+                accept=".pdf,.txt,.docx,.csv,.xlsx,.pptx,.json,.xml,.html,.htm,.md"
+                hidden
+            >
+
+            <div class="upload-vazio" id="uploadVazio">
+                <i class="fi fi-rr-cloud-upload-alt"></i>
+
+                <p>
+                    Arraste ou solte um arquivo aqui ou clique
+                    <br>
+                    para adicionar um arquivo
+                </p>
+
+                <span>
+                    PDF, TXT, DOCX, CSV, XLSX, PPTX, JSON, XML, HTML e MD
+                    <br>
+                    Máximo 30 MB
+                </span>
+            </div>
+
+            <div class="arquivo-preview" id="arquivoPreview">
+
+                <div class="arquivo-icone" id="arquivoIcone">
+                    <i class="fi fi-rr-file"></i>
+                </div>
+
+                <div class="arquivo-dados">
+                    <strong id="arquivoNome"></strong>
+                    <span id="arquivoInfo"></span>
+                </div>
+
+                <button type="button" class="remover-arquivo" id="removerArquivo" aria-label="Remover arquivo">
+                    <i class="fi fi-rr-trash"></i>
+                </button>
+
+            </div>
+
+        </section>
+
+        <small class="upload-erro" id="erroArquivo"></small>
+
+    </form>
+
+</main>
+
+<div class="toast" id="toast">
+    <i class="fi fi-rr-info"></i>
+    <span id="toastTexto"></span>
+</div>
+
+<script src="javaScript/enviar_material.js"></script>
+
+</body>
+</html>

@@ -131,6 +131,7 @@ body:has(.sidebar.collapsed:not(.hover-open)) .materiais-page {
     gap: 8px;
     background: var(--materiais-roxo);
     color: #fff;
+    text-decoration: none;
     font-family: inherit;
     font-size: 14px;
     font-weight: 600;
@@ -138,6 +139,12 @@ body:has(.sidebar.collapsed:not(.hover-open)) .materiais-page {
     transition:
         background .2s ease,
         transform .2s ease;
+    
+}
+
+.botao-enviar-link {
+    color: #fff;
+    text-decoration: none;
 }
 
 .botao-enviar i {
