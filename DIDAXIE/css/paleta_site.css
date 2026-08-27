@@ -1,0 +1,23 @@
+:root {
+  --color-primary: #8b40ff;
+  --color-primary-dark: #722cdd;
+  --color-primary-light: #ece0ff;
+
+  --color-secondary: #93b7db;
+
+  --color-pink: #ea7a91;
+  --color-pink-light: #fc9aae;
+
+  --color-yellow: #ffd26b;
+  --color-yellow-dark: #ebbc4f;
+
+  --color-green: #5aa456;
+
+  --color-background: #ffffff;
+  --color-text: #737373;
+
+  --color-border: #ede1ff;
+
+  /* confirmar essa cor */
+  --color-extra: #e3e1e;
+}
