@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configurações | Didaxie</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/4.0.0/uicons-regular-rounded/css/uicons-regular-rounded.css">
+
+    <link rel="stylesheet" href="css/configuracoes.css">
+</head>
+<body>
+
+<main class="config-page">
+
+    <header class="config-header">
+        <a href="painel.html" class="voltar">
+            <i class="fi fi-rr-angle-left"></i>
+            Voltar
+        </a>
+
+        <div>
+            <h1>Configurações</h1>
+            <p>Aqui você pode atualizar e mudar as configurações do seu perfil</p>
+        </div>
+    </header>
+
+    <form id="configForm">
+
+        <section class="config-section">
+            <h2>Seu perfil</h2>
+
+            <div class="perfil-layout">
+
+                <div class="foto-area">
+                    <div class="foto-preview" id="fotoPreview">
+                        <i class="fi fi-rr-user"></i>
+                        <img id="fotoImagem" alt="Foto do perfil">
+                    </div>
+
+                    <button type="button" class="btn-outline" id="alterarFoto">
+                        <i class="fi fi-rr-camera"></i>
+                        Alterar foto
+                    </button>
+
+                    <input type="file" id="inputFoto" accept=".jpg,.jpeg,.png,.webp" hidden>
+                </div>
+
+                <div class="perfil-campos">
+
+                    <div class="campo">
+                        <label for="nomeCompleto">Nome completo</label>
+                        <input type="text" id="nomeCompleto" placeholder="Seu nome completo">
+                    </div>
+
+                    <div class="campo">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" placeholder="seu@email.com">
+                    </div>
+
+                    <div class="campo">
+                        <label for="cargo">Cargo / Função</label>
+                        <select id="cargo">
+                            <option value="">Selecione</option>
+                            <option value="professor">Professor</option>
+                            <option value="coordenador">Coordenador</option>
+                            <option value="gestor">Gestor</option>
+                        </select>
+                    </div>
+
+                    <div class="campo">
+                        <label for="instituicao">Instituição</label>
+                        <input type="text" id="instituicao" placeholder="Nome da instituição">
+                    </div>
+
+                    <div class="campo campo-completo">
+                        <label for="departamento">Departamento / Área</label>
+                        <input type="text" id="departamento" placeholder="Ex: Tecnologia, Matemática...">
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="config-section">
+            <h2>Informações Acadêmicas</h2>
+
+            <div class="academico-grid">
+
+                <div class="campo">
+                    <label>Matérias lecionadas</label>
+
+                    <div class="multi-select" id="materiasSelect">
+                        <div class="chips" id="materiasChips">
+                            <span class="placeholder-chip">Nenhuma matéria cadastrada</span>
+                        </div>
+
+                        <button type="button" class="multi-select-button" id="abrirMaterias" aria-label="Selecionar matérias">
+                            <i class="fi fi-rr-angle-small-down"></i>
+                        </button>
+
+                        <div class="multi-options" id="materiasOpcoes"></div>
+                    </div>
+                </div>
+
+                <div class="campo">
+                    <label>Turmas</label>
+
+                    <div class="multi-select" id="turmasSelect">
+                        <div class="chips" id="turmasChips">
+                            <span class="placeholder-chip">Nenhuma turma cadastrada</span>
+                        </div>
+
+                        <button type="button" class="multi-select-button" id="abrirTurmas" aria-label="Selecionar turmas">
+                            <i class="fi fi-rr-angle-small-down"></i>
+                        </button>
+
+                        <div class="multi-options" id="turmasOpcoes"></div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="config-bottom">
+
+            <section class="config-section seguranca">
+                <h2>Segurança</h2>
+
+                <div class="campo senha-campo">
+                    <label for="senhaAtual">Senha atual</label>
+
+                    <div class="input-senha">
+                        <input type="password" id="senhaAtual" placeholder="Digite a senha atual">
+                        <button type="button" class="ver-senha" data-target="senhaAtual" aria-label="Mostrar senha">
+                            <i class="fi fi-rr-eye"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="campo senha-campo">
+                    <label for="novaSenha">Nova senha</label>
+
+                    <div class="input-senha">
+                        <input type="password" id="novaSenha" placeholder="Digite a nova senha">
+                        <button type="button" class="ver-senha" data-target="novaSenha" aria-label="Mostrar senha">
+                            <i class="fi fi-rr-eye"></i>
+                        </button>
+                    </div>
+
+                    <div class="forca-senha">
+                        <div class="forca-barra">
+                            <span id="forcaBarra"></span>
+                        </div>
+                        <small id="forcaTexto">Digite uma nova senha</small>
+                    </div>
+                </div>
+
+                <div class="campo senha-campo">
+                    <label for="confirmarSenha">Confirmar nova senha</label>
+
+                    <div class="input-senha">
+                        <input type="password" id="confirmarSenha" placeholder="Confirme a nova senha">
+                        <button type="button" class="ver-senha" data-target="confirmarSenha" aria-label="Mostrar senha">
+                            <i class="fi fi-rr-eye"></i>
+                        </button>
+                    </div>
+
+                    <small class="senha-erro" id="senhaErro"></small>
+                </div>
+            </section>
+
+            <section class="config-section preferencias">
+                <h2>Preferências</h2>
+
+                <div class="preferencia-item">
+                    <div>
+                        <strong>Tema</strong>
+                        <span>Escolha o tema da interface</span>
+                    </div>
+
+                    <select id="tema">
+                        <option value="claro">Claro</option>
+                        <option value="escuro">Escuro</option>
+                        <option value="sistema">Sistema</option>
+                    </select>
+                </div>
+
+                <div class="preferencia-item">
+                    <div>
+                        <strong>Notificações por e-mail</strong>
+                        <span>Receber avisos e lembretes</span>
+                    </div>
+
+                    <label class="switch">
+                        <input type="checkbox" id="notificacoesEmail">
+                        <span class="switch-slider"></span>
+                    </label>
+                </div>
+
+                <div class="preferencia-item">
+                    <div>
+                        <strong>Idioma</strong>
+                        <span>Idioma da interface</span>
+                    </div>
+
+                    <select id="idioma">
+                        <option value="pt-BR">Português (BR)</option>
+                        <option value="en">English</option>
+                    </select>
+                </div>
+
+                <div class="preferencia-item">
+                    <div>
+                        <strong>Formato de data</strong>
+                        <span>Como as datas serão exibidas</span>
+                    </div>
+
+                    <select id="formatoData">
+                        <option value="dd-mm-yyyy">DD/MM/AAAA</option>
+                        <option value="mm-dd-yyyy">MM/DD/AAAA</option>
+                        <option value="yyyy-mm-dd">AAAA/MM/DD</option>
+                    </select>
+                </div>
+            </section>
+
+        </section>
+
+        <div class="acoes-config">
+            <span class="alteracoes-status" id="alteracoesStatus">
+                Nenhuma alteração
+            </span>
+
+            <div>
+                <button type="button" class="btn-cancelar" id="cancelarAlteracoes">
+                    Cancelar
+                </button>
+
+                <button type="submit" class="btn-salvar">
+                    <i class="fi fi-rr-disk"></i>
+                    Salvar alterações
+                </button>
+            </div>
+        </div>
+
+    </form>
+
+</main>
+
+<div class="toast" id="toast">
+    <i class="fi fi-rr-check-circle"></i>
+    <span id="toastTexto"></span>
+</div>
+
+<script src="javaScript/configuracoes.js"></script>
+
+</body>
+</html>
