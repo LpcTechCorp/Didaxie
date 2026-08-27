@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuração inicial | Didaxie</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/4.0.0/uicons-regular-rounded/css/uicons-regular-rounded.css">
+    <link rel="stylesheet" href="css/questionario.css">
+</head>
+<body>
+<main class="questionario-page">
+    <header class="questionario-topo">
+        <div class="progresso-info">
+            <span id="contadorEtapa">1 de 4</span>
+        </div>
+        <button type="button" class="btn-pular-topo" id="pularPergunta">Pular pergunta</button>
+    </header>
+
+    <div class="barra-progresso">
+        <span id="barraProgresso"></span>
+    </div>
+
+    <!-- ETAPA 1 -->
+    <section class="etapa ativa" data-etapa="1">
+        <div class="etapa-header">
+            <h1>Em quais turmas ou etapas você leciona?</h1>
+            <p>Selecione todas as opções que se aplicam.</p>
+        </div>
+
+        <div class="grupo-opcoes">
+            <h2>Ensino básico</h2>
+            <div class="opcoes-grid">
+                <button type="button" class="opcao-card" data-grupo="turmas" data-valor="1º ano">
+                    <span class="opcao-badge amarelo">1º</span>
+                    <span class="opcao-nome">1º ano</span>
+                    <span class="check-visual"></span>
+                </button>
+
+                <button type="button" class="opcao-card" data-grupo="turmas" data-valor="2º ano">
+                    <span class="opcao-badge roxo">2º</span>
+                    <span class="opcao-nome">2º ano</span>
+                    <span class="check-visual"></span>
+                </button>
+
+                <button type="button" class="opcao-card" data-grupo="turmas" data-valor="3º ano">
+                    <span class="opcao-badge rosa">3º</span>
+                    <span class="opcao-nome">3º ano</span>
+                    <span class="check-visual"></span>
+                </button>
+
+                <button type="button" class="opcao-card adicionar" data-adicionar="turmas">
+                    <i class="fi fi-rr-plus"></i>
+                    <span>Adicionar</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="grupo-opcoes">
+            <h2>Ensino técnico / superior</h2>
+            <div class="opcoes-grid">
+                <button type="button" class="opcao-card" data-grupo="turmas" data-valor="1º semestre">
+                    <span class="opcao-badge amarelo">1S</span>
+                    <span class="opcao-nome">1º semestre</span>
+                    <span class="check-visual"></span>
+                </button>
+
+                <button type="button" class="opcao-card" data-grupo="turmas" data-valor="2º semestre">
+                    <span class="opcao-badge roxo">2S</span>
+                    <span class="opcao-nome">2º semestre</span>
+                    <span class="check-visual"></span>
+                </button>
+
+                <button type="button" class="opcao-card" data-grupo="turmas" data-valor="3º semestre">
+                    <span class="opcao-badge rosa">3S</span>
+                    <span class="opcao-nome">3º semestre</span>
+                    <span class="check-visual"></span>
+                </button>
+
+                <button type="button" class="opcao-card adicionar" data-adicionar="turmas">
+                    <i class="fi fi-rr-plus"></i>
+                    <span>Adicionar</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ETAPA 2 -->
+    <section class="etapa" data-etapa="2">
+        <div class="etapa-header">
+            <h1>Quais disciplinas você leciona?</h1>
+            <p>Selecione todas que se aplicam.</p>
+        </div>
+
+        <div class="opcoes-grid disciplinas-grid">
+            <button type="button" class="opcao-card simples" data-grupo="disciplinas" data-valor="Português">
+                <span class="opcao-nome">Português</span>
+                <span class="check-visual"></span>
+            </button>
+
+            <button type="button" class="opcao-card simples" data-grupo="disciplinas" data-valor="Matemática">
+                <span class="opcao-nome">Matemática</span>
+                <span class="check-visual"></span>
+            </button>
+
+            <button type="button" class="opcao-card simples" data-grupo="disciplinas" data-valor="Biologia">
+                <span class="opcao-nome">Biologia</span>
+                <span class="check-visual"></span>
+            </button>
+
+            <button type="button" class="opcao-card simples" data-grupo="disciplinas" data-valor="Química">
+                <span class="opcao-nome">Química</span>
+                <span class="check-visual"></span>
+            </button>
+
+            <button type="button" class="opcao-card simples" data-grupo="disciplinas" data-valor="Física">
+                <span class="opcao-nome">Física</span>
+                <span class="check-visual"></span>
+            </button>
+
+            <button type="button" class="opcao-card simples" data-grupo="disciplinas" data-valor="História">
+                <span class="opcao-nome">História</span>
+                <span class="check-visual"></span>
+            </button>
+
+            <button type="button" class="opcao-card simples" data-grupo="disciplinas" data-valor="Geografia">
+                <span class="opcao-nome">Geografia</span>
+                <span class="check-visual"></span>
+            </button>
+
+            <button type="button" class="opcao-card simples" data-grupo="disciplinas" data-valor="Inglês">
+                <span class="opcao-nome">Inglês</span>
+                <span class="check-visual"></span>
+            </button>
+
+            <button type="button" class="opcao-card simples" data-grupo="disciplinas" data-valor="Espanhol">
+                <span class="opcao-nome">Espanhol</span>
+                <span class="check-visual"></span>
+            </button>
+
+            <button type="button" class="opcao-card simples" data-grupo="disciplinas" data-valor="Artes">
+                <span class="opcao-nome">Artes</span>
+                <span class="check-visual"></span>
+            </button>
+
+            <button type="button" class="opcao-card simples" data-grupo="disciplinas" data-valor="Educação física">
+                <span class="opcao-nome">Educação física</span>
+                <span class="check-visual"></span>
+            </button>
+
+            <button type="button" class="opcao-card adicionar" data-adicionar="disciplinas">
+                <i class="fi fi-rr-plus"></i>
+                <span>Outra</span>
+            </button>
+        </div>
+    </section>
+
+    <!-- ETAPA 3 -->
+    <section class="etapa" data-etapa="3">
+        <div class="etapa-header">
+            <h1>Como você costuma organizar suas aulas?</h1>
+            <p>Você pode selecionar mais de uma opção.</p>
+        </div>
+
+        <div class="opcoes-grid organizacao-grid">
+            <button type="button" class="opcao-card simples" data-grupo="organizacao" data-valor="Por aula">
+                <span class="opcao-icone"><i class="fi fi-rr-book-open-cover"></i></span>
+                <span class="opcao-nome">Plano por aula</span>
+                <span class="check-visual"></span>
+            </button>
+
+            <button type="button" class="opcao-card simples" data-grupo="organizacao" data-valor="Semanal">
+                <span class="opcao-icone"><i class="fi fi-rr-calendar-week"></i></span>
+                <span class="opcao-nome">Plano semanal</span>
+                <span class="check-visual"></span>
+            </button>
+
+            <button type="button" class="opcao-card simples" data-grupo="organizacao" data-valor="Mensal">
+                <span class="opcao-icone"><i class="fi fi-rr-calendar"></i></span>
+                <span class="opcao-nome">Plano mensal</span>
+                <span class="check-visual"></span>
+            </button>
+
+            <button type="button" class="opcao-card simples" data-grupo="organizacao" data-valor="Bimestre">
+                <span class="opcao-icone"><i class="fi fi-rr-calendar-lines"></i></span>
+                <span class="opcao-nome">Por unidade / bimestre</span>
+                <span class="check-visual"></span>
+            </button>
+
+            <button type="button" class="opcao-card simples" data-grupo="organizacao" data-valor="Sem formato fixo">
+                <span class="opcao-icone"><i class="fi fi-rr-settings-sliders"></i></span>
+                <span class="opcao-nome">Não uso formato fixo</span>
+                <span class="check-visual"></span>
+            </button>
+        </div>
+    </section>
+
+    <!-- ETAPA 4 -->
+    <section class="etapa" data-etapa="4">
+        <div class="etapa-header">
+            <h1>O que você mais pretende usar no Didaxie?</h1>
+            <p>Isso poderá ajudar a personalizar sua experiência.</p>
+        </div>
+
+        <div class="opcoes-grid uso-grid">
+            <button type="button" class="opcao-card uso-card" data-grupo="uso" data-valor="Planos de aula">
+                <span class="opcao-icone"><i class="fi fi-rr-book-open-cover"></i></span>
+                <div>
+                    <strong>Planos de aula</strong>
+                    <span>Organizar seus planejamentos</span>
+                </div>
+                <span class="check-visual"></span>
+            </button>
+
+            <button type="button" class="opcao-card uso-card" data-grupo="uso" data-valor="Materiais">
+                <span class="opcao-icone"><i class="fi fi-rr-folder-open"></i></span>
+                <div>
+                    <strong>Materiais</strong>
+                    <span>Organizar arquivos e conteúdos</span>
+                </div>
+                <span class="check-visual"></span>
+            </button>
+
+            <button type="button" class="opcao-card uso-card" data-grupo="uso" data-valor="Atividades">
+                <span class="opcao-icone"><i class="fi fi-rr-document"></i></span>
+                <div>
+                    <strong>Atividades</strong>
+                    <span>Criar e acompanhar atividades</span>
+                </div>
+                <span class="check-visual"></span>
+            </button>
+
+            <button type="button" class="opcao-card uso-card" data-grupo="uso" data-valor="Correções">
+                <span class="opcao-icone"><i class="fi fi-rr-edit"></i></span>
+                <div>
+                    <strong>Correções</strong>
+                    <span>Acompanhar entregas e avaliações</span>
+                </div>
+                <span class="check-visual"></span>
+            </button>
+
+            <button type="button" class="opcao-card uso-card" data-grupo="uso" data-valor="Desempenho">
+                <span class="opcao-icone"><i class="fi fi-rr-chart-histogram"></i></span>
+                <div>
+                    <strong>Desempenho das turmas</strong>
+                    <span>Acompanhar progresso e resultados</span>
+                </div>
+                <span class="check-visual"></span>
+            </button>
+
+            <button type="button" class="opcao-card uso-card" data-grupo="uso" data-valor="Calendário">
+                <span class="opcao-icone"><i class="fi fi-rr-calendar-clock"></i></span>
+                <div>
+                    <strong>Calendário e prazos</strong>
+                    <span>Organizar datas importantes</span>
+                </div>
+                <span class="check-visual"></span>
+            </button>
+        </div>
+    </section>
+
+    <footer class="acoes">
+        <button type="button" class="btn-voltar" id="voltarEtapa">
+            <i class="fi fi-rr-angle-left"></i>
+            Voltar
+        </button>
+
+        <div class="acoes-direita">
+            <button type="button" class="btn-pular" id="pularPerguntaRodape">Pular pergunta</button>
+
+            <button type="button" class="btn-continuar" id="continuarEtapa">
+                Continuar
+                <i class="fi fi-rr-angle-right"></i>
+            </button>
+        </div>
+    </footer>
+</main>
+
+<div class="modal-adicionar" id="modalAdicionar">
+    <div class="modal-conteudo">
+        <div class="modal-header">
+            <h2 id="modalTitulo">Adicionar opção</h2>
+
+            <button type="button" id="fecharModal" aria-label="Fechar">
+                <i class="fi fi-rr-cross-small"></i>
+            </button>
+        </div>
+
+        <label for="novaOpcao">Nome</label>
+        <input type="text" id="novaOpcao" maxlength="50" placeholder="Digite uma opção">
+
+        <div class="modal-acoes">
+            <button type="button" class="btn-cancelar" id="cancelarModal">Cancelar</button>
+            <button type="button" class="btn-adicionar-modal" id="confirmarAdicionar">Adicionar</button>
+        </div>
+    </div>
+</div>
+
+<div class="toast" id="toast">
+    <i class="fi fi-rr-check-circle"></i>
+    <span id="toastTexto"></span>
+</div>
+
+<script src="javaScript/questionario.js"></script>
+</body>
+</html>
