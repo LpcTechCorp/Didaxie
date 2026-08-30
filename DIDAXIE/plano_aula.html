@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Planos de aula | Didaxie</title>
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -12,7 +11,6 @@
     <link rel="stylesheet" href="css/navbar.css">
     <link rel="stylesheet" href="css/plano_aula.css">
 </head>
-
 <body>
     <button class="mobile-menu-button" id="mobileMenuButton" aria-label="Abrir menu">
         <i class="fi fi-rr-menu-burger"></i>
@@ -24,7 +22,6 @@
                 <span class="logo-completo">DIDAXIE</span>
                 <span class="logo-reduzido">D</span>
             </a>
-
             <button class="sidebar-toggle" id="sidebarToggle" aria-label="Recolher menu">
                 <i class="fi fi-rr-angle-small-left"></i>
             </button>
@@ -64,12 +61,10 @@
 
         <a href="configuracoes.html" class="profile-card">
             <div class="profile-avatar">PF</div>
-
             <div class="profile-info">
                 <strong>Professor</strong>
                 <span>Ver perfil</span>
             </div>
-
             <i class="fi fi-rr-angle-small-right profile-arrow"></i>
         </a>
     </aside>
@@ -86,6 +81,18 @@
             </div>
         </header>
 
+        <div class="barra-selecao" id="barraSelecao" aria-live="polite">
+            <div class="barra-selecao-info">
+                <i class="fi fi-rr-check-circle"></i>
+                <span id="quantidadeSelecionada">0 planos selecionados</span>
+            </div>
+
+            <button type="button" id="limparSelecao">
+                <i class="fi fi-rr-cross-small"></i>
+                <span>Limpar seleção</span>
+            </button>
+        </div>
+
         <section class="secao-planos">
             <div class="secao-titulo">
                 <h2>Planos recentes</h2>
@@ -93,7 +100,7 @@
             </div>
 
             <div class="recentes-grid">
-                <a href="criar_plano_aula.html" class="adicionar-card" style="text-decoration: none;">
+                <a href="criar_plano_aula.html" class="adicionar-card">
                     <i class="fi fi-rr-plus"></i>
                     <span>Adicionar</span>
                 </a>
@@ -155,7 +162,12 @@
         </button>
     </div>
 
+    <div class="toast-plano" id="toastPlano" role="status" aria-live="polite">
+        <i class="fi fi-rr-info"></i>
+        <span id="toastTexto"></span>
+    </div>
+
     <script src="javaScript/navbar.js"></script>
     <script src="javaScript/plano_aula.js"></script>
 </body>
-</html> 
+</html>

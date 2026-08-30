@@ -85,6 +85,58 @@ body:has(.sidebar.collapsed:not(.hover-open)) .planos-page {
     box-shadow: 0 0 0 3px rgba(113, 39, 232, .08);
 }
 
+/* BARRA DE SELEÇÃO */
+
+.barra-selecao {
+    min-height: 50px;
+    margin: -12px 0 28px;
+    padding: 0 15px;
+    border: 1px solid #dfcdfa;
+    border-radius: 10px;
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    background: #f8f3ff;
+}
+
+.barra-selecao.ativa {
+    display: flex;
+}
+
+.barra-selecao-info {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    color: var(--plano-roxo);
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.barra-selecao-info i {
+    font-size: 17px;
+}
+
+.barra-selecao button {
+    min-height: 34px;
+    padding: 0 11px;
+    border: none;
+    border-radius: 7px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: transparent;
+    color: #68686d;
+    font-family: inherit;
+    font-size: 11px;
+    cursor: pointer;
+}
+
+.barra-selecao button:hover {
+    background: #eee3fd;
+    color: var(--plano-roxo);
+}
+
 /* SEÇÕES */
 
 .secao-planos {
@@ -131,11 +183,9 @@ body:has(.sidebar.collapsed:not(.hover-open)) .planos-page {
     background: #fff;
     color: var(--plano-roxo);
     font-family: inherit;
+    text-decoration: none;
     cursor: pointer;
-    transition:
-        background .2s ease,
-        transform .2s ease,
-        border-color .2s ease;
+    transition: background .2s ease, transform .2s ease, border-color .2s ease;
 }
 
 .adicionar-card i {
@@ -171,16 +221,19 @@ body:has(.sidebar.collapsed:not(.hover-open)) .planos-page {
     flex-direction: column;
     justify-content: flex-end;
     background: var(--plano-card);
-    transition:
-        transform .2s ease,
-        box-shadow .2s ease,
-        border-color .2s ease;
+    transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease, background .2s ease;
 }
 
 .plano-card:hover {
     border-color: #c5a7ed;
     transform: translateY(-2px);
     box-shadow: var(--plano-sombra);
+}
+
+.plano-card.selecionado {
+    border-color: var(--plano-roxo);
+    background: #fbf8ff;
+    box-shadow: 0 0 0 2px rgba(113, 39, 232, .08);
 }
 
 /* CARD CINZA */
@@ -193,7 +246,13 @@ body:has(.sidebar.collapsed:not(.hover-open)) .planos-page {
 
 .plano-card.placeholder:hover {
     border-color: #cacacd;
-    background: #eeeeF1;
+    background: #eeeef1;
+}
+
+.plano-card.placeholder.selecionado {
+    border-color: #9f78dc;
+    background: #eee8f7;
+    box-shadow: 0 0 0 2px rgba(113, 39, 232, .06);
 }
 
 .plano-card.placeholder .plano-info span {
@@ -210,7 +269,7 @@ body:has(.sidebar.collapsed:not(.hover-open)) .planos-page {
 
 .plano-card.placeholder .plano-check {
     border-color: #bcbcc1;
-    background: #f7f7f8;
+    background-color: #f7f7f8;
 }
 
 .plano-card-topo {
@@ -306,7 +365,7 @@ body:has(.sidebar.collapsed:not(.hover-open)) .planos-page {
     border-radius: 21px;
     display: grid;
     place-items: center;
-    background: #eeeeF1;
+    background: #eeeef1;
     color: #aaaab0;
     font-size: 33px;
 }
@@ -436,6 +495,42 @@ body:has(.sidebar.collapsed:not(.hover-open)) .planos-page {
     background: #fff0f3;
 }
 
+/* TOAST */
+
+.toast-plano {
+    max-width: min(380px, calc(100vw - 28px));
+    min-height: 50px;
+    position: fixed;
+    right: 22px;
+    bottom: 22px;
+    z-index: 5000;
+    padding: 12px 15px;
+    border: 1px solid #e0d3f3;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #fff;
+    color: #4d4d52;
+    box-shadow: 0 12px 34px rgba(0, 0, 0, .13);
+    font-size: 12px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(12px);
+    transition: opacity .2s ease, transform .2s ease, visibility .2s ease;
+}
+
+.toast-plano i {
+    color: var(--plano-roxo);
+    font-size: 17px;
+}
+
+.toast-plano.ativo {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
 /* TABLET */
 
 @media (max-width: 900px) {
@@ -486,6 +581,10 @@ body:has(.sidebar.collapsed:not(.hover-open)) .planos-page {
     .estado-vazio-planos {
         min-height: 290px;
     }
+
+    .barra-selecao {
+        margin-top: -10px;
+    }
 }
 
 /* CELULAR */
@@ -509,6 +608,17 @@ body:has(.sidebar.collapsed:not(.hover-open)) .planos-page {
     .busca-planos {
         width: 100%;
         height: 48px;
+    }
+
+    .barra-selecao {
+        padding: 9px 10px;
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .barra-selecao button {
+        padding-left: 0;
     }
 
     .secao-planos {
@@ -550,5 +660,10 @@ body:has(.sidebar.collapsed:not(.hover-open)) .planos-page {
     .menu-opcao {
         min-height: 44px;
         font-size: 12px;
+    }
+
+    .toast-plano {
+        right: 12px;
+        bottom: 12px;
     }
 }
