@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar plano de aula | Didaxie</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/4.0.0/uicons-regular-rounded/css/uicons-regular-rounded.css">
+    <link rel="stylesheet" href="css/criar_plano_aula.css">
+</head>
+<body>
+
+<main class="plano-page">
+
+    <header class="cabecalho">
+        <a href="plano_aula.html" class="voltar">
+            <i class="fi fi-rr-angle-small-left"></i>
+            <span>Voltar</span>
+        </a>
+
+        <h1 id="tituloPagina">Criar plano de aula</h1>
+    </header>
+
+    <nav class="etapas-nav">
+
+        <button class="etapa ativa liberada" data-etapa="1" type="button">
+            <span class="numero">1</span>
+            <span>dados gerais</span>
+        </button>
+
+        <div class="linha"></div>
+
+        <button class="etapa" data-etapa="2" type="button" disabled>
+            <span class="numero">2</span>
+            <span>estrutura</span>
+        </button>
+
+        <div class="linha"></div>
+
+        <button class="etapa" data-etapa="3" type="button" disabled>
+            <span class="numero">3</span>
+            <span>visualização</span>
+        </button>
+
+    </nav>
+
+    <!-- ETAPA 1 -->
+
+    <section class="etapa-conteudo ativa" data-conteudo="1">
+
+        <h2>Novo plano</h2>
+
+        <div class="formulario">
+
+            <div class="campo">
+                <label for="nomePlano">Nome do plano</label>
+                <input
+                    id="nomePlano"
+                    type="text"
+                    placeholder="Ex: Desenvolvimento Web com HTML e CSS"
+                    maxlength="100"
+                >
+                <small class="erro" id="erroNomePlano"></small>
+            </div>
+
+            <div class="duas-colunas">
+
+                <div class="campo">
+                    <label for="disciplina">Disciplina <span>(opcional)</span></label>
+                    <select id="disciplina">
+                        <option value="">Nenhuma</option>
+                    </select>
+                </div>
+
+                <div class="campo">
+                    <label for="cargaHoraria">Carga horária <span>(opcional)</span></label>
+                    <select id="cargaHoraria">
+                        <option value="">Não informar</option>
+                        <option value="1 aula">1 aula</option>
+                        <option value="2 aulas">2 aulas</option>
+                        <option value="3 aulas">3 aulas</option>
+                        <option value="4 aulas">4 aulas</option>
+                        <option value="5 aulas">5 aulas</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="campo">
+                <label for="professor">Professor <span>(opcional)</span></label>
+                <input id="professor" type="text" placeholder="Seu nome">
+            </div>
+
+            <div class="campo">
+                <label for="temaAula">Tema da aula <span>(opcional)</span></label>
+                <input
+                    id="temaAula"
+                    type="text"
+                    placeholder="Ex: Desenvolvimento Web com HTML e CSS"
+                >
+            </div>
+
+            <div class="campo">
+                <label for="subtitulo">Subtítulo <span>(opcional)</span></label>
+                <textarea
+                    id="subtitulo"
+                    placeholder="Ex: Construindo sites do zero com HTML e CSS de forma prática."
+                    maxlength="240"
+                ></textarea>
+            </div>
+
+            <div class="campo">
+
+                <label>Modelo do plano <span>(opcional)</span></label>
+
+                <div class="tipos-plano">
+
+                    <button class="tipo-plano ativo" data-tipo="estado" type="button">
+                        <i class="fi fi-rr-book-open-cover"></i>
+                        <strong>Plano do estado</strong>
+                        <small>Alinhado à BNCC</small>
+                    </button>
+
+                    <button class="tipo-plano" data-tipo="abnt" type="button">
+                        <i class="fi fi-rr-document"></i>
+                        <strong>Plano ABNT</strong>
+                        <small>Seguindo as normas</small>
+                    </button>
+
+                    <button class="tipo-plano" data-tipo="personalizado" type="button">
+                        <i class="fi fi-rr-settings-sliders"></i>
+                        <strong>Personalizado</strong>
+                        <small>Crie seu próprio plano</small>
+                    </button>
+
+                </div>
+
+            </div>
+
+            <div class="campo">
+
+                <label for="competenciaInput">Competências / habilidades BNCC <span>(opcional)</span></label>
+
+                <div class="habilidades-lista" id="habilidadesLista"></div>
+
+                <div class="adicionar-linha">
+                    <input
+                        id="competenciaInput"
+                        type="text"
+                        placeholder="Ex: EF06CO03"
+                    >
+
+                    <button id="adicionarCompetencia" type="button">
+                        <i class="fi fi-rr-plus"></i>
+                        Adicionar habilidade
+                    </button>
+                </div>
+
+            </div>
+
+            <div class="campo">
+
+                <label for="palavraInput">Palavras-chave <span>(opcional)</span></label>
+
+                <div class="tags-box" id="tagsBox">
+                    <div class="tags-lista" id="tagsLista"></div>
+                    <input
+                        id="palavraInput"
+                        type="text"
+                        placeholder="Digite e pressione Enter para adicionar..."
+                    >
+                </div>
+
+            </div>
+
+            <div class="campo">
+
+                <label>Material de apoio <span>(opcional)</span></label>
+
+                <label class="upload-area" id="uploadArea">
+
+                    <input
+                        id="arquivoApoio"
+                        type="file"
+                        hidden
+                    >
+
+                    <i class="fi fi-rr-cloud-upload-alt"></i>
+
+                    <strong>
+                        Arraste ou solte um arquivo aqui ou clique<br>
+                        para adicionar um arquivo
+                    </strong>
+
+                    <small id="uploadTexto">
+                        Formatos aceitos definidos posteriormente
+                    </small>
+
+                </label>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ETAPA 2 -->
+
+    <section class="etapa-conteudo" data-conteudo="2">
+
+        <div class="topo-etapa">
+
+            <div>
+                <h2>Estrutura do plano</h2>
+                <p>Monte o conteúdo manualmente ou utilize a IA para auxiliar.</p>
+            </div>
+
+            <div class="modo-switch">
+                <button class="ativo" data-modo="manual" type="button">
+                    <i class="fi fi-rr-edit"></i>
+                    Manual
+                </button>
+
+                <button data-modo="ia" type="button">
+                    <i class="fi fi-rr-sparkles"></i>
+                    Com IA
+                </button>
+            </div>
+
+        </div>
+
+        <!-- MANUAL -->
+
+        <div class="modo-conteudo ativo" data-modo-conteudo="manual">
+
+            <div class="estrutura-lista" id="estruturaLista"></div>
+
+            <button class="botao-adicionar-secao" id="adicionarSecao" type="button">
+                <i class="fi fi-rr-plus"></i>
+                Adicionar seção
+            </button>
+
+        </div>
+
+        <!-- IA -->
+
+        <div class="modo-conteudo" data-modo-conteudo="ia">
+
+            <div class="ia-box">
+
+                <div class="campo">
+
+                    <label for="promptIA">
+                        Descreva o que a IA deve gerar
+                    </label>
+
+                    <div class="textarea-contador">
+                        <textarea
+                            id="promptIA"
+                            maxlength="500"
+                            placeholder="Ex: Crie um plano de aula sobre Desenvolvimento Web com HTML e CSS para iniciantes, com objetivos, conteúdo, atividades e avaliação."
+                        ></textarea>
+
+                        <small>
+                            <span id="contadorPrompt">0</span>/500
+                        </small>
+                    </div>
+
+                </div>
+
+                <button class="botao-roxo gerar-ia" id="gerarSugestoes" type="button">
+                    <i class="fi fi-rr-sparkles"></i>
+                    Gerar sugestões
+                </button>
+
+                <div class="ia-resultado-vazio" id="resultadoIA">
+
+                    <i class="fi fi-rr-magic-wand"></i>
+
+                    <strong>Nenhuma sugestão gerada</strong>
+
+                    <p>
+                        A geração automática será conectada ao backend posteriormente.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ETAPA 3 -->
+
+    <section class="etapa-conteudo visualizacao-etapa" data-conteudo="3">
+
+        <div class="visualizacao-topo">
+            <h2>Plano de aula</h2>
+            <span>Confira o plano antes de finalizar.</span>
+        </div>
+
+        <div class="visualizacao-layout">
+
+            <article class="documento-preview" id="documentoPreview">
+
+                <div class="documento-cabecalho">
+
+                    <span class="documento-tipo" id="previewTipo">
+                        Plano de aula
+                    </span>
+
+                    <h2 id="previewNome">
+                        Novo plano
+                    </h2>
+
+                    <p id="previewSubtitulo"></p>
+
+                </div>
+
+                <div class="documento-infos" id="previewInfos"></div>
+
+                <div class="documento-corpo">
+
+                    <section id="previewTemaBox">
+                        <h3>Tema</h3>
+                        <p id="previewTema">Não informado</p>
+                    </section>
+
+                    <section id="previewBNCCBox">
+                        <h3>Competências e habilidades</h3>
+                        <div id="previewBNCC"></div>
+                    </section>
+
+                    <section>
+                        <h3>Estrutura</h3>
+                        <div id="previewEstrutura"></div>
+                    </section>
+
+                </div>
+
+            </article>
+
+            <aside class="acoes-plano">
+
+                <button type="button" data-acao="pdf">
+                    <span class="acao-icone">
+                        <i class="fi fi-rr-file-pdf"></i>
+                    </span>
+
+                    <span>
+                        <strong>Baixar arquivo</strong>
+                        <small>PDF</small>
+                    </span>
+                </button>
+
+                <a href="criar_atividade.html">
+                    <span class="acao-icone">
+                        <i class="fi fi-rr-document"></i>
+                    </span>
+
+                    <span>
+                        <strong>Criar atividade</strong>
+                        <small>Gerar atividade a partir do plano</small>
+                    </span>
+                </a>
+
+                <button type="button" data-acao="avaliacao">
+                    <span class="acao-icone">
+                        <i class="fi fi-rr-test"></i>
+                    </span>
+
+                    <span>
+                        <strong>Criar avaliação</strong>
+                        <small>Gerar avaliação a partir do plano</small>
+                    </span>
+                </button>
+
+                <button type="button" data-acao="compartilhar">
+                    <span class="acao-icone">
+                        <i class="fi fi-rr-share"></i>
+                    </span>
+
+                    <span>
+                        <strong>Compartilhar</strong>
+                        <small>Compartilhar com suas turmas</small>
+                    </span>
+                </button>
+
+            </aside>
+
+        </div>
+
+    </section>
+
+</main>
+
+<footer class="barra-acoes">
+
+    <button class="botao-voltar" id="voltarEtapa" type="button">
+        Voltar
+    </button>
+
+    <div class="barra-direita">
+
+        <span id="statusEtapa"></span>
+
+        <button class="botao-continuar" id="continuarEtapa" type="button">
+            Continuar
+            <i class="fi fi-rr-angle-small-right"></i>
+        </button>
+
+    </div>
+
+</footer>
+
+<div class="toast" id="toast">
+    <i class="fi fi-rr-info"></i>
+    <span id="toastTexto"></span>
+</div>
+
+<script src="javaScript/criar_plano_aula.js"></script>
+
+</body>
+</html>
