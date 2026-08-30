@@ -2,8 +2,6 @@ const buscarMaterial = document.getElementById("buscarMaterial");
 const filtroTurma = document.getElementById("filtroTurma");
 const filtroTipo = document.getElementById("filtroTipo");
 const arquivosLista = document.getElementById("arquivosLista");
-const botaoEnviar = document.getElementById("botaoEnviar");
-const inputArquivo = document.getElementById("inputArquivo");
 
 let materiais = [];
 
@@ -343,13 +341,11 @@ filtroTipo.addEventListener(
     filtrarMateriais
 );
 
-
 /* ==============================
    CARREGAR TURMAS
 ============================== */
 
 function carregarTurmas(turmas) {
-
     filtroTurma.innerHTML =
         '<option value="">Todas</option>';
 
@@ -366,7 +362,6 @@ function carregarTurmas(turmas) {
     }
 
     turmas.forEach(turma => {
-
         const option =
             document.createElement("option");
 
@@ -385,7 +380,6 @@ function carregarTurmas(turmas) {
 ============================== */
 
 function carregarTipos() {
-
     filtroTipo.innerHTML = `
         <option value="">Todos</option>
         <option value="pdf">PDF</option>
@@ -402,7 +396,6 @@ function carregarTipos() {
 ============================== */
 
 function carregarMateriais(dados) {
-
     materiais =
         Array.isArray(dados)
             ? dados

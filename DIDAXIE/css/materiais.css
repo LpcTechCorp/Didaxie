@@ -46,7 +46,6 @@ body:has(.sidebar.collapsed:not(.hover-open)) .materiais-page {
         minmax(130px, .9fr)
         minmax(130px, .9fr)
         minmax(145px, 1fr);
-
     align-items: end;
     gap: 20px;
 }
@@ -139,12 +138,6 @@ body:has(.sidebar.collapsed:not(.hover-open)) .materiais-page {
     transition:
         background .2s ease,
         transform .2s ease;
-    
-}
-
-.botao-enviar-link {
-    color: #fff;
-    text-decoration: none;
 }
 
 .botao-enviar i {
@@ -205,7 +198,7 @@ body:has(.sidebar.collapsed:not(.hover-open)) .materiais-page {
     border-radius: 20px;
     display: grid;
     place-items: center;
-    background: #eeeeF1;
+    background: #eeeef1;
     color: #aaaab0;
     font-size: 34px;
 }
@@ -311,7 +304,7 @@ body:has(.sidebar.collapsed:not(.hover-open)) .materiais-page {
 }
 
 .arquivo-icone.outro {
-    background: #eeeeF1;
+    background: #eeeef1;
     color: #8e8e94;
 }
 
@@ -363,26 +356,22 @@ body:has(.sidebar.collapsed:not(.hover-open)) .materiais-page {
 /* NOTEBOOK */
 
 @media (max-width: 1150px) {
-
     .materiais-filtros {
         grid-template-columns:
             minmax(240px, 2fr)
             minmax(120px, 1fr)
             minmax(120px, 1fr);
-
         gap: 14px;
     }
 
     .botao-enviar {
         grid-column: 3;
     }
-
 }
 
 /* TABLET */
 
 @media (max-width: 900px) {
-
     .materiais-page {
         padding-left: 26px;
         padding-right: 26px;
@@ -399,13 +388,11 @@ body:has(.sidebar.collapsed:not(.hover-open)) .materiais-page {
     .botao-enviar {
         grid-column: 1 / -1;
     }
-
 }
 
 /* MOBILE */
 
 @media (max-width: 768px) {
-
     .materiais-page,
     body:has(.sidebar.collapsed:not(.hover-open)) .materiais-page {
         margin-left: 0;
@@ -455,13 +442,11 @@ body:has(.sidebar.collapsed:not(.hover-open)) .materiais-page {
     .estado-vazio-materiais {
         min-height: 340px;
     }
-
 }
 
 /* CELULAR */
 
 @media (max-width: 520px) {
-
     .materiais-page {
         padding-left: 12px;
         padding-right: 12px;
@@ -527,13 +512,11 @@ body:has(.sidebar.collapsed:not(.hover-open)) .materiais-page {
     .arquivo-acoes {
         grid-column: 2;
     }
-
 }
 
 /* CELULAR PEQUENO */
 
 @media (max-width: 380px) {
-
     .materiais-page {
         padding-left: 9px;
         padding-right: 9px;
@@ -547,5 +530,4 @@ body:has(.sidebar.collapsed:not(.hover-open)) .materiais-page {
         width: 34px;
         height: 34px;
     }
-
 }
