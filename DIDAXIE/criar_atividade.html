@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar atividade | Didaxie</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/4.0.0/uicons-regular-rounded/css/uicons-regular-rounded.css">
+    <link rel="stylesheet" href="css/criar_atividade.css">
+</head>
+<body>
+
+<main class="atividade-page">
+
+    <header class="pagina-header">
+        <a href="atividades.html" class="voltar-link">
+            <i class="fi fi-rr-angle-left"></i>
+            Voltar
+        </a>
+
+        <h1 id="tituloPagina">Criar atividades</h1>
+    </header>
+
+    <nav class="etapas-nav" aria-label="Etapas da criação da atividade">
+        <button type="button" class="etapa-nav ativa liberada" data-ir-etapa="1">
+            <span class="numero">1</span>
+            <span class="texto">Configurar atividade</span>
+        </button>
+
+        <div class="linha-etapa"></div>
+
+        <button type="button" class="etapa-nav" data-ir-etapa="2" disabled>
+            <span class="numero">2</span>
+            <span class="texto">Conteúdo da atividade</span>
+        </button>
+
+        <div class="linha-etapa"></div>
+
+        <button type="button" class="etapa-nav" data-ir-etapa="3" disabled>
+            <span class="numero">3</span>
+            <span class="texto">Revisar e salvar</span>
+        </button>
+    </nav>
+
+    <!-- ETAPA 1 -->
+    <section class="etapa ativa" data-etapa="1">
+
+        <div class="etapa-titulo">
+            <h2>Nova atividade</h2>
+            <p>Configure as informações principais antes de criar o conteúdo.</p>
+        </div>
+
+        <div class="campo">
+            <label for="nomeAtividade">Nome da atividade</label>
+
+            <input
+                type="text"
+                id="nomeAtividade"
+                maxlength="100"
+                placeholder="Ex: Exercícios sobre frações"
+            >
+
+            <small class="erro-campo" id="erroNomeAtividade"></small>
+        </div>
+
+        <div class="grid-dois">
+
+            <div class="campo">
+                <label for="disciplina">
+                    Disciplina
+                    <span class="opcional">(opcional)</span>
+                </label>
+
+                <select id="disciplina">
+                    <option value="">Nenhuma</option>
+                </select>
+
+                <small>As disciplinas cadastradas serão carregadas aqui.</small>
+            </div>
+
+            <div class="campo">
+                <label for="turma">
+                    Turma
+                    <span class="opcional">(opcional)</span>
+                </label>
+
+                <select id="turma">
+                    <option value="">Nenhuma</option>
+                </select>
+
+                <small>As turmas cadastradas serão carregadas aqui.</small>
+            </div>
+
+        </div>
+
+        <div class="campo">
+            <label>Tipo da atividade</label>
+
+            <div class="tipos-grid">
+
+                <button type="button" class="tipo-card selecionado" data-tipo="lista">
+                    <i class="fi fi-rr-list-check"></i>
+                    <strong>Lista de exercícios</strong>
+                    <span>Questões de fixação</span>
+                </button>
+
+                <button type="button" class="tipo-card" data-tipo="quiz">
+                    <i class="fi fi-rr-interrogation"></i>
+                    <strong>Quiz</strong>
+                    <span>Atividade objetiva e rápida</span>
+                </button>
+
+                <button type="button" class="tipo-card" data-tipo="diagnostica">
+                    <i class="fi fi-rr-chart-histogram"></i>
+                    <strong>Diagnóstica</strong>
+                    <span>Identifique dificuldades</span>
+                </button>
+
+                <button type="button" class="tipo-card" data-tipo="projeto">
+                    <i class="fi fi-rr-bulb"></i>
+                    <strong>Projeto</strong>
+                    <span>Atividade investigativa</span>
+                </button>
+
+            </div>
+        </div>
+
+        <div class="campo campo-textarea">
+            <label for="descricao">Descrição / tópico</label>
+
+            <textarea
+                id="descricao"
+                maxlength="300"
+                placeholder="Ex: Frações, equivalência e comparação"
+            ></textarea>
+
+            <span class="contador">
+                <span id="contadorDescricao">0</span>/300
+            </span>
+
+            <small class="erro-campo" id="erroDescricao"></small>
+        </div>
+
+        <div class="campo campo-textarea">
+            <label for="objetivo">Objetivo de aprendizagem</label>
+
+            <textarea
+                id="objetivo"
+                maxlength="500"
+                placeholder="Ex: Compreender e comparar diferentes representações de frações"
+            ></textarea>
+
+            <span class="contador">
+                <span id="contadorObjetivo">0</span>/500
+            </span>
+
+            <small class="erro-campo" id="erroObjetivo"></small>
+        </div>
+
+        <!-- TUDO DESTA CAIXA É OPCIONAL -->
+
+        <section class="config-opcional" id="configQuestoes">
+
+            <div class="config-opcional-header">
+                <div>
+                    <h3>Preferências de criação</h3>
+                    <p>Use apenas se quiser orientar a criação das questões.</p>
+                </div>
+
+                <span class="badge-opcional">Opcional</span>
+            </div>
+
+            <div class="config-grid">
+
+                <div class="campo">
+                    <label for="quantidade">Quantidade sugerida</label>
+
+                    <select id="quantidade">
+                        <option value="">Sem preferência</option>
+                        <option value="5">Cerca de 5 questões</option>
+                        <option value="10">Cerca de 10 questões</option>
+                        <option value="15">Cerca de 15 questões</option>
+                        <option value="20">Cerca de 20 questões</option>
+                    </select>
+
+                    <small>Não limita a quantidade final da atividade.</small>
+                </div>
+
+                <div class="campo">
+                    <label for="dificuldade">Dificuldade</label>
+
+                    <select id="dificuldade">
+                        <option value="">Sem preferência</option>
+                        <option value="facil">Fácil</option>
+                        <option value="media">Média</option>
+                        <option value="dificil">Difícil</option>
+                    </select>
+                </div>
+
+                <div class="campo" id="campoFormato">
+                    <label for="formato">Formato das questões</label>
+
+                    <select id="formato">
+                        <option value="">Sem preferência</option>
+                        <option value="misto">Objetivas e dissertativas</option>
+                        <option value="objetivas">Somente objetivas</option>
+                        <option value="dissertativas">Somente dissertativas</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="preferencias-opcionais" id="preferenciasQuestoes">
+
+                <span class="preferencias-titulo">
+                    Outras preferências
+                </span>
+
+                <div class="preferencias">
+
+                    <label class="check-label">
+                        <input type="checkbox" id="incluirGabarito">
+                        <span>Incluir gabarito</span>
+                    </label>
+
+                    <label class="check-label">
+                        <input type="checkbox" id="incluirExplicacoes">
+                        <span>Incluir explicações</span>
+                    </label>
+
+                    <label class="check-label">
+                        <input type="checkbox" id="contextualizacao">
+                        <span>Contextualizar com situações do cotidiano</span>
+                    </label>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </section>
+
+    <!-- ETAPA 2 -->
+    <section class="etapa" data-etapa="2">
+
+        <div class="etapa-titulo conteudo-titulo">
+
+            <div>
+                <span class="tipo-atual" id="tipoAtualTexto">
+                    Lista de exercícios
+                </span>
+
+                <h2 id="tituloConteudo">
+                    Monte sua lista de exercícios
+                </h2>
+
+                <p id="descricaoConteudo"></p>
+            </div>
+
+            <div class="modo-tabs">
+
+                <button type="button" class="modo-tab ativo" data-modo="manual">
+                    <i class="fi fi-rr-edit"></i>
+                    Manual
+                </button>
+
+                <button type="button" class="modo-tab" data-modo="ia">
+                    <i class="fi fi-rr-sparkles"></i>
+                    Com IA
+                </button>
+
+            </div>
+
+        </div>
+
+        <!-- LISTA -->
+
+        <div class="conteudo-tipo" data-conteudo-tipo="lista">
+
+            <div class="modo-manual" data-manual-tipo="lista">
+
+                <div class="conteudo-cabecalho">
+
+                    <div>
+                        <h3>Questões da lista</h3>
+                        <p>Combine diferentes formatos de questão livremente.</p>
+                    </div>
+
+                    <button
+                        type="button"
+                        class="btn-outline adicionar-questao"
+                        data-destino="lista"
+                    >
+                        <i class="fi fi-rr-plus"></i>
+                        Adicionar questão
+                    </button>
+
+                </div>
+
+                <div class="questoes-editor" id="questoesLista"></div>
+
+            </div>
+
+            <div class="modo-ia escondido" data-ia-tipo="lista">
+
+                <div class="resumo-config" data-resumo-ia="lista"></div>
+
+                <div class="campo campo-textarea">
+                    <label for="promptLista">
+                        Descreva o que deseja para a lista
+                    </label>
+
+                    <textarea
+                        id="promptLista"
+                        maxlength="500"
+                        placeholder="Ex: Questões variadas sobre frações, incluindo situações do cotidiano"
+                    ></textarea>
+                </div>
+
+                <button
+                    type="button"
+                    class="btn-roxo gerar-ia"
+                    data-tipo-ia="lista"
+                >
+                    <i class="fi fi-rr-sparkles"></i>
+                    Gerar sugestões
+                </button>
+
+                <div class="estado-ia">
+                    <i class="fi fi-rr-sparkles"></i>
+
+                    <strong>Nenhuma sugestão gerada</strong>
+
+                    <span>
+                        A geração das questões dependerá do backend de IA.
+                    </span>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- QUIZ -->
+
+        <div class="conteudo-tipo escondido" data-conteudo-tipo="quiz">
+
+            <div class="modo-manual" data-manual-tipo="quiz">
+
+                <div class="config-especifica">
+
+                    <div class="campo">
+                        <label for="tempoQuiz">Tempo por questão</label>
+
+                        <select id="tempoQuiz">
+                            <option value="0">Sem limite</option>
+                            <option value="15">15 segundos</option>
+                            <option value="30">30 segundos</option>
+                            <option value="60">1 minuto</option>
+                            <option value="120">2 minutos</option>
+                        </select>
+                    </div>
+
+                    <label class="check-config">
+                        <input type="checkbox" id="quizEmbaralhar">
+
+                        <span>
+                            <strong>Embaralhar alternativas</strong>
+                            <small>A ordem muda para cada aluno</small>
+                        </span>
+                    </label>
+
+                    <label class="check-config">
+                        <input type="checkbox" id="quizFeedback">
+
+                        <span>
+                            <strong>Resultado imediato</strong>
+                            <small>Mostrar se acertou após responder</small>
+                        </span>
+                    </label>
+
+                </div>
+
+                <div class="conteudo-cabecalho">
+
+                    <div>
+                        <h3>Perguntas do quiz</h3>
+                        <p>O quiz trabalha apenas com questões objetivas.</p>
+                    </div>
+
+                    <button
+                        type="button"
+                        class="btn-outline adicionar-questao"
+                        data-destino="quiz"
+                    >
+                        <i class="fi fi-rr-plus"></i>
+                        Adicionar pergunta
+                    </button>
+
+                </div>
+
+                <div class="questoes-editor" id="questoesQuiz"></div>
+
+            </div>
+
+            <div class="modo-ia escondido" data-ia-tipo="quiz">
+
+                <div class="resumo-config" data-resumo-ia="quiz"></div>
+
+                <div class="campo campo-textarea">
+
+                    <label for="promptQuiz">
+                        Descreva como deve ser o quiz
+                    </label>
+
+                    <textarea
+                        id="promptQuiz"
+                        maxlength="500"
+                        placeholder="Ex: Quiz rápido sobre frações equivalentes"
+                    ></textarea>
+
+                </div>
+
+                <button
+                    type="button"
+                    class="btn-roxo gerar-ia"
+                    data-tipo-ia="quiz"
+                >
+                    <i class="fi fi-rr-sparkles"></i>
+                    Gerar quiz
+                </button>
+
+                <div class="estado-ia">
+                    <i class="fi fi-rr-sparkles"></i>
+
+                    <strong>Nenhum quiz gerado</strong>
+
+                    <span>
+                        A geração automática dependerá do backend de IA.
+                    </span>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- DIAGNÓSTICA -->
+
+        <div class="conteudo-tipo escondido" data-conteudo-tipo="diagnostica">
+
+            <div class="modo-manual" data-manual-tipo="diagnostica">
+
+                <div class="info-diagnostica">
+
+                    <i class="fi fi-rr-chart-histogram"></i>
+
+                    <div>
+                        <strong>Atividade diagnóstica</strong>
+
+                        <span>
+                            Cada questão pode avaliar uma habilidade diferente,
+                            ajudando a identificar dificuldades específicas.
+                        </span>
+                    </div>
+
+                </div>
+
+                <div class="conteudo-cabecalho">
+
+                    <div>
+                        <h3>Questões diagnósticas</h3>
+                        <p>Associe uma habilidade ou competência a cada questão.</p>
+                    </div>
+
+                    <button
+                        type="button"
+                        class="btn-outline adicionar-questao"
+                        data-destino="diagnostica"
+                    >
+                        <i class="fi fi-rr-plus"></i>
+                        Adicionar questão
+                    </button>
+
+                </div>
+
+                <div
+                    class="questoes-editor"
+                    id="questoesDiagnostica"
+                ></div>
+
+            </div>
+
+            <div
+                class="modo-ia escondido"
+                data-ia-tipo="diagnostica"
+            >
+
+                <div
+                    class="resumo-config"
+                    data-resumo-ia="diagnostica"
+                ></div>
+
+                <div class="campo campo-textarea">
+
+                    <label for="promptDiagnostica">
+                        O que você deseja diagnosticar?
+                    </label>
+
+                    <textarea
+                        id="promptDiagnostica"
+                        maxlength="500"
+                        placeholder="Ex: Verificar se os alunos dominam operações básicas com frações"
+                    ></textarea>
+
+                </div>
+
+                <button
+                    type="button"
+                    class="btn-roxo gerar-ia"
+                    data-tipo-ia="diagnostica"
+                >
+                    <i class="fi fi-rr-sparkles"></i>
+                    Gerar diagnóstico
+                </button>
+
+                <div class="estado-ia">
+
+                    <i class="fi fi-rr-sparkles"></i>
+
+                    <strong>Nenhum diagnóstico gerado</strong>
+
+                    <span>
+                        A geração automática dependerá do backend de IA.
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- PROJETO -->
+
+        <div class="conteudo-tipo escondido" data-conteudo-tipo="projeto">
+
+            <div class="modo-manual" data-manual-tipo="projeto">
+
+                <div class="campo campo-textarea">
+
+                    <label for="orientacoesProjeto">
+                        Orientações do projeto
+                    </label>
+
+                    <textarea
+                        id="orientacoesProjeto"
+                        maxlength="1200"
+                        placeholder="Explique o que os alunos deverão desenvolver, pesquisar ou produzir"
+                    ></textarea>
+
+                </div>
+
+                <div class="campo campo-textarea">
+
+                    <label for="resultadoProjeto">
+                        Resultado / entrega esperada
+                    </label>
+
+                    <textarea
+                        id="resultadoProjeto"
+                        maxlength="600"
+                        placeholder="Ex: Apresentação acompanhada de relatório"
+                    ></textarea>
+
+                </div>
+
+                <section class="bloco-projeto">
+
+                    <div class="conteudo-cabecalho">
+
+                        <div>
+                            <h3>Etapas do projeto</h3>
+
+                            <p>
+                                Divida o trabalho em marcos para facilitar o acompanhamento.
+                            </p>
+                        </div>
+
+                        <button
+                            type="button"
+                            class="btn-outline"
+                            id="adicionarEtapaProjeto"
+                        >
+                            <i class="fi fi-rr-plus"></i>
+                            Adicionar etapa
+                        </button>
+
+                    </div>
+
+                    <div id="etapasProjeto"></div>
+
+                </section>
+
+                <section class="bloco-projeto">
+
+                    <div class="conteudo-cabecalho">
+
+                        <div>
+                            <h3>Critérios de avaliação</h3>
+                            <p>Defina o que será considerado na correção.</p>
+                        </div>
+
+                        <button
+                            type="button"
+                            class="btn-outline"
+                            id="adicionarCriterio"
+                        >
+                            <i class="fi fi-rr-plus"></i>
+                            Adicionar critério
+                        </button>
+
+                    </div>
+
+                    <div id="criteriosProjeto"></div>
+
+                </section>
+
+            </div>
+
+            <div class="modo-ia escondido" data-ia-tipo="projeto">
+
+                <div
+                    class="resumo-config"
+                    data-resumo-ia="projeto"
+                ></div>
+
+                <div class="campo campo-textarea">
+
+                    <label for="promptProjeto">
+                        Descreva o projeto que deseja criar
+                    </label>
+
+                    <textarea
+                        id="promptProjeto"
+                        maxlength="700"
+                        placeholder="Ex: Projeto interdisciplinar sobre sustentabilidade"
+                    ></textarea>
+
+                </div>
+
+                <button
+                    type="button"
+                    class="btn-roxo gerar-ia"
+                    data-tipo-ia="projeto"
+                >
+                    <i class="fi fi-rr-sparkles"></i>
+                    Gerar estrutura
+                </button>
+
+                <div class="estado-ia">
+
+                    <i class="fi fi-rr-sparkles"></i>
+
+                    <strong>Nenhuma estrutura gerada</strong>
+
+                    <span>
+                        A geração automática dependerá do backend de IA.
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ETAPA 3 -->
+
+    <section class="etapa" data-etapa="3">
+
+        <div class="etapa-titulo">
+            <h2>Revisão da atividade</h2>
+            <p>Confira tudo antes de finalizar.</p>
+        </div>
+
+        <div class="resumo-atividade">
+
+            <div class="resumo-item">
+                <span>Nome</span>
+                <strong id="revisaoNome">—</strong>
+            </div>
+
+            <div class="resumo-item">
+                <span>Disciplina</span>
+                <strong id="revisaoDisciplina">Nenhuma</strong>
+            </div>
+
+            <div class="resumo-item">
+                <span>Turma</span>
+                <strong id="revisaoTurma">Nenhuma</strong>
+            </div>
+
+            <div class="resumo-item">
+                <span>Tipo</span>
+                <strong id="revisaoTipo">—</strong>
+            </div>
+
+            <div class="resumo-item">
+                <span>Dificuldade</span>
+                <strong id="revisaoDificuldade">Não definida</strong>
+            </div>
+
+            <div class="resumo-item">
+                <span id="labelQuantidadeRevisao">Questões</span>
+                <strong id="revisaoQuantidade">0</strong>
+            </div>
+
+        </div>
+
+        <div id="revisaoQuestoes">
+
+            <div class="revisao-header">
+
+                <div>
+                    <h3>Questões da atividade</h3>
+                    <p>Edite, remova ou altere a ordem.</p>
+                </div>
+
+                <button
+                    type="button"
+                    class="btn-outline"
+                    id="embaralharQuestoes"
+                >
+                    <i class="fi fi-rr-shuffle"></i>
+                    Embaralhar ordem
+                </button>
+
+            </div>
+
+            <div
+                class="avisos-revisao"
+                id="avisosRevisao"
+            ></div>
+
+            <div
+                class="questoes-revisao"
+                id="questoesRevisao"
+            ></div>
+
+        </div>
+
+        <div id="revisaoProjeto" class="escondido">
+
+            <div class="revisao-header">
+
+                <div>
+                    <h3>Estrutura do projeto</h3>
+                    <p>Confira orientações, etapas e critérios.</p>
+                </div>
+
+                <button
+                    type="button"
+                    class="btn-outline"
+                    id="editarProjeto"
+                >
+                    <i class="fi fi-rr-edit"></i>
+                    Editar projeto
+                </button>
+
+            </div>
+
+            <div
+                class="projeto-revisao"
+                id="projetoRevisao"
+            ></div>
+
+        </div>
+
+    </section>
+
+</main>
+
+<footer class="barra-acoes">
+
+    <button
+        type="button"
+        class="btn-voltar-etapa"
+        id="voltarEtapa"
+    >
+        <i class="fi fi-rr-angle-left"></i>
+        Voltar
+    </button>
+
+    <button
+        type="button"
+        class="btn-continuar"
+        id="continuarEtapa"
+    >
+        Continuar
+        <i class="fi fi-rr-angle-right"></i>
+    </button>
+
+</footer>
+
+<div class="toast" id="toast">
+    <i class="fi fi-rr-info"></i>
+    <span id="toastTexto"></span>
+</div>
+
+<script src="javaScript/criar_atividade.js"></script>
+
+</body>
+</html>
