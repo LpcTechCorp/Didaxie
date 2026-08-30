@@ -1,13 +1,17 @@
 const buscarPlano = document.getElementById("buscarPlano");
+
 const planosRecentes = document.getElementById("planosRecentes");
+
 const todosPlanos = document.getElementById("todosPlanos");
-const adicionarPlano = document.getElementById("adicionarPlano");
 
 const menuPlano = document.getElementById("menuPlano");
+
 const menuNomePlano = document.getElementById("menuNomePlano");
+
 const menuTurmaPlano = document.getElementById("menuTurmaPlano");
 
 let planos = [];
+
 let planoSelecionado = null;
 
 /* CARD CINZA DE TESTE */
@@ -183,6 +187,7 @@ function renderizarTodos(lista = planos) {
     ) {
 
         mostrarEstadoVazio();
+
         return;
     }
 
@@ -451,26 +456,6 @@ function executarAcao(
     }
 }
 
-/* ADICIONAR */
-
-adicionarPlano.addEventListener(
-    "click",
-    () => {
-
-        /*
-            Futuramente pode levar para:
-
-            window.location.href =
-                "criar_plano_aula.html";
-        */
-
-        console.log(
-            "Adicionar plano de aula"
-        );
-
-    }
-);
-
 /* BANCO */
 
 function carregarPlanos(dados) {
@@ -481,6 +466,7 @@ function carregarPlanos(dados) {
             : [];
 
     renderizarRecentes();
+
     renderizarTodos();
 }
 
@@ -488,10 +474,10 @@ function carregarPlanos(dados) {
     SEM BANCO:
 
     Planos recentes:
-    → 1 card cinza funcional.
+    -> 1 card cinza funcional.
 
     Todos os planos:
-    → estado vazio.
+    -> estado vazio.
 
     Futuramente:
 

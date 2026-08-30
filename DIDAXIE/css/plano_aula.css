@@ -254,7 +254,6 @@ body:has(.sidebar.collapsed:not(.hover-open)) .planos-page {
 
 .plano-check:checked {
     border-color: var(--plano-roxo);
-
     background:
         var(--plano-roxo)
         url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E")
@@ -440,7 +439,6 @@ body:has(.sidebar.collapsed:not(.hover-open)) .planos-page {
 /* TABLET */
 
 @media (max-width: 900px) {
-
     .planos-page {
         padding-left: 26px;
         padding-right: 26px;
@@ -449,13 +447,11 @@ body:has(.sidebar.collapsed:not(.hover-open)) .planos-page {
     .recentes-grid {
         grid-template-columns: 180px minmax(0, 1fr);
     }
-
 }
 
 /* MOBILE */
 
 @media (max-width: 768px) {
-
     .planos-page,
     body:has(.sidebar.collapsed:not(.hover-open)) .planos-page {
         margin-left: 0;
@@ -490,13 +486,11 @@ body:has(.sidebar.collapsed:not(.hover-open)) .planos-page {
     .estado-vazio-planos {
         min-height: 290px;
     }
-
 }
 
 /* CELULAR */
 
 @media (max-width: 520px) {
-
     .planos-page {
         padding-left: 11px;
         padding-right: 11px;
@@ -557,5 +551,4 @@ body:has(.sidebar.collapsed:not(.hover-open)) .planos-page {
         min-height: 44px;
         font-size: 12px;
     }
-
 }
