@@ -1,7 +1,6 @@
 const buscarAtividade = document.getElementById("buscarAtividade");
 const atividadesRecentes = document.getElementById("atividadesRecentes");
 const todasAtividades = document.getElementById("todasAtividades");
-const adicionarAtividade = document.getElementById("adicionarAtividade");
 
 const menuAtividade = document.getElementById("menuAtividade");
 const menuNomeAtividade = document.getElementById("menuNomeAtividade");
@@ -501,26 +500,6 @@ function executarAcao(
 
     }
 }
-
-/* ADICIONAR */
-
-adicionarAtividade.addEventListener(
-    "click",
-    () => {
-
-        /*
-            Futuramente:
-
-            window.location.href =
-                "criar_atividade.html";
-        */
-
-        console.log(
-            "Adicionar atividade"
-        );
-
-    }
-);
 
 /* BANCO */
 
