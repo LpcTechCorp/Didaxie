@@ -15,7 +15,6 @@ const atividadesRecentes = document.getElementById("atividadesRecentes");
 /* DATA ATUAL */
 
 function mostrarDataAtual() {
-
     const hoje = new Date();
 
     let texto = hoje.toLocaleDateString("pt-BR", {
@@ -32,7 +31,6 @@ function mostrarDataAtual() {
 /* CONTADORES */
 
 function atualizarContador(elemento, valor) {
-
     const numero = Number(valor) || 0;
 
     elemento.textContent = numero;
@@ -47,7 +45,6 @@ function atualizarContador(elemento, valor) {
 /* PROGRESSO */
 
 function atualizarProgresso(valor, total) {
-
     const porcentagem = Math.min(
         100,
         Math.max(0, Number(valor) || 0)
@@ -63,17 +60,12 @@ function atualizarProgresso(valor, total) {
     );
 
     if (porcentagem > 0) {
-
         progressoCirculo.classList.add("com-progresso");
-
     } else {
-
         progressoCirculo.classList.remove("com-progresso");
-
     }
 
     if (totalAtividadesSemana === 0) {
-
         progressoTexto.textContent =
             "Nenhuma atividade planejada para essa semana.";
 
@@ -87,11 +79,9 @@ function atualizarProgresso(valor, total) {
 /* ATIVIDADES RECENTES */
 
 function mostrarAtividadesRecentes(atividades) {
-
     atividadesRecentes.innerHTML = "";
 
     if (!Array.isArray(atividades) || atividades.length === 0) {
-
         atividadesRecentes.innerHTML = `
             <div class="estado-vazio">
                 <i class="fi fi-rr-calendar-clock"></i>
@@ -103,7 +93,6 @@ function mostrarAtividadesRecentes(atividades) {
     }
 
     atividades.slice(0, 3).forEach(atividade => {
-
         const item = document.createElement("div");
 
         item.className = "atividade-recente";
@@ -111,7 +100,8 @@ function mostrarAtividadesRecentes(atividades) {
         const icone = document.createElement("div");
 
         icone.className = "atividade-icone";
-        icone.innerHTML = '<i class="fi fi-rr-document"></i>';
+        icone.innerHTML =
+            '<i class="fi fi-rr-document"></i>';
 
         const info = document.createElement("div");
 
@@ -119,11 +109,13 @@ function mostrarAtividadesRecentes(atividades) {
 
         const nome = document.createElement("strong");
 
-        nome.textContent = atividade.nome || "Atividade";
+        nome.textContent =
+            atividade.nome || "Atividade";
 
         const turma = document.createElement("span");
 
-        turma.textContent = atividade.turma || "";
+        turma.textContent =
+            atividade.turma || "";
 
         info.appendChild(nome);
         info.appendChild(turma);
@@ -131,7 +123,8 @@ function mostrarAtividadesRecentes(atividades) {
         const horario = document.createElement("span");
 
         horario.className = "atividade-horario";
-        horario.textContent = atividade.horario || "";
+        horario.textContent =
+            atividade.horario || "";
 
         item.appendChild(icone);
         item.appendChild(info);
@@ -144,10 +137,13 @@ function mostrarAtividadesRecentes(atividades) {
 /* DADOS DO PAINEL */
 
 function carregarPainel(dados) {
-
     /*
-        Se não existir dado vindo do banco,
-        nenhum valor fictício é criado.
+        O nome verdadeiro do professor
+        será carregado futuramente pelo
+        banco/login.
+
+        Enquanto não houver dados reais,
+        nenhum nome fictício é exibido.
     */
 
     nomeProfessor.textContent =
@@ -190,9 +186,9 @@ mostrarDataAtual();
 /*
     BANCO AINDA NÃO CONECTADO.
 
-    Por enquanto o painel é iniciado sem dados.
-    Isso faz:
+    Por enquanto:
 
+    Nome do professor = -----
     Planos de aula = 0
     Materiais = 0
     Atividades = 0
@@ -200,8 +196,7 @@ mostrarDataAtual();
     Progresso = 0%
     Atividades recentes = vazio
 
-    Depois, quando o backend estiver pronto,
-    basta passar o retorno para:
+    Quando o backend estiver pronto:
 
     carregarPainel(dadosDoBanco);
 */

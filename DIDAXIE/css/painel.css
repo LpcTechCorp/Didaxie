@@ -3,14 +3,11 @@
     --painel-lilas: #873cff;
     --painel-amarelo: #ffcc63;
     --painel-rosa: #f38ca5;
-
     --painel-texto: #1d1d1f;
     --painel-texto-secundario: #777;
     --painel-cinza: #b8b8b8;
-
     --painel-fundo: #f9f9fb;
     --painel-card: #ffffff;
-
     --painel-borda: #ececec;
     --painel-sombra: 0 8px 28px rgba(0, 0, 0, 0.06);
 }
@@ -26,33 +23,18 @@ body {
 .painel {
     min-height: 100vh;
     margin-left: var(--sidebar-aberta);
-
-    padding:
-        clamp(28px, 4vh, 46px)
-        clamp(24px, 4vw, 56px)
-        34px;
-
+    padding: clamp(28px, 4vh, 46px) clamp(24px, 4vw, 56px) 34px;
     display: grid;
-
-    grid-template-rows:
-        auto
-        auto
-        minmax(320px, 1fr);
-
+    grid-template-rows: auto auto minmax(320px, 1fr);
     gap: clamp(24px, 3vh, 34px);
-
-    transition:
-        margin-left var(--transicao),
-        padding var(--transicao);
+    transition: margin-left var(--transicao), padding var(--transicao);
 }
 
 body:has(.sidebar.collapsed:not(.hover-open)) .painel {
     margin-left: var(--sidebar-fechada);
 }
 
-/* =========================================
-   CABEÇALHO
-========================================= */
+/* CABEÇALHO */
 
 .painel-header {
     display: flex;
@@ -62,9 +44,7 @@ body:has(.sidebar.collapsed:not(.hover-open)) .painel {
 
 .painel-header h1 {
     margin: 0;
-
     color: var(--painel-roxo);
-
     font-size: clamp(32px, 3vw, 42px);
     line-height: 1.15;
     font-weight: 700;
@@ -72,74 +52,53 @@ body:has(.sidebar.collapsed:not(.hover-open)) .painel {
 
 .painel-header p {
     margin: 7px 0 0;
-
     color: #b78be9;
-
     font-size: 15px;
     font-weight: 500;
 }
 
-/* =========================================
-   CARDS DE RESUMO
-========================================= */
+/* CARDS DE RESUMO */
 
 .resumo {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-
     gap: 18px;
 }
 
 .resumo-card {
     min-width: 0;
     min-height: 135px;
-
     padding: 18px;
-
     border: 1px solid var(--painel-borda);
     border-radius: 14px;
-
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-
     background: var(--painel-card);
-
     box-shadow: var(--painel-sombra);
-
-    transition:
-        transform .2s ease,
-        box-shadow .2s ease;
+    transition: transform .2s ease, box-shadow .2s ease;
 }
 
 .resumo-card:hover {
     transform: translateY(-2px);
-
-    box-shadow:
-        0 12px 34px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 12px 34px rgba(0, 0, 0, 0.08);
 }
 
 .card-topo {
     display: flex;
     align-items: center;
-
     gap: 14px;
 }
 
 .card-icone {
     width: 52px;
     height: 52px;
-
     flex: 0 0 52px;
-
     border-radius: 12px;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     color: #fff;
-
     font-size: 22px;
 }
 
@@ -158,7 +117,6 @@ body:has(.sidebar.collapsed:not(.hover-open)) .painel {
 
 .card-info {
     min-width: 0;
-
     display: flex;
     flex-direction: column;
 }
@@ -171,7 +129,6 @@ body:has(.sidebar.collapsed:not(.hover-open)) .painel {
 
 .card-info span {
     margin-top: 6px;
-
     font-size: 14px;
     line-height: 1.35;
 }
@@ -193,35 +150,23 @@ body:has(.sidebar.collapsed:not(.hover-open)) .painel {
     color: #e76f8d;
 }
 
-/* =========================================
-   AÇÕES DOS CARDS
-========================================= */
+/* AÇÕES DOS CARDS */
 
 .card-link {
     width: fit-content;
     min-width: 112px;
     min-height: 34px;
-
     margin-left: auto;
-
     padding: 0 14px;
-
     border-radius: 8px;
-
     display: inline-flex;
     align-items: center;
     justify-content: center;
-
     gap: 7px;
-
     text-decoration: none;
-
     font-size: 12px;
     font-weight: 600;
-
-    transition:
-        transform .2s ease,
-        filter .2s ease;
+    transition: transform .2s ease, filter .2s ease;
 }
 
 .card-link i {
@@ -249,19 +194,12 @@ body:has(.sidebar.collapsed:not(.hover-open)) .painel {
     color: #df6481;
 }
 
-/* =========================================
-   ÁREA INFERIOR
-========================================= */
+/* ÁREA INFERIOR */
 
 .painel-conteudo {
     min-height: 0;
-
     display: grid;
-
-    grid-template-columns:
-        minmax(0, 1.35fr)
-        minmax(320px, .85fr);
-
+    grid-template-columns: minmax(0, 1.35fr) minmax(320px, .85fr);
     gap: 22px;
 }
 
@@ -269,20 +207,14 @@ body:has(.sidebar.collapsed:not(.hover-open)) .painel {
 .recentes-card {
     min-width: 0;
     height: 100%;
-
     padding: clamp(22px, 2vw, 30px);
-
     border: 1px solid var(--painel-borda);
     border-radius: 14px;
-
     background: var(--painel-card);
-
     box-shadow: var(--painel-sombra);
 }
 
-/* =========================================
-   RESUMO DA SEMANA
-========================================= */
+/* RESUMO DA SEMANA */
 
 .semana-card {
     display: flex;
@@ -292,33 +224,25 @@ body:has(.sidebar.collapsed:not(.hover-open)) .painel {
 .semana-header {
     display: flex;
     align-items: center;
-
     gap: 16px;
 }
 
 .semana-icone {
     width: 48px;
     height: 48px;
-
     flex: 0 0 48px;
-
     border-radius: 11px;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     background: #d8c0f5;
-
     color: #fff;
-
     font-size: 20px;
 }
 
 .semana-header h2,
 .recentes-header h2 {
     margin: 0;
-
     font-size: 19px;
     line-height: 1.3;
     font-weight: 700;
@@ -326,81 +250,58 @@ body:has(.sidebar.collapsed:not(.hover-open)) .painel {
 
 .semana-header p {
     margin: 5px 0 0;
-
     color: var(--painel-texto-secundario);
-
     font-size: 13px;
 }
 
 .linha {
     height: 1px;
-
     margin: 20px 0;
-
     background: var(--painel-borda);
 }
 
-/* =========================================
-   PROGRESSO
-========================================= */
+/* PROGRESSO */
 
 .progresso-container {
     flex: 1;
-
     display: grid;
-
-    grid-template-columns:
-        minmax(130px, 180px)
-        minmax(0, 1fr);
-
+    grid-template-columns: minmax(130px, 180px) minmax(0, 1fr);
     align-items: center;
-
     gap: clamp(24px, 4vw, 44px);
 }
 
 .progresso-circulo {
     --progresso: 0deg;
-
     width: clamp(120px, 11vw, 145px);
     aspect-ratio: 1;
-
     justify-self: center;
-
     border-radius: 50%;
-
     display: grid;
     place-items: center;
-
-    background:
-        conic-gradient(
-            var(--painel-cinza) var(--progresso),
-            #eeeeee var(--progresso)
-        );
+    background: conic-gradient(
+        var(--painel-cinza) var(--progresso),
+        #eeeeee var(--progresso)
+    );
 }
 
 .progresso-circulo.com-progresso {
-    background:
-        conic-gradient(
-            var(--painel-roxo) var(--progresso),
-            #e7d5ff var(--progresso)
-        );
+    background: conic-gradient(
+        var(--painel-roxo) var(--progresso),
+        #e7d5ff var(--progresso)
+    );
 }
 
 .progresso-centro {
     width: 77%;
     aspect-ratio: 1;
-
     border-radius: 50%;
-
     display: grid;
     place-items: center;
-
     background: #fff;
 }
 
 .progresso-centro span {
     color: var(--painel-cinza);
-
     font-size: clamp(23px, 2.3vw, 29px);
     font-weight: 700;
 }
@@ -415,18 +316,14 @@ body:has(.sidebar.collapsed:not(.hover-open)) .painel {
 
 .progresso-info h3 {
     margin: 0;
-
     font-size: 16px;
     font-weight: 600;
 }
 
 .progresso-info p {
     max-width: 430px;
-
     margin: 8px 0 20px;
-
     color: var(--painel-texto-secundario);
-
     font-size: 13px;
     line-height: 1.6;
 }
@@ -435,37 +332,25 @@ body:has(.sidebar.collapsed:not(.hover-open)) .painel {
     width: fit-content;
     min-width: 145px;
     min-height: 38px;
-
     padding: 0 18px;
-
     border: 1px solid #aaa;
     border-radius: 8px;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     color: var(--painel-roxo);
-
     text-decoration: none;
-
     font-size: 12px;
     font-weight: 600;
-
-    transition:
-        background .2s ease,
-        border-color .2s ease;
+    transition: background .2s ease, border-color .2s ease;
 }
 
 .botao-atividades:hover {
     border-color: var(--painel-roxo);
-
     background: #f7f1ff;
 }
 
-/* =========================================
-   ATIVIDADES RECENTES
-========================================= */
+/* ATIVIDADES RECENTES */
 
 .recentes-card {
     display: flex;
@@ -474,31 +359,22 @@ body:has(.sidebar.collapsed:not(.hover-open)) .painel {
 
 .recentes-header {
     min-height: 48px;
-
     display: flex;
     align-items: center;
     justify-content: space-between;
-
     gap: 16px;
 }
 
 .recentes-header a {
     min-height: 34px;
-
     padding: 0 10px;
-
     border-radius: 7px;
-
     display: flex;
     align-items: center;
-
     color: var(--painel-roxo);
-
     text-decoration: none;
-
     font-size: 13px;
     font-weight: 600;
-
     transition: background .2s ease;
 }
 
@@ -508,29 +384,18 @@ body:has(.sidebar.collapsed:not(.hover-open)) .painel {
 
 .recentes-lista {
     flex: 1;
-
     margin-top: 10px;
-
     display: flex;
     flex-direction: column;
 }
 
 .atividade-recente {
     min-height: 74px;
-
     padding: 11px 4px;
-
     border-bottom: 1px solid var(--painel-borda);
-
     display: grid;
-
-    grid-template-columns:
-        42px
-        minmax(0, 1fr)
-        auto;
-
+    grid-template-columns: 42px minmax(0, 1fr) auto;
     align-items: center;
-
     gap: 12px;
 }
 
@@ -541,17 +406,12 @@ body:has(.sidebar.collapsed:not(.hover-open)) .painel {
 .atividade-icone {
     width: 40px;
     height: 40px;
-
     border-radius: 9px;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     background: #dfcef4;
-
     color: #fff;
-
     font-size: 17px;
 }
 
@@ -561,10 +421,8 @@ body:has(.sidebar.collapsed:not(.hover-open)) .painel {
 
 .atividade-info strong {
     display: block;
-
     font-size: 13px;
     font-weight: 600;
-
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -573,7 +431,6 @@ body:has(.sidebar.collapsed:not(.hover-open)) .painel {
 .atividade-info span,
 .atividade-horario {
     color: var(--painel-texto-secundario);
-
     font-size: 11px;
 }
 
@@ -581,26 +438,18 @@ body:has(.sidebar.collapsed:not(.hover-open)) .painel {
     white-space: nowrap;
 }
 
-/* =========================================
-   ESTADO VAZIO
-========================================= */
+/* ESTADO VAZIO */
 
 .estado-vazio {
     flex: 1;
-
     min-height: 180px;
-
     padding: 20px;
-
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
     gap: 10px;
-
     color: #a8a8a8;
-
     text-align: center;
 }
 
@@ -610,17 +459,13 @@ body:has(.sidebar.collapsed:not(.hover-open)) .painel {
 
 .estado-vazio span {
     max-width: 240px;
-
     font-size: 13px;
     line-height: 1.5;
 }
 
-/* =========================================
-   NOTEBOOK
-========================================= */
+/* NOTEBOOK */
 
 @media (max-width: 1250px) {
-
     .painel {
         grid-template-rows: auto auto auto;
     }
@@ -630,22 +475,15 @@ body:has(.sidebar.collapsed:not(.hover-open)) .painel {
     }
 
     .painel-conteudo {
-        grid-template-columns:
-            minmax(0, 1.15fr)
-            minmax(280px, .85fr);
+        grid-template-columns: minmax(0, 1.15fr) minmax(280px, .85fr);
     }
-
 }
 
-/* =========================================
-   TABLET
-========================================= */
+/* TABLET */
 
 @media (max-width: 1000px) {
-
     .painel {
         height: auto;
-
         grid-template-rows: auto;
     }
 
@@ -658,24 +496,15 @@ body:has(.sidebar.collapsed:not(.hover-open)) .painel {
         height: auto;
         min-height: 300px;
     }
-
 }
 
-/* =========================================
-   MOBILE
-========================================= */
+/* MOBILE */
 
 @media (max-width: 768px) {
-
     .painel,
     body:has(.sidebar.collapsed:not(.hover-open)) .painel {
         margin-left: 0;
-
-        padding:
-            84px
-            16px
-            28px;
-
+        padding: 84px 16px 28px;
         display: block;
     }
 
@@ -689,35 +518,28 @@ body:has(.sidebar.collapsed:not(.hover-open)) .painel {
 
     .painel-header p {
         margin-top: 5px;
-
         font-size: 13px;
     }
 
     .resumo {
-        grid-template-columns:
-            repeat(2, minmax(0, 1fr));
-
+        grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 11px;
     }
 
     .resumo-card {
         min-height: 128px;
-
         padding: 14px;
     }
 
     .card-topo {
         align-items: flex-start;
-
         gap: 10px;
     }
 
     .card-icone {
         width: 45px;
         height: 45px;
-
         flex-basis: 45px;
-
         font-size: 18px;
     }
 
@@ -727,30 +549,25 @@ body:has(.sidebar.collapsed:not(.hover-open)) .painel {
 
     .card-info span {
         font-size: 11px;
-
         white-space: normal;
     }
 
     .card-link {
         min-width: 100px;
         min-height: 35px;
-
         font-size: 10px;
     }
 
     .painel-conteudo {
         margin-top: 20px;
-
         display: flex;
         flex-direction: column;
-
         gap: 16px;
     }
 
     .semana-card,
     .recentes-card {
         min-height: 290px;
-
         padding: 22px 19px;
     }
 
@@ -764,21 +581,14 @@ body:has(.sidebar.collapsed:not(.hover-open)) .painel {
     }
 
     .progresso-container {
-        grid-template-columns:
-            130px
-            minmax(0, 1fr);
-
+        grid-template-columns: 130px minmax(0, 1fr);
         gap: 22px;
     }
-
 }
 
-/* =========================================
-   CELULAR
-========================================= */
+/* CELULAR */
 
 @media (max-width: 520px) {
-
     .painel {
         padding-left: 11px;
         padding-right: 11px;
@@ -794,7 +604,6 @@ body:has(.sidebar.collapsed:not(.hover-open)) .painel {
 
     .resumo-card {
         min-height: 125px;
-
         padding: 12px;
     }
 
@@ -805,9 +614,7 @@ body:has(.sidebar.collapsed:not(.hover-open)) .painel {
     .card-icone {
         width: 41px;
         height: 41px;
-
         flex-basis: 41px;
-
         font-size: 16px;
     }
 
@@ -822,24 +629,20 @@ body:has(.sidebar.collapsed:not(.hover-open)) .painel {
     .card-link {
         min-width: 95px;
         min-height: 36px;
-
         font-size: 10px;
     }
 
     .semana-card,
     .recentes-card {
         min-height: 300px;
-
         padding: 20px 16px;
     }
 
     .progresso-container {
         display: flex;
         flex-direction: column;
-
         align-items: center;
         justify-content: center;
-
         gap: 18px;
     }
 
@@ -849,7 +652,6 @@ body:has(.sidebar.collapsed:not(.hover-open)) .painel {
 
     .progresso-info {
         width: 100%;
-
         text-align: center;
     }
 
@@ -859,15 +661,12 @@ body:has(.sidebar.collapsed:not(.hover-open)) .painel {
 
     .progresso-info p {
         max-width: none;
-
         font-size: 12px;
     }
 
     .botao-atividades {
         min-height: 40px;
-
         margin: 0 auto;
-
         font-size: 12px;
     }
 
@@ -877,30 +676,22 @@ body:has(.sidebar.collapsed:not(.hover-open)) .painel {
 
     .recentes-header a {
         min-height: 38px;
-
         font-size: 12px;
     }
 
     .atividade-recente {
-        grid-template-columns:
-            40px
-            minmax(0, 1fr);
-
+        grid-template-columns: 40px minmax(0, 1fr);
         gap: 10px;
     }
 
     .atividade-horario {
         grid-column: 2;
     }
-
 }
 
-/* =========================================
-   CELULAR PEQUENO
-========================================= */
+/* CELULAR PEQUENO */
 
 @media (max-width: 390px) {
-
     .painel {
         padding-left: 8px;
         padding-right: 8px;
@@ -921,5 +712,4 @@ body:has(.sidebar.collapsed:not(.hover-open)) .painel {
     .card-info span {
         font-size: 11px;
     }
-
 }
