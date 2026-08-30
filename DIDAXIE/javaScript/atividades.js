@@ -6,8 +6,18 @@ const menuAtividade = document.getElementById("menuAtividade");
 const menuNomeAtividade = document.getElementById("menuNomeAtividade");
 const menuTurmaAtividade = document.getElementById("menuTurmaAtividade");
 
+const barraSelecao = document.getElementById("barraSelecao");
+const quantidadeSelecionada = document.getElementById("quantidadeSelecionada");
+const limparSelecao = document.getElementById("limparSelecao");
+
+const toastAtividade = document.getElementById("toastAtividade");
+const toastTexto = document.getElementById("toastTexto");
+
 let atividades = [];
 let atividadeSelecionada = null;
+let toastTimeout = null;
+
+const atividadesSelecionadas = new Set();
 
 /* CARD CINZA DE TESTE */
 
@@ -18,14 +28,20 @@ const atividadeExemplo = {
     exemplo: true
 };
 
-function criarCardAtividade(atividade) {
+/* CRIAR CARD */
 
+function criarCardAtividade(atividade) {
     const card = document.createElement("article");
 
     card.className = "atividade-card";
+    card.dataset.atividadeId = atividade.id;
 
     if (atividade.exemplo) {
         card.classList.add("placeholder");
+    }
+
+    if (atividadesSelecionadas.has(atividade.id)) {
+        card.classList.add("selecionado");
     }
 
     card.innerHTML = `
@@ -43,6 +59,7 @@ function criarCardAtividade(atividade) {
                 type="checkbox"
                 class="atividade-check"
                 aria-label="Selecionar atividade"
+                ${atividadesSelecionadas.has(atividade.id) ? "checked" : ""}
             >
 
         </div>
@@ -68,42 +85,135 @@ function criarCardAtividade(atividade) {
             ".atividade-menu-botao"
         );
 
+    const checkbox =
+        card.querySelector(
+            ".atividade-check"
+        );
+
     turma.textContent =
         atividade.turma || "Sem turma";
 
     nome.textContent =
         atividade.nome || "Sem nome";
 
+    nome.title =
+        atividade.nome || "Sem nome";
+
+    checkbox.addEventListener(
+        "change",
+        () => {
+            alterarSelecaoAtividade(
+                atividade,
+                checkbox.checked
+            );
+        }
+    );
+
     botaoMenu.addEventListener(
         "click",
         event => {
-
             event.stopPropagation();
 
             abrirMenuAtividade(
                 atividade,
                 botaoMenu
             );
-
         }
     );
 
     return card;
 }
 
+/* SELEÇÃO */
+
+function alterarSelecaoAtividade(
+    atividade,
+    selecionada
+) {
+    if (selecionada) {
+        atividadesSelecionadas.add(
+            atividade.id
+        );
+    } else {
+        atividadesSelecionadas.delete(
+            atividade.id
+        );
+    }
+
+    atualizarSelecaoVisual();
+}
+
+function atualizarSelecaoVisual() {
+    document
+        .querySelectorAll(".atividade-card")
+        .forEach(card => {
+            const id =
+                card.dataset.atividadeId;
+
+            const selecionada =
+                atividadesSelecionadas.has(id);
+
+            const checkbox =
+                card.querySelector(
+                    ".atividade-check"
+                );
+
+            card.classList.toggle(
+                "selecionado",
+                selecionada
+            );
+
+            if (checkbox) {
+                checkbox.checked =
+                    selecionada;
+            }
+        });
+
+    const quantidade =
+        atividadesSelecionadas.size;
+
+    if (quantidade === 0) {
+        barraSelecao.classList.remove(
+            "ativa"
+        );
+
+        quantidadeSelecionada.textContent =
+            "0 atividades selecionadas";
+
+        return;
+    }
+
+    barraSelecao.classList.add(
+        "ativa"
+    );
+
+    quantidadeSelecionada.textContent =
+        quantidade === 1
+            ? "1 atividade selecionada"
+            : `${quantidade} atividades selecionadas`;
+}
+
+limparSelecao.addEventListener(
+    "click",
+    () => {
+        atividadesSelecionadas.clear();
+        atualizarSelecaoVisual();
+    }
+);
+
 /* RECENTES */
 
 function renderizarRecentes() {
-
     atividadesRecentes.innerHTML = "";
 
     if (atividades.length === 0) {
-
         atividadesRecentes.appendChild(
             criarCardAtividade(
                 atividadeExemplo
             )
         );
+
+        atualizarSelecaoVisual();
 
         return;
     }
@@ -123,21 +233,20 @@ function renderizarRecentes() {
 
     recentes.forEach(
         atividade => {
-
             atividadesRecentes.appendChild(
                 criarCardAtividade(
                     atividade
                 )
             );
-
         }
     );
+
+    atualizarSelecaoVisual();
 }
 
-/* ESTADO VAZIO DE TODAS */
+/* ESTADO VAZIO */
 
 function mostrarEstadoVazio() {
-
     todasAtividades.innerHTML = `
         <div class="estado-vazio-atividades">
 
@@ -181,15 +290,15 @@ function mostrarEstadoVazio() {
 
 /* TODAS */
 
-function renderizarTodas(lista = atividades) {
-
+function renderizarTodas(
+    lista = atividades
+) {
     todasAtividades.innerHTML = "";
 
     if (
         !Array.isArray(lista) ||
         lista.length === 0
     ) {
-
         mostrarEstadoVazio();
 
         return;
@@ -197,28 +306,26 @@ function renderizarTodas(lista = atividades) {
 
     lista.forEach(
         atividade => {
-
             todasAtividades.appendChild(
                 criarCardAtividade(
                     atividade
                 )
             );
-
         }
     );
+
+    atualizarSelecaoVisual();
 }
 
 /* BUSCA */
 
 function filtrarAtividades() {
-
     const texto =
         buscarAtividade.value
             .trim()
             .toLowerCase();
 
     if (!texto) {
-
         renderizarTodas(
             atividades
         );
@@ -229,7 +336,6 @@ function filtrarAtividades() {
     const filtradas =
         atividades.filter(
             atividade => {
-
                 const nome =
                     (
                         atividade.nome ||
@@ -246,7 +352,6 @@ function filtrarAtividades() {
                     nome.includes(texto) ||
                     turma.includes(texto)
                 );
-
             }
         );
 
@@ -266,19 +371,20 @@ function abrirMenuAtividade(
     atividade,
     botao
 ) {
-
     atividadeSelecionada =
         atividade;
 
     menuNomeAtividade.textContent =
         atividade.exemplo
             ? "Atividade de exemplo"
-            : atividade.nome;
+            : atividade.nome ||
+              "Sem nome";
 
     menuTurmaAtividade.textContent =
         atividade.exemplo
-            ? "Sem dados cadastrados"
-            : atividade.turma || "Sem turma";
+            ? "Card de demonstração"
+            : atividade.turma ||
+              "Sem turma";
 
     menuAtividade.classList.add(
         "aberto"
@@ -286,17 +392,14 @@ function abrirMenuAtividade(
 
     requestAnimationFrame(
         () => {
-
             posicionarMenu(
                 botao
             );
-
         }
     );
 }
 
 function posicionarMenu(botao) {
-
     const rect =
         botao.getBoundingClientRect();
 
@@ -314,27 +417,25 @@ function posicionarMenu(botao) {
     if (
         left +
         menuRect.width >
-        window.innerWidth - margem
+        window.innerWidth -
+        margem
     ) {
-
         left =
             window.innerWidth -
             menuRect.width -
             margem;
-
     }
 
     if (
         top +
         menuRect.height >
-        window.innerHeight - margem
+        window.innerHeight -
+        margem
     ) {
-
         top =
             rect.top -
             menuRect.height -
             6;
-
     }
 
     if (left < margem) {
@@ -353,7 +454,6 @@ function posicionarMenu(botao) {
 }
 
 function fecharMenu() {
-
     menuAtividade.classList.remove(
         "aberto"
     );
@@ -364,7 +464,6 @@ function fecharMenu() {
 document.addEventListener(
     "click",
     event => {
-
         if (
             !menuAtividade.contains(
                 event.target
@@ -373,36 +472,34 @@ document.addEventListener(
                 ".atividade-menu-botao"
             )
         ) {
-
             fecharMenu();
-
         }
-
     }
 );
 
 document.addEventListener(
     "keydown",
     event => {
-
-        if (event.key === "Escape") {
+        if (
+            event.key ===
+            "Escape"
+        ) {
             fecharMenu();
         }
-
     }
 );
 
 /* AÇÕES DO MENU */
 
 menuAtividade
-    .querySelectorAll(".menu-opcao")
+    .querySelectorAll(
+        ".menu-opcao"
+    )
     .forEach(
         botao => {
-
             botao.addEventListener(
                 "click",
                 () => {
-
                     if (
                         !atividadeSelecionada
                     ) {
@@ -418,10 +515,8 @@ menuAtividade
                     );
 
                     fecharMenu();
-
                 }
             );
-
         }
     );
 
@@ -429,100 +524,129 @@ function executarAcao(
     acao,
     atividade
 ) {
-
-    /*
-        O card cinza existe para testar
-        a interface.
-
-        Nenhum dado é salvo ou alterado.
-    */
-
     if (atividade.exemplo) {
-
-        console.log(
-            `Teste da ação "${acao}"`,
-            atividade
+        mostrarToast(
+            "Esta é apenas a atividade de demonstração. As ações completas ficarão disponíveis em atividades salvas."
         );
 
         return;
     }
 
     switch (acao) {
-
         case "editar":
-            console.log(
-                "Editar:",
-                atividade
+            mostrarToast(
+                "A edição dependerá do carregamento da atividade salva."
             );
             break;
 
         case "visualizar":
-            console.log(
-                "Visualizar:",
-                atividade
+            mostrarToast(
+                "A visualização completa dependerá dos dados da atividade salva."
             );
             break;
 
         case "correcao":
-            console.log(
-                "Correção:",
-                atividade
+            /*
+                Quando houver uma atividade
+                real, o ID poderá ser enviado
+                para a página de correção.
+            */
+
+            mostrarToast(
+                "A correção será vinculada à atividade salva."
             );
             break;
 
         case "copiar":
-            console.log(
-                "Copiar:",
-                atividade
+            mostrarToast(
+                "Fazer uma cópia dependerá do salvamento no banco."
             );
             break;
 
         case "compartilhar":
-            console.log(
-                "Compartilhar:",
-                atividade
+            mostrarToast(
+                "O compartilhamento dependerá das turmas cadastradas."
             );
             break;
 
         case "arquivar":
-            console.log(
-                "Arquivar:",
-                atividade
+            mostrarToast(
+                "O arquivamento dependerá do banco de dados."
             );
             break;
 
         case "excluir":
-            console.log(
-                "Excluir:",
-                atividade
+            mostrarToast(
+                "A exclusão definitiva dependerá do banco de dados."
             );
             break;
-
     }
+}
+
+/* TOAST */
+
+function mostrarToast(mensagem) {
+    toastTexto.textContent =
+        mensagem;
+
+    toastAtividade.classList.add(
+        "ativo"
+    );
+
+    clearTimeout(
+        toastTimeout
+    );
+
+    toastTimeout =
+        setTimeout(
+            () => {
+                toastAtividade.classList.remove(
+                    "ativo"
+                );
+            },
+            3500
+        );
 }
 
 /* BANCO */
 
-function carregarAtividades(dados) {
-
+function carregarAtividades(
+    dados
+) {
     atividades =
         Array.isArray(dados)
             ? dados
             : [];
 
+    atividadesSelecionadas.clear();
+
     renderizarRecentes();
     renderizarTodas();
+    atualizarSelecaoVisual();
 }
 
 /*
-    Sem banco:
+    SEM BANCO:
 
-    recentes -> card cinza de teste
-    todas -> estado vazio
+    Atividades recentes:
+    -> card cinza de teste.
+
+    Todas:
+    -> estado vazio.
+
+    A seleção funciona apenas
+    na interface atual.
+
+    As operações de editar,
+    excluir, copiar, compartilhar,
+    arquivar e correção real
+    dependerão dos dados salvos.
 
     Futuramente:
 
-    carregarAtividades(dadosDoBanco);
+    carregarAtividades(
+        dadosDoBanco
+    );
 */
 
 carregarAtividades(null);
