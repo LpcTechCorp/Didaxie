@@ -1,86 +1,33 @@
-const etapas = document.querySelectorAll(".etapa");
-const etapasNav = document.querySelectorAll(".etapa-nav");
+const $ = id => document.getElementById(id);
 
-const tituloPagina = document.getElementById("tituloPagina");
-const voltarEtapa = document.getElementById("voltarEtapa");
-const continuarEtapa = document.getElementById("continuarEtapa");
-
-const nomeAtividade = document.getElementById("nomeAtividade");
-const disciplina = document.getElementById("disciplina");
-const turma = document.getElementById("turma");
-const descricao = document.getElementById("descricao");
-const objetivo = document.getElementById("objetivo");
-
-const quantidade = document.getElementById("quantidade");
-const dificuldade = document.getElementById("dificuldade");
-const formato = document.getElementById("formato");
-
-const incluirGabarito = document.getElementById("incluirGabarito");
-const incluirExplicacoes = document.getElementById("incluirExplicacoes");
-const contextualizacao = document.getElementById("contextualizacao");
-
-const configQuestoes = document.getElementById("configQuestoes");
-const preferenciasQuestoes = document.getElementById("preferenciasQuestoes");
-const campoFormato = document.getElementById("campoFormato");
-
-const erroNomeAtividade = document.getElementById("erroNomeAtividade");
-const erroDescricao = document.getElementById("erroDescricao");
-const erroObjetivo = document.getElementById("erroObjetivo");
-
-const contadorDescricao = document.getElementById("contadorDescricao");
-const contadorObjetivo = document.getElementById("contadorObjetivo");
-
-const tipoAtualTexto = document.getElementById("tipoAtualTexto");
-const tituloConteudo = document.getElementById("tituloConteudo");
-const descricaoConteudo = document.getElementById("descricaoConteudo");
-
-const modoTabs = document.querySelectorAll(".modo-tab");
-
-const tempoQuiz = document.getElementById("tempoQuiz");
-const quizEmbaralhar = document.getElementById("quizEmbaralhar");
-const quizFeedback = document.getElementById("quizFeedback");
-
-const orientacoesProjeto = document.getElementById("orientacoesProjeto");
-const resultadoProjeto = document.getElementById("resultadoProjeto");
-const etapasProjeto = document.getElementById("etapasProjeto");
-const criteriosProjeto = document.getElementById("criteriosProjeto");
-
-const revisaoNome = document.getElementById("revisaoNome");
-const revisaoDisciplina = document.getElementById("revisaoDisciplina");
-const revisaoTurma = document.getElementById("revisaoTurma");
-const revisaoTipo = document.getElementById("revisaoTipo");
-const revisaoDificuldade = document.getElementById("revisaoDificuldade");
-const revisaoQuantidade = document.getElementById("revisaoQuantidade");
-const labelQuantidadeRevisao = document.getElementById("labelQuantidadeRevisao");
-
-const revisaoQuestoes = document.getElementById("revisaoQuestoes");
-const revisaoProjeto = document.getElementById("revisaoProjeto");
-const questoesRevisao = document.getElementById("questoesRevisao");
-const avisosRevisao = document.getElementById("avisosRevisao");
-const projetoRevisao = document.getElementById("projetoRevisao");
-
-const toast = document.getElementById("toast");
-const toastTexto = document.getElementById("toastTexto");
+const nomeAtividade = $("nomeAtividade");
+const disciplina = $("disciplina");
+const turma = $("turma");
+const descricao = $("descricao");
+const objetivo = $("objetivo");
+const quantidade = $("quantidade");
+const dificuldade = $("dificuldade");
+const formato = $("formato");
+const incluirGabarito = $("incluirGabarito");
+const incluirExplicacoes = $("incluirExplicacoes");
+const contextualizacao = $("contextualizacao");
+const continuarEtapa = $("continuarEtapa");
+const voltarEtapa = $("voltarEtapa");
+const statusEtapa = $("statusEtapa");
+const toast = $("toast");
+const toastTexto = $("toastTexto");
 
 let etapaAtual = 1;
 let maiorEtapaLiberada = 1;
 let tipoAtividade = "lista";
 let modoCriacao = "manual";
-
 let proximoIdQuestao = 1;
 let proximoIdProjeto = 1;
-
 let itemArrastado = null;
-
-const etapasConcluidas = {
-    1: false,
-    2: false,
-    3: false
-};
+let toastTimer = null;
 
 const atividade = {
     configuracao: {},
-
     conteudo: {
         lista: {
             questoes: []
@@ -106,72 +53,90 @@ const atividade = {
     }
 };
 
-const configuracoesTipo = {
-    lista: {
-        nome: "Lista de exercícios",
-        titulo: "Monte sua lista de exercícios",
-        descricao: "Crie uma sequência de questões para prática e fixação."
-    },
-
-    quiz: {
-        nome: "Quiz",
-        titulo: "Monte seu quiz",
-        descricao: "Crie perguntas objetivas para uma atividade rápida e dinâmica."
-    },
-
-    diagnostica: {
-        nome: "Diagnóstica",
-        titulo: "Monte sua atividade diagnóstica",
-        descricao: "Avalie habilidades específicas e identifique conhecimentos prévios."
-    },
-
-    projeto: {
-        nome: "Projeto",
-        titulo: "Estruture seu projeto",
-        descricao: "Defina orientações, etapas, entregas e critérios de avaliação."
-    }
+const nomesTipo = {
+    lista: "Lista de exercícios",
+    quiz: "Quiz",
+    diagnostica: "Diagnóstica",
+    projeto: "Projeto"
 };
 
-/* ==============================
+const titulosTipo = {
+    lista: "Monte sua lista de exercícios",
+    quiz: "Monte seu quiz",
+    diagnostica: "Monte sua atividade diagnóstica",
+    projeto: "Estruture seu projeto"
+};
+
+/* =========================
+TOAST
+========================= */
+
+function mostrarToast(mensagem) {
+    toastTexto.textContent = mensagem;
+
+    toast.classList.add(
+        "show"
+    );
+
+    clearTimeout(
+        toastTimer
+    );
+
+    toastTimer = setTimeout(
+        () => {
+            toast.classList.remove(
+                "show"
+            );
+        },
+        3200
+    );
+}
+
+/* =========================
 ETAPAS
-============================== */
+========================= */
 
 function atualizarEtapas() {
-    etapas.forEach(etapa => {
-        etapa.classList.toggle(
-            "ativa",
-            Number(etapa.dataset.etapa) === etapaAtual
-        );
-    });
+    document
+        .querySelectorAll(".etapa")
+        .forEach(etapa => {
+            etapa.classList.toggle(
+                "ativa",
+                Number(
+                    etapa.dataset.etapa
+                ) === etapaAtual
+            );
+        });
 
-    etapasNav.forEach(botao => {
-        const numero = Number(botao.dataset.irEtapa);
+    document
+        .querySelectorAll(".etapa-nav")
+        .forEach(botao => {
+            const numero =
+                Number(
+                    botao.dataset.irEtapa
+                );
 
-        botao.classList.toggle(
-            "ativa",
-            numero === etapaAtual
-        );
+            botao.classList.toggle(
+                "ativa",
+                numero === etapaAtual
+            );
 
-        botao.classList.toggle(
-            "concluida",
-            Boolean(etapasConcluidas[numero])
-        );
+            botao.classList.toggle(
+                "concluida",
+                numero < etapaAtual
+            );
 
-        botao.classList.toggle(
-            "liberada",
-            numero <= maiorEtapaLiberada
-        );
+            botao.classList.toggle(
+                "liberada",
+                numero <= maiorEtapaLiberada
+            );
 
-        botao.disabled =
-            numero > maiorEtapaLiberada;
-    });
+            botao.disabled =
+                numero > maiorEtapaLiberada;
+        });
 
-    tituloPagina.textContent =
-        etapaAtual === 1
-            ? "Criar atividades"
-            : etapaAtual === 2
-                ? "Conteúdo"
-                : "Revisão";
+    statusEtapa.textContent =
+        `Etapa ${etapaAtual} de 3`;
 
     voltarEtapa.style.visibility =
         etapaAtual === 1
@@ -195,252 +160,159 @@ function atualizarEtapas() {
     });
 }
 
-etapasNav.forEach(botao => {
-    botao.addEventListener("click", () => {
-        const destino =
-            Number(botao.dataset.irEtapa);
+document
+    .querySelectorAll(".etapa-nav")
+    .forEach(botao => {
+        botao.addEventListener(
+            "click",
+            () => {
+                const destino =
+                    Number(
+                        botao.dataset.irEtapa
+                    );
 
-        if (destino > maiorEtapaLiberada) {
-            return;
-        }
+                if (
+                    destino >
+                    maiorEtapaLiberada
+                ) {
+                    return;
+                }
 
-        etapaAtual = destino;
+                etapaAtual = destino;
 
-        if (destino === 2) {
-            prepararEtapa2();
-        }
+                if (
+                    etapaAtual === 3
+                ) {
+                    montarRevisao();
+                }
 
-        if (destino === 3) {
-            renderizarRevisao();
-        }
-
-        atualizarEtapas();
+                atualizarEtapas();
+            }
+        );
     });
-});
 
-voltarEtapa.addEventListener("click", () => {
-    if (etapaAtual <= 1) {
-        return;
+voltarEtapa.addEventListener(
+    "click",
+    () => {
+        if (
+            etapaAtual > 1
+        ) {
+            etapaAtual--;
+
+            atualizarEtapas();
+        }
     }
+);
 
-    etapaAtual--;
+continuarEtapa.addEventListener(
+    "click",
+    () => {
+        if (
+            etapaAtual === 1
+        ) {
+            if (
+                !validarEtapa1()
+            ) {
+                return;
+            }
 
-    if (etapaAtual === 2) {
-        prepararEtapa2();
-    }
+            salvarConfiguracao();
 
-    atualizarEtapas();
-});
+            maiorEtapaLiberada =
+                Math.max(
+                    maiorEtapaLiberada,
+                    2
+                );
 
-continuarEtapa.addEventListener("click", () => {
-    if (etapaAtual === 1) {
-        if (!validarEtapa1()) {
-            mostrarToast(
-                "Complete os campos obrigatórios para continuar."
-            );
+            etapaAtual = 2;
+
+            prepararEtapa2();
+            atualizarEtapas();
 
             return;
         }
 
-        salvarConfiguracao();
+        if (
+            etapaAtual === 2
+        ) {
+            salvarConteudoAtual();
 
-        etapasConcluidas[1] = true;
+            if (
+                !validarEtapa2()
+            ) {
+                return;
+            }
 
-        maiorEtapaLiberada =
-            Math.max(
-                maiorEtapaLiberada,
-                2
-            );
+            maiorEtapaLiberada =
+                Math.max(
+                    maiorEtapaLiberada,
+                    3
+                );
 
-        etapaAtual = 2;
+            etapaAtual = 3;
 
-        prepararEtapa2();
-        atualizarEtapas();
+            montarRevisao();
+            atualizarEtapas();
 
-        return;
-    }
-
-    if (etapaAtual === 2) {
-        salvarConteudoAtual();
-
-        if (!validarEtapa2()) {
             return;
         }
 
-        etapasConcluidas[2] = true;
-
-        maiorEtapaLiberada = 3;
-
-        etapaAtual = 3;
-
-        renderizarRevisao();
-        atualizarEtapas();
-
-        return;
+        finalizarAtividade();
     }
+);
 
-    finalizarAtividade();
-});
-
-/* ==============================
-VALIDAÇÃO ETAPA 1
-============================== */
+/* =========================
+ETAPA 1
+========================= */
 
 function validarEtapa1() {
-    let valido = true;
+    const erro =
+        $("erroNomeAtividade");
 
-    limparErrosEtapa1();
-
-    if (!nomeAtividade.value.trim()) {
-        erroNomeAtividade.textContent =
-            "Digite um nome para a atividade.";
-
-        nomeAtividade
-            .closest(".campo")
-            .classList.add("erro");
-
-        valido = false;
-    }
-
-    if (!descricao.value.trim()) {
-        erroDescricao.textContent =
-            "Informe o tópico ou a descrição da atividade.";
-
-        descricao
-            .closest(".campo")
-            .classList.add("erro");
-
-        valido = false;
-    }
-
-    if (!objetivo.value.trim()) {
-        erroObjetivo.textContent =
-            "Informe o objetivo de aprendizagem.";
-
-        objetivo
-            .closest(".campo")
-            .classList.add("erro");
-
-        valido = false;
-    }
-
-    if (!valido) {
-        const primeiroErro =
-            document.querySelector(
-                ".etapa[data-etapa='1'] .campo.erro"
-            );
-
-        primeiroErro?.scrollIntoView({
-            behavior: "smooth",
-            block: "center"
-        });
-    }
-
-    return valido;
-}
-
-function limparErrosEtapa1() {
-    erroNomeAtividade.textContent = "";
-    erroDescricao.textContent = "";
-    erroObjetivo.textContent = "";
-
-    document
-        .querySelectorAll(
-            ".etapa[data-etapa='1'] .campo.erro"
-        )
-        .forEach(campo => {
-            campo.classList.remove("erro");
-        });
-}
-
-nomeAtividade.addEventListener("input", () => {
-    erroNomeAtividade.textContent = "";
+    erro.textContent = "";
 
     nomeAtividade
         .closest(".campo")
-        .classList.remove("erro");
-});
+        .classList.remove(
+            "erro"
+        );
 
-descricao.addEventListener("input", () => {
-    contadorDescricao.textContent =
-        descricao.value.length;
+    /*
+        Somente o nome é obrigatório.
 
-    erroDescricao.textContent = "";
+        Disciplina, turma, descrição,
+        objetivo e preferências continuam
+        opcionais.
+    */
 
-    descricao
+    if (
+        nomeAtividade
+            .value
+            .trim()
+    ) {
+        return true;
+    }
+
+    erro.textContent =
+        "Digite um nome para a atividade.";
+
+    nomeAtividade
         .closest(".campo")
-        .classList.remove("erro");
-});
+        .classList.add(
+            "erro"
+        );
 
-objetivo.addEventListener("input", () => {
-    contadorObjetivo.textContent =
-        objetivo.value.length;
+    nomeAtividade.focus();
 
-    erroObjetivo.textContent = "";
-
-    objetivo
-        .closest(".campo")
-        .classList.remove("erro");
-});
-
-/* ==============================
-TIPO DA ATIVIDADE
-============================== */
-
-document
-    .querySelectorAll(".tipo-card")
-    .forEach(card => {
-        card.addEventListener("click", () => {
-            document
-                .querySelectorAll(".tipo-card")
-                .forEach(item => {
-                    item.classList.remove(
-                        "selecionado"
-                    );
-                });
-
-            card.classList.add(
-                "selecionado"
-            );
-
-            tipoAtividade =
-                card.dataset.tipo;
-
-            atualizarConfiguracaoPorTipo();
-        });
-    });
-
-function atualizarConfiguracaoPorTipo() {
-    const projeto =
-        tipoAtividade === "projeto";
-
-    const quiz =
-        tipoAtividade === "quiz";
-
-    configQuestoes.classList.toggle(
-        "escondido",
-        projeto
-    );
-
-    campoFormato.classList.toggle(
-        "escondido",
-        quiz
-    );
-
-    preferenciasQuestoes.classList.toggle(
-        "escondido",
-        projeto
-    );
+    return false;
 }
-
-/* ==============================
-SALVAR CONFIGURAÇÃO LOCAL
-============================== */
 
 function salvarConfiguracao() {
     atividade.configuracao = {
         nome:
-            nomeAtividade.value.trim(),
+            nomeAtividade
+                .value
+                .trim(),
 
         disciplina:
             disciplina.value || null,
@@ -466,191 +338,316 @@ function salvarConfiguracao() {
             tipoAtividade,
 
         descricao:
-            descricao.value.trim(),
+            descricao
+                .value
+                .trim(),
 
         objetivo:
-            objetivo.value.trim(),
+            objetivo
+                .value
+                .trim(),
 
         quantidadeSugerida:
-            tipoAtividade === "projeto"
-                ? null
-                : quantidade.value
-                    ? Number(quantidade.value)
-                    : null,
+            quantidade.value
+                ? Number(
+                    quantidade.value
+                )
+                : null,
 
         dificuldade:
-            tipoAtividade === "projeto"
-                ? null
-                : dificuldade.value || null,
+            dificuldade.value || null,
 
         formato:
-            tipoAtividade === "projeto"
-                ? null
-                : formato.value || null,
+            formato.value || null,
 
-        gabarito:
-            tipoAtividade !== "projeto"
-            && incluirGabarito.checked,
+        incluirGabarito:
+            incluirGabarito.checked,
 
-        explicacoes:
-            tipoAtividade !== "projeto"
-            && incluirExplicacoes.checked,
+        incluirExplicacoes:
+            incluirExplicacoes.checked,
 
         contextualizacao:
-            tipoAtividade !== "projeto"
-            && contextualizacao.checked
+            contextualizacao.checked
     };
 }
 
-/* ==============================
+/* CONTADORES */
+
+descricao.addEventListener(
+    "input",
+    () => {
+        $("contadorDescricao")
+            .textContent =
+            descricao.value.length;
+    }
+);
+
+objetivo.addEventListener(
+    "input",
+    () => {
+        $("contadorObjetivo")
+            .textContent =
+            objetivo.value.length;
+    }
+);
+
+/* TIPO DE ATIVIDADE */
+
+document
+    .querySelectorAll(".tipo-card")
+    .forEach(botao => {
+        botao.addEventListener(
+            "click",
+            () => {
+                document
+                    .querySelectorAll(
+                        ".tipo-card"
+                    )
+                    .forEach(item => {
+                        item.classList.remove(
+                            "selecionado"
+                        );
+                    });
+
+                botao.classList.add(
+                    "selecionado"
+                );
+
+                tipoAtividade =
+                    botao.dataset.tipo;
+
+                $("configQuestoes")
+                    .classList.toggle(
+                        "escondido",
+                        tipoAtividade ===
+                        "projeto"
+                    );
+
+                $("campoFormato")
+                    .classList.toggle(
+                        "escondido",
+                        tipoAtividade ===
+                        "quiz"
+                    );
+
+                $("preferenciasQuestoes")
+                    .classList.toggle(
+                        "escondido",
+                        tipoAtividade ===
+                        "projeto"
+                    );
+            }
+        );
+    });
+
+/* =========================
 ETAPA 2
-============================== */
+========================= */
 
 function prepararEtapa2() {
-    salvarConfiguracao();
-
-    const config =
-        configuracoesTipo[
-            tipoAtividade
+    $("tipoAtualTexto")
+        .textContent =
+        nomesTipo[
+        tipoAtividade
         ];
 
-    tipoAtualTexto.textContent =
-        config.nome;
+    $("tituloConteudo")
+        .textContent =
+        titulosTipo[
+        tipoAtividade
+        ];
 
-    tituloConteudo.textContent =
-        config.titulo;
+    $("descricaoConteudo")
+        .textContent =
+        tipoAtividade === "projeto"
+            ? "Organize as orientações, etapas e critérios do projeto."
+            : "Adicione as questões e escolha o formato de cada uma.";
 
-    descricaoConteudo.textContent =
-        config.descricao;
+    $("conteudoQuestoes")
+        .classList.toggle(
+            "escondido",
+            tipoAtividade ===
+            "projeto"
+        );
 
-    document
-        .querySelectorAll(
-            ".conteudo-tipo"
-        )
-        .forEach(bloco => {
-            bloco.classList.toggle(
-                "escondido",
-                bloco.dataset.conteudoTipo !==
-                    tipoAtividade
-            );
-        });
+    $("conteudoProjeto")
+        .classList.toggle(
+            "escondido",
+            tipoAtividade !==
+            "projeto"
+        );
 
-    selecionarModo(
-        modoCriacao
-    );
+    $("configQuiz")
+        .classList.toggle(
+            "escondido",
+            tipoAtividade !==
+            "quiz"
+        );
 
-    atualizarResumoIA();
+    $("infoDiagnostica")
+        .classList.toggle(
+            "escondido",
+            tipoAtividade !==
+            "diagnostica"
+        );
+
+    $("tituloListaQuestoes")
+        .textContent =
+        tipoAtividade === "quiz"
+            ? "Perguntas do quiz"
+            : tipoAtividade ===
+                "diagnostica"
+                ? "Questões diagnósticas"
+                : "Questões da lista";
+
+    $("subtituloListaQuestoes")
+        .textContent =
+        tipoAtividade === "quiz"
+            ? "Use questões objetivas com uma ou mais respostas corretas."
+            : tipoAtividade ===
+                "diagnostica"
+                ? "Associe uma habilidade a cada questão."
+                : "Combine diferentes formatos de questão livremente.";
 
     if (
-        modoCriacao === "manual"
-        && tipoAtividade !== "projeto"
-        && obterQuestoesAtuais().length === 0
+        tipoAtividade !==
+        "projeto"
+        &&
+        !obterQuestoes().length
     ) {
-        adicionarQuestaoPorTipo(
-            tipoAtividade
-        );
+        adicionarQuestao();
     }
 
     if (
-        tipoAtividade === "projeto"
-        && atividade
+        tipoAtividade ===
+        "projeto"
+        &&
+        !atividade
             .conteudo
             .projeto
             .etapas
-            .length === 0
+            .length
     ) {
         adicionarEtapaProjeto();
     }
 
-    renderizarConteudo();
+    renderizarQuestoes();
+    renderizarProjeto();
+    atualizarResumoIA();
 }
 
-/* ==============================
-MANUAL / IA
-============================== */
-
-modoTabs.forEach(tab => {
-    tab.addEventListener("click", () => {
-        selecionarModo(
-            tab.dataset.modo
-        );
-    });
-});
-
-function selecionarModo(modo) {
-    modoCriacao = modo;
-
-    modoTabs.forEach(tab => {
-        tab.classList.toggle(
-            "ativo",
-            tab.dataset.modo === modo
-        );
-    });
-
-    document
-        .querySelectorAll(".modo-manual")
-        .forEach(bloco => {
-            bloco.classList.add(
-                "escondido"
-            );
-        });
-
-    document
-        .querySelectorAll(
-            "[data-ia-tipo]"
-        )
-        .forEach(bloco => {
-            bloco.classList.add(
-                "escondido"
-            );
-        });
-
-    if (modo === "manual") {
-        const manual =
-            document.querySelector(
-                `[data-manual-tipo="${tipoAtividade}"]`
-            );
-
-        manual?.classList.remove(
-            "escondido"
-        );
-    } else {
-        const ia =
-            document.querySelector(
-                `[data-ia-tipo="${tipoAtividade}"]`
-            );
-
-        ia?.classList.remove(
-            "escondido"
-        );
-    }
-}
-
-/* ==============================
-QUESTÕES
-============================== */
+/* MODO MANUAL / IA */
 
 document
     .querySelectorAll(
-        ".adicionar-questao"
+        ".modo-tab"
     )
     .forEach(botao => {
         botao.addEventListener(
             "click",
             () => {
-                adicionarQuestaoPorTipo(
-                    botao.dataset.destino
+                selecionarModo(
+                    botao.dataset.modo
                 );
             }
         );
     });
 
-function adicionarQuestaoPorTipo(tipo) {
-    const questao = {
+function selecionarModo(modo) {
+    modoCriacao = modo;
+
+    document
+        .querySelectorAll(
+            ".modo-tab"
+        )
+        .forEach(botao => {
+            botao.classList.toggle(
+                "ativo",
+                botao.dataset.modo ===
+                modo
+            );
+        });
+
+    $("modoManual")
+        .classList.toggle(
+            "escondido",
+            modo !== "manual"
+        );
+
+    $("modoIA")
+        .classList.toggle(
+            "escondido",
+            modo !== "ia"
+        );
+
+    atualizarResumoIA();
+}
+
+function atualizarResumoIA() {
+    let texto =
+        nomesTipo[
+        tipoAtividade
+        ];
+
+    if (
+        atividade
+            .configuracao
+            .disciplinaNome
+        &&
+        atividade
+            .configuracao
+            .disciplinaNome !==
+        "Nenhuma"
+    ) {
+        texto +=
+            ` • ${atividade.configuracao.disciplinaNome}`;
+    }
+
+    if (
+        atividade
+            .configuracao
+            .dificuldade
+    ) {
+        texto +=
+            ` • dificuldade ${atividade.configuracao.dificuldade}`;
+    }
+
+    texto +=
+        ". A geração real será conectada ao backend.";
+
+    $("resumoIA")
+        .textContent =
+        texto;
+}
+
+$("gerarIA").addEventListener(
+    "click",
+    () => {
+        mostrarToast(
+            "A geração por IA dependerá do backend."
+        );
+    }
+);
+
+/* =========================
+QUESTÕES
+========================= */
+
+function obterQuestoes() {
+    return atividade
+        .conteudo[
+        tipoAtividade
+    ]
+        ?.questoes || [];
+}
+
+function novaQuestao() {
+    return {
         id:
             proximoIdQuestao++,
 
-        enunciado: "",
+        enunciado:
+            "",
 
         tipo:
             "multipla",
@@ -666,348 +663,83 @@ function adicionarQuestaoPorTipo(tipo) {
             }
         ],
 
-        habilidade: "",
+        habilidade:
+            "",
 
-        nivel: ""
+        nivel:
+            ""
+    };
+}
+
+function adicionarQuestao() {
+    if (
+        tipoAtividade ===
+        "projeto"
+    ) {
+        return;
+    }
+
+    obterQuestoes()
+        .push(
+            novaQuestao()
+        );
+
+    renderizarQuestoes();
+}
+
+$("adicionarQuestao")
+    .addEventListener(
+        "click",
+        adicionarQuestao
+    );
+
+/* TIPOS PERMITIDOS */
+
+function tiposPermitidos() {
+    if (
+        tipoAtividade ===
+        "quiz"
+    ) {
+        return [
+            "multipla",
+            "multiplas",
+            "verdadeiro-falso"
+        ];
+    }
+
+    return [
+        "multipla",
+        "multiplas",
+        "verdadeiro-falso",
+        "resposta-curta",
+        "dissertativa"
+    ];
+}
+
+function opcoesTipo() {
+    const nomes = {
+        multipla:
+            "Múltipla escolha (1 correta)",
+
+        multiplas:
+            "Múltiplas respostas (mais de 1)",
+
+        "verdadeiro-falso":
+            "Verdadeiro ou falso",
+
+        "resposta-curta":
+            "Resposta curta",
+
+        dissertativa:
+            "Dissertativa"
     };
 
-    atividade
-        .conteudo[tipo]
-        .questoes
-        .push(questao);
-
-    renderizarQuestoes(
-        tipo
-    );
-}
-
-function obterQuestoesAtuais() {
-    if (
-        tipoAtividade === "projeto"
-    ) {
-        return [];
-    }
-
-    return atividade
-        .conteudo[tipoAtividade]
-        .questoes;
-}
-
-function renderizarConteudo() {
-    if (
-        tipoAtividade === "lista"
-    ) {
-        renderizarQuestoes(
-            "lista"
-        );
-    }
-
-    if (
-        tipoAtividade === "quiz"
-    ) {
-        renderizarQuestoes(
-            "quiz"
-        );
-    }
-
-    if (
-        tipoAtividade === "diagnostica"
-    ) {
-        renderizarQuestoes(
-            "diagnostica"
-        );
-    }
-
-    if (
-        tipoAtividade === "projeto"
-    ) {
-        renderizarProjeto();
-    }
-}
-
-function obterContainerQuestoes(
-    tipo
-) {
-    const containers = {
-        lista:
-            document.getElementById(
-                "questoesLista"
-            ),
-
-        quiz:
-            document.getElementById(
-                "questoesQuiz"
-            ),
-
-        diagnostica:
-            document.getElementById(
-                "questoesDiagnostica"
-            )
-    };
-
-    return containers[tipo];
-}
-
-function renderizarQuestoes(tipo) {
-    const container =
-        obterContainerQuestoes(
-            tipo
-        );
-
-    const questoes =
-        atividade
-            .conteudo[tipo]
-            .questoes;
-
-    container.innerHTML = "";
-
-    questoes.forEach(
-        (questao, index) => {
-            const card =
-                document.createElement(
-                    "article"
-                );
-
-            card.className =
-                "questao-editor";
-
-            card.dataset.id =
-                questao.id;
-
-            const selectTipo =
-                tipo === "quiz"
-                    ? `
-                        <select class="tipo-questao">
-                            <option value="multipla">Múltipla escolha</option>
-                            <option value="multiplas">Múltiplas respostas</option>
-                            <option value="verdadeiro-falso">Verdadeiro ou falso</option>
-                        </select>
-                    `
-                    : `
-                        <select class="tipo-questao">
-                            <option value="multipla">Múltipla escolha</option>
-                            <option value="multiplas">Múltiplas respostas</option>
-                            <option value="verdadeiro-falso">Verdadeiro ou falso</option>
-                            <option value="resposta-curta">Resposta curta</option>
-                            <option value="dissertativa">Dissertativa</option>
-                        </select>
-                    `;
-
-            card.innerHTML = `
-                <div class="questao-editor-topo">
-
-                    <strong>
-                        Questão ${index + 1}
-                    </strong>
-
-                    ${selectTipo}
-
-                    <button
-                        type="button"
-                        class="questao-toggle"
-                    >
-                        <i class="fi fi-rr-angle-small-up"></i>
-                    </button>
-
-                    <button
-                        type="button"
-                        class="questao-excluir"
-                    >
-                        <i class="fi fi-rr-trash"></i>
-                    </button>
-
-                </div>
-
-                <div class="questao-corpo">
-
-                    ${
-                        tipo === "diagnostica"
-                            ? `
-                                <div class="diagnostica-meta">
-
-                                    <div class="campo">
-
-                                        <label>
-                                            Habilidade / competência
-                                        </label>
-
-                                        <input
-                                            type="text"
-                                            class="habilidade-diagnostica"
-                                            placeholder="Ex: Comparar frações"
-                                            value="${escapeHTML(questao.habilidade)}"
-                                        >
-
-                                    </div>
-
-                                    <div class="campo">
-
-                                        <label>
-                                            Nível
-                                        </label>
-
-                                        <select class="nivel-diagnostica">
-                                            <option value="">Não definir</option>
-                                            <option value="basico">Básico</option>
-                                            <option value="intermediario">Intermediário</option>
-                                            <option value="avancado">Avançado</option>
-                                        </select>
-
-                                    </div>
-
-                                </div>
-                            `
-                            : ""
-                    }
-
-                    <div class="campo">
-
-                        <label>
-                            Enunciado
-                        </label>
-
-                        <textarea
-                            class="enunciado"
-                            placeholder="Digite o enunciado da questão"
-                        >${escapeHTML(questao.enunciado)}</textarea>
-
-                    </div>
-
-                    <div class="area-respostas"></div>
-
-                </div>
-            `;
-
-            const tipoSelect =
-                card.querySelector(
-                    ".tipo-questao"
-                );
-
-            tipoSelect.value =
-                questao.tipo;
-
-            tipoSelect.addEventListener(
-                "change",
-                () => {
-                    questao.tipo =
-                        tipoSelect.value;
-
-                    prepararAlternativasTipo(
-                        questao
-                    );
-
-                    renderizarRespostas(
-                        card,
-                        questao
-                    );
-                }
-            );
-
-            card
-                .querySelector(
-                    ".enunciado"
-                )
-                .addEventListener(
-                    "input",
-                    event => {
-                        questao.enunciado =
-                            event.target.value;
-                    }
-                );
-
-            if (
-                tipo === "diagnostica"
-            ) {
-                const habilidade =
-                    card.querySelector(
-                        ".habilidade-diagnostica"
-                    );
-
-                const nivel =
-                    card.querySelector(
-                        ".nivel-diagnostica"
-                    );
-
-                nivel.value =
-                    questao.nivel;
-
-                habilidade.addEventListener(
-                    "input",
-                    () => {
-                        questao.habilidade =
-                            habilidade.value;
-                    }
-                );
-
-                nivel.addEventListener(
-                    "change",
-                    () => {
-                        questao.nivel =
-                            nivel.value;
-                    }
-                );
-            }
-
-            card
-                .querySelector(
-                    ".questao-toggle"
-                )
-                .addEventListener(
-                    "click",
-                    () => {
-                        card.classList.toggle(
-                            "fechada"
-                        );
-
-                        const icone =
-                            card.querySelector(
-                                ".questao-toggle i"
-                            );
-
-                        icone.className =
-                            card.classList.contains(
-                                "fechada"
-                            )
-                                ? "fi fi-rr-angle-small-down"
-                                : "fi fi-rr-angle-small-up";
-                    }
-                );
-
-            card
-                .querySelector(
-                    ".questao-excluir"
-                )
-                .addEventListener(
-                    "click",
-                    () => {
-                        atividade
-                            .conteudo[tipo]
-                            .questoes =
-                            atividade
-                                .conteudo[tipo]
-                                .questoes
-                                .filter(
-                                    item =>
-                                        item.id !==
-                                        questao.id
-                                );
-
-                        renderizarQuestoes(
-                            tipo
-                        );
-                    }
-                );
-
-            container.appendChild(
-                card
-            );
-
-            renderizarRespostas(
-                card,
-                questao
-            );
-        }
-    );
+    return tiposPermitidos()
+        .map(
+            tipo =>
+                `<option value="${tipo}">${nomes[tipo]}</option>`
+        )
+        .join("");
 }
 
 function prepararAlternativasTipo(
@@ -1044,7 +776,8 @@ function prepararAlternativasTipo(
         ].includes(
             questao.tipo
         )
-        && questao
+        &&
+        questao
             .alternativas
             .length < 2
     ) {
@@ -1061,6 +794,407 @@ function prepararAlternativasTipo(
     }
 }
 
+/* RENDER DAS QUESTÕES */
+
+function renderizarQuestoes() {
+    const container =
+        $("questoesEditor");
+
+    container.innerHTML = "";
+
+    if (
+        tipoAtividade ===
+        "projeto"
+    ) {
+        return;
+    }
+
+    obterQuestoes()
+        .forEach(
+            (
+                questao,
+                index
+            ) => {
+                const card =
+                    document.createElement(
+                        "article"
+                    );
+
+                card.className =
+                    "questao-editor";
+
+                card.dataset.id =
+                    questao.id;
+
+                card.innerHTML = `
+                    <div class="questao-editor-topo">
+
+                        <strong>
+                            Questão ${index + 1}
+                        </strong>
+
+                        <select class="tipo-questao">
+                            ${opcoesTipo()}
+                        </select>
+
+                        <button
+                            type="button"
+                            class="questao-toggle"
+                            aria-label="Recolher questão"
+                        >
+                            <i class="fi fi-rr-angle-small-up"></i>
+                        </button>
+
+                        <button
+                            type="button"
+                            class="questao-excluir"
+                            aria-label="Excluir questão"
+                        >
+                            <i class="fi fi-rr-trash"></i>
+                        </button>
+
+                    </div>
+
+                    <div class="questao-corpo">
+
+                        ${tipoAtividade ===
+                        "diagnostica"
+                        ? `
+                                    <div class="diagnostica-meta">
+
+                                        <div class="campo">
+                                            <label>
+                                                Habilidade / competência
+                                            </label>
+
+                                            <input
+                                                type="text"
+                                                class="habilidade-diagnostica"
+                                                placeholder="Ex: Comparar frações"
+                                                value="${esc(questao.habilidade)}"
+                                            >
+                                        </div>
+
+                                        <div class="campo">
+                                            <label>
+                                                Nível
+                                            </label>
+
+                                            <select class="nivel-diagnostica">
+                                                <option value="">Não definir</option>
+                                                <option value="basico">Básico</option>
+                                                <option value="intermediario">Intermediário</option>
+                                                <option value="avancado">Avançado</option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                `
+                        : ""
+                    }
+
+                        <div class="campo">
+                            <label>
+                                Enunciado
+                            </label>
+
+                            <textarea
+                                class="enunciado"
+                                placeholder="Digite o enunciado da questão"
+                            >${esc(questao.enunciado)}</textarea>
+                        </div>
+
+                        <div class="area-respostas"></div>
+
+                    </div>
+                `;
+
+                container.appendChild(
+                    card
+                );
+
+                const selectTipo =
+                    card.querySelector(
+                        ".tipo-questao"
+                    );
+
+                selectTipo.value =
+                    questao.tipo;
+
+                selectTipo.addEventListener(
+                    "change",
+                    () => {
+                        questao.tipo =
+                            selectTipo.value;
+
+                        prepararAlternativasTipo(
+                            questao
+                        );
+
+                        renderizarRespostas(
+                            card,
+                            questao
+                        );
+                    }
+                );
+
+                card
+                    .querySelector(
+                        ".enunciado"
+                    )
+                    .addEventListener(
+                        "input",
+                        event => {
+                            questao.enunciado =
+                                event
+                                    .target
+                                    .value;
+                        }
+                    );
+
+                if (
+                    tipoAtividade ===
+                    "diagnostica"
+                ) {
+                    const habilidade =
+                        card.querySelector(
+                            ".habilidade-diagnostica"
+                        );
+
+                    const nivel =
+                        card.querySelector(
+                            ".nivel-diagnostica"
+                        );
+
+                    nivel.value =
+                        questao.nivel;
+
+                    habilidade
+                        .addEventListener(
+                            "input",
+                            () => {
+                                questao.habilidade =
+                                    habilidade.value;
+                            }
+                        );
+
+                    nivel
+                        .addEventListener(
+                            "change",
+                            () => {
+                                questao.nivel =
+                                    nivel.value;
+                            }
+                        );
+                }
+
+                card
+                    .querySelector(
+                        ".questao-toggle"
+                    )
+                    .addEventListener(
+                        "click",
+                        () => {
+                            card.classList.toggle(
+                                "fechada"
+                            );
+
+                            card
+                                .querySelector(
+                                    ".questao-toggle i"
+                                )
+                                .className =
+                                card
+                                    .classList
+                                    .contains(
+                                        "fechada"
+                                    )
+                                    ? "fi fi-rr-angle-small-down"
+                                    : "fi fi-rr-angle-small-up";
+                        }
+                    );
+
+                card
+                    .querySelector(
+                        ".questao-excluir"
+                    )
+                    .addEventListener(
+                        "click",
+                        () => {
+                            atividade
+                                .conteudo[
+                                tipoAtividade
+                            ]
+                                .questoes =
+                                obterQuestoes()
+                                    .filter(
+                                        item =>
+                                            item.id !==
+                                            questao.id
+                                    );
+
+                            renderizarQuestoes();
+                        }
+                    );
+
+                renderizarRespostas(
+                    card,
+                    questao
+                );
+            }
+        );
+}
+
+/* =========================
+ALTERNATIVAS REPETIDAS
+========================= */
+
+function normalizarAlternativa(
+    texto
+) {
+    return String(
+        texto || ""
+    )
+        .trim()
+        .toLocaleLowerCase(
+            "pt-BR"
+        )
+        .replace(
+            /\s+/g,
+            " "
+        );
+}
+
+function duplicadasDaQuestao(
+    questao
+) {
+    const mapa =
+        new Map();
+
+    questao
+        .alternativas
+        .forEach(
+            alternativa => {
+                const valor =
+                    normalizarAlternativa(
+                        alternativa.texto
+                    );
+
+                if (
+                    !valor
+                ) {
+                    return;
+                }
+
+                mapa.set(
+                    valor,
+                    (
+                        mapa.get(
+                            valor
+                        ) || 0
+                    ) + 1
+                );
+            }
+        );
+
+    return new Set(
+        [...mapa]
+            .filter(
+                (
+                    [
+                        ,
+                        quantidade
+                    ]
+                ) =>
+                    quantidade > 1
+            )
+            .map(
+                ([valor]) =>
+                    valor
+            )
+    );
+}
+
+function atualizarDuplicadas(
+    card,
+    questao
+) {
+    const duplicadas =
+        duplicadasDaQuestao(
+            questao
+        );
+
+    card
+        .querySelectorAll(
+            ".alternativa-item"
+        )
+        .forEach(
+            (
+                linha,
+                indice
+            ) => {
+                const valor =
+                    normalizarAlternativa(
+                        questao
+                            .alternativas[
+                            indice
+                        ]
+                            ?.texto
+                    );
+
+                linha
+                    .classList
+                    .toggle(
+                        "duplicada",
+                        Boolean(
+                            valor &&
+                            duplicadas.has(
+                                valor
+                            )
+                        )
+                    );
+            }
+        );
+
+    let aviso =
+        card.querySelector(
+            ".alternativas-aviso"
+        );
+
+    if (
+        duplicadas.size
+    ) {
+        if (
+            !aviso
+        ) {
+            aviso =
+                document.createElement(
+                    "small"
+                );
+
+            aviso.className =
+                "alternativas-aviso";
+
+            card
+                .querySelector(
+                    ".area-respostas"
+                )
+                .appendChild(
+                    aviso
+                );
+        }
+
+        aviso.textContent =
+            "Não é permitido repetir a mesma alternativa.";
+    } else {
+        aviso?.remove();
+    }
+}
+
+/* =========================
+RESPOSTAS
+========================= */
+
 function renderizarRespostas(
     card,
     questao
@@ -1073,10 +1207,12 @@ function renderizarRespostas(
     area.innerHTML = "";
 
     if (
-        questao.tipo ===
-            "resposta-curta"
-        || questao.tipo ===
+        [
+            "resposta-curta",
             "dissertativa"
+        ].includes(
+            questao.tipo
+        )
     ) {
         area.innerHTML = `
             <div class="campo">
@@ -1088,12 +1224,11 @@ function renderizarRespostas(
                 <input
                     type="text"
                     disabled
-                    value="${
-                        questao.tipo ===
-                        "resposta-curta"
-                            ? "Campo de resposta curta"
-                            : "Campo de resposta dissertativa"
-                    }"
+                    value="${questao.tipo ===
+                "resposta-curta"
+                ? "Campo de resposta curta"
+                : "Campo de resposta dissertativa"
+            }"
                 >
 
             </div>
@@ -1114,12 +1249,35 @@ function renderizarRespostas(
         label
     );
 
-    const alternativas =
+    /*
+        Cabeçalho deixa claro onde a
+        resposta correta deve ser marcada.
+    */
+
+    const cabecalho =
         document.createElement(
             "div"
         );
 
-    alternativas.className =
+    cabecalho.className =
+        "alternativas-cabecalho";
+
+    cabecalho.innerHTML = `
+        <span>Correta</span>
+        <span>Alternativa</span>
+        <span></span>
+    `;
+
+    area.appendChild(
+        cabecalho
+    );
+
+    const lista =
+        document.createElement(
+            "div"
+        );
+
+    lista.className =
         "alternativas";
 
     questao
@@ -1137,6 +1295,14 @@ function renderizarRespostas(
                 linha.className =
                     "alternativa-item";
 
+                /*
+                    Múltipla escolha:
+                    radio = somente 1 correta.
+
+                    Múltiplas respostas:
+                    checkbox = várias corretas.
+                */
+
                 const correta =
                     document.createElement(
                         "input"
@@ -1144,7 +1310,7 @@ function renderizarRespostas(
 
                 correta.type =
                     questao.tipo ===
-                    "multiplas"
+                        "multiplas"
                         ? "checkbox"
                         : "radio";
 
@@ -1158,6 +1324,12 @@ function renderizarRespostas(
 
                 correta.checked =
                     alternativa.correta;
+
+                correta.title =
+                    questao.tipo ===
+                        "multiplas"
+                        ? "Marcar como resposta correta"
+                        : "Marcar como alternativa correta";
 
                 correta.addEventListener(
                     "change",
@@ -1221,6 +1393,11 @@ function renderizarRespostas(
                     () => {
                         alternativa.texto =
                             texto.value;
+
+                        atualizarDuplicadas(
+                            card,
+                            questao
+                        );
                     }
                 );
 
@@ -1287,14 +1464,14 @@ function renderizarRespostas(
                     remover
                 );
 
-                alternativas.appendChild(
+                lista.appendChild(
                     linha
                 );
             }
         );
 
     area.appendChild(
-        alternativas
+        lista
     );
 
     if (
@@ -1336,15 +1513,249 @@ function renderizarRespostas(
             adicionar
         );
     }
+
+    atualizarDuplicadas(
+        card,
+        questao
+    );
 }
 
-/* ==============================
+/* =========================
+PROJETO
+========================= */
+
+function adicionarEtapaProjeto() {
+    atividade
+        .conteudo
+        .projeto
+        .etapas
+        .push({
+            id:
+                proximoIdProjeto++,
+
+            titulo:
+                ""
+        });
+
+    renderizarProjeto();
+}
+
+function adicionarCriterio() {
+    atividade
+        .conteudo
+        .projeto
+        .criterios
+        .push({
+            id:
+                proximoIdProjeto++,
+
+            titulo:
+                ""
+        });
+
+    renderizarProjeto();
+}
+
+$("adicionarEtapaProjeto")
+    .addEventListener(
+        "click",
+        adicionarEtapaProjeto
+    );
+
+$("adicionarCriterio")
+    .addEventListener(
+        "click",
+        adicionarCriterio
+    );
+
+function renderListaProjeto(
+    containerId,
+    itens,
+    tipo
+) {
+    const container =
+        $(containerId);
+
+    container.innerHTML = "";
+
+    itens.forEach(
+        (
+            item,
+            indice
+        ) => {
+            const linha =
+                document.createElement(
+                    "div"
+                );
+
+            linha.className =
+                "projeto-item";
+
+            linha.innerHTML = `
+                <span class="projeto-numero">
+                    ${indice + 1}
+                </span>
+
+                <input
+                    type="text"
+                    value="${escAttr(item.titulo)}"
+                    placeholder="${tipo ===
+                    "etapa"
+                    ? "Nome da etapa"
+                    : "Critério de avaliação"
+                }"
+                >
+
+                <button
+                    type="button"
+                    class="projeto-remover"
+                >
+                    <i class="fi fi-rr-trash"></i>
+                </button>
+            `;
+
+            linha
+                .querySelector(
+                    "input"
+                )
+                .addEventListener(
+                    "input",
+                    event => {
+                        item.titulo =
+                            event
+                                .target
+                                .value;
+                    }
+                );
+
+            linha
+                .querySelector(
+                    "button"
+                )
+                .addEventListener(
+                    "click",
+                    () => {
+                        const alvo =
+                            tipo ===
+                                "etapa"
+                                ? atividade
+                                    .conteudo
+                                    .projeto
+                                    .etapas
+                                : atividade
+                                    .conteudo
+                                    .projeto
+                                    .criterios;
+
+                        const indice =
+                            alvo.findIndex(
+                                elemento =>
+                                    elemento.id ===
+                                    item.id
+                            );
+
+                        if (
+                            indice >= 0
+                        ) {
+                            alvo.splice(
+                                indice,
+                                1
+                            );
+                        }
+
+                        renderizarProjeto();
+                    }
+                );
+
+            container.appendChild(
+                linha
+            );
+        }
+    );
+}
+
+function renderizarProjeto() {
+    renderListaProjeto(
+        "etapasProjeto",
+        atividade
+            .conteudo
+            .projeto
+            .etapas,
+        "etapa"
+    );
+
+    renderListaProjeto(
+        "criteriosProjeto",
+        atividade
+            .conteudo
+            .projeto
+            .criterios,
+        "criterio"
+    );
+}
+
+/* =========================
+SALVAR ETAPA 2
+========================= */
+
+function salvarConteudoAtual() {
+    if (
+        tipoAtividade ===
+        "quiz"
+    ) {
+        atividade
+            .conteudo
+            .quiz
+            .tempo =
+            Number(
+                $("tempoQuiz").value
+            ) || 0;
+
+        atividade
+            .conteudo
+            .quiz
+            .embaralhar =
+            $("quizEmbaralhar")
+                .checked;
+
+        atividade
+            .conteudo
+            .quiz
+            .feedbackImediato =
+            $("quizFeedback")
+                .checked;
+    }
+
+    if (
+        tipoAtividade ===
+        "projeto"
+    ) {
+        atividade
+            .conteudo
+            .projeto
+            .orientacoes =
+            $("orientacoesProjeto")
+                .value
+                .trim();
+
+        atividade
+            .conteudo
+            .projeto
+            .resultado =
+            $("resultadoProjeto")
+                .value
+                .trim();
+    }
+}
+
+/* =========================
 VALIDAÇÃO ETAPA 2
-============================== */
+========================= */
 
 function validarEtapa2() {
     if (
-        modoCriacao === "ia"
+        modoCriacao ===
+        "ia"
     ) {
         mostrarToast(
             "A criação com IA dependerá do backend."
@@ -1353,18 +1764,15 @@ function validarEtapa2() {
         return false;
     }
 
-    if (
-        tipoAtividade === "projeto"
-    ) {
-        return validarProjeto();
-    }
-
-    return validarQuestoesEtapa2();
+    return tipoAtividade ===
+        "projeto"
+        ? validarProjeto()
+        : validarQuestoes();
 }
 
-function validarQuestoesEtapa2() {
+function validarQuestoes() {
     const questoes =
-        obterQuestoesAtuais();
+        obterQuestoes();
 
     if (
         !questoes.length
@@ -1377,12 +1785,14 @@ function validarQuestoesEtapa2() {
     }
 
     for (
-        let i = 0;
-        i < questoes.length;
-        i++
+        let indice = 0;
+        indice < questoes.length;
+        indice++
     ) {
         const questao =
-            questoes[i];
+            questoes[
+            indice
+            ];
 
         if (
             !questao
@@ -1390,7 +1800,7 @@ function validarQuestoesEtapa2() {
                 .trim()
         ) {
             mostrarToast(
-                `Preencha o enunciado da questão ${i + 1}.`
+                `Preencha o enunciado da questão ${indice + 1}.`
             );
 
             focarQuestao(
@@ -1402,13 +1812,14 @@ function validarQuestoesEtapa2() {
 
         if (
             tipoAtividade ===
-                "diagnostica"
-            && !questao
+            "diagnostica"
+            &&
+            !questao
                 .habilidade
                 .trim()
         ) {
             mostrarToast(
-                `Informe a habilidade avaliada na questão ${i + 1}.`
+                `Informe a habilidade avaliada na questão ${indice + 1}.`
             );
 
             focarQuestao(
@@ -1427,7 +1838,7 @@ function validarQuestoesEtapa2() {
                 questao.tipo
             )
         ) {
-            const vazia =
+            const temVazia =
                 questao
                     .alternativas
                     .some(
@@ -1438,10 +1849,36 @@ function validarQuestoesEtapa2() {
                     );
 
             if (
-                vazia
+                temVazia
             ) {
                 mostrarToast(
-                    `Preencha todas as alternativas da questão ${i + 1}.`
+                    `Preencha todas as alternativas da questão ${indice + 1}.`
+                );
+
+                focarQuestao(
+                    questao.id
+                );
+
+                return false;
+            }
+
+            /*
+                Impede alternativas como:
+
+                "Brasil"
+                " brasil "
+                "BRASIL"
+
+                pois são consideradas iguais.
+            */
+
+            if (
+                duplicadasDaQuestao(
+                    questao
+                ).size
+            ) {
+                mostrarToast(
+                    `A questão ${indice + 1} possui alternativas repetidas.`
                 );
 
                 focarQuestao(
@@ -1453,7 +1890,8 @@ function validarQuestoesEtapa2() {
 
             if (
                 incluirGabarito.checked
-                && !questao
+                &&
+                !questao
                     .alternativas
                     .some(
                         alternativa =>
@@ -1462,7 +1900,7 @@ function validarQuestoesEtapa2() {
                     )
             ) {
                 mostrarToast(
-                    `Marque a resposta correta da questão ${i + 1}.`
+                    `Marque a resposta correta da questão ${indice + 1}.`
                 );
 
                 focarQuestao(
@@ -1477,388 +1915,34 @@ function validarQuestoesEtapa2() {
     return true;
 }
 
-function focarQuestao(id) {
-    selecionarModo(
-        "manual"
-    );
-
-    const editor =
-        document.querySelector(
-            `.questao-editor[data-id="${id}"]`
-        );
-
-    if (
-        !editor
-    ) {
-        return;
-    }
-
-    editor.classList.remove(
-        "fechada"
-    );
-
-    editor.scrollIntoView({
-        behavior: "smooth",
-        block: "center"
-    });
-}
-
-/* ==============================
-QUIZ
-============================== */
-
-function salvarQuiz() {
-    atividade
-        .conteudo
-        .quiz
-        .tempo =
-        Number(
-            tempoQuiz.value
-        );
-
-    atividade
-        .conteudo
-        .quiz
-        .embaralhar =
-        quizEmbaralhar.checked;
-
-    atividade
-        .conteudo
-        .quiz
-        .feedbackImediato =
-        quizFeedback.checked;
-}
-
-/* ==============================
-PROJETO
-============================== */
-
-document
-    .getElementById(
-        "adicionarEtapaProjeto"
-    )
-    .addEventListener(
-        "click",
-        adicionarEtapaProjeto
-    );
-
-document
-    .getElementById(
-        "adicionarCriterio"
-    )
-    .addEventListener(
-        "click",
-        adicionarCriterio
-    );
-
-function adicionarEtapaProjeto() {
-    atividade
-        .conteudo
-        .projeto
-        .etapas
-        .push({
-            id:
-                proximoIdProjeto++,
-
-            titulo:
-                "",
-
-            prazo:
-                ""
-        });
-
-    renderizarProjeto();
-}
-
-function adicionarCriterio() {
-    atividade
-        .conteudo
-        .projeto
-        .criterios
-        .push({
-            id:
-                proximoIdProjeto++,
-
-            nome:
-                "",
-
-            peso:
-                ""
-        });
-
-    renderizarProjeto();
-}
-
-function renderizarProjeto() {
-    etapasProjeto.innerHTML =
-        "";
-
-    criteriosProjeto.innerHTML =
-        "";
-
-    atividade
-        .conteudo
-        .projeto
-        .etapas
-        .forEach(
-            (
-                etapa,
-                index
-            ) => {
-                const item =
-                    document.createElement(
-                        "div"
-                    );
-
-                item.className =
-                    "projeto-item";
-
-                item.innerHTML = `
-                    <span>
-                        ${index + 1}
-                    </span>
-
-                    <input
-                        type="text"
-                        class="etapa-titulo-input"
-                        placeholder="Ex: Pesquisa inicial"
-                    >
-
-                    <input
-                        type="text"
-                        class="etapa-prazo-input"
-                        placeholder="Prazo opcional"
-                    >
-
-                    <button
-                        type="button"
-                        class="projeto-remover"
-                    >
-                        <i class="fi fi-rr-trash"></i>
-                    </button>
-                `;
-
-                const titulo =
-                    item.querySelector(
-                        ".etapa-titulo-input"
-                    );
-
-                const prazo =
-                    item.querySelector(
-                        ".etapa-prazo-input"
-                    );
-
-                titulo.value =
-                    etapa.titulo;
-
-                prazo.value =
-                    etapa.prazo;
-
-                titulo.addEventListener(
-                    "input",
-                    () => {
-                        etapa.titulo =
-                            titulo.value;
-                    }
-                );
-
-                prazo.addEventListener(
-                    "input",
-                    () => {
-                        etapa.prazo =
-                            prazo.value;
-                    }
-                );
-
-                item
-                    .querySelector(
-                        ".projeto-remover"
-                    )
-                    .addEventListener(
-                        "click",
-                        () => {
-                            atividade
-                                .conteudo
-                                .projeto
-                                .etapas =
-                                atividade
-                                    .conteudo
-                                    .projeto
-                                    .etapas
-                                    .filter(
-                                        atual =>
-                                            atual.id !==
-                                            etapa.id
-                                    );
-
-                            renderizarProjeto();
-                        }
-                    );
-
-                etapasProjeto.appendChild(
-                    item
-                );
-            }
-        );
-
-    atividade
-        .conteudo
-        .projeto
-        .criterios
-        .forEach(
-            (
-                criterio,
-                index
-            ) => {
-                const item =
-                    document.createElement(
-                        "div"
-                    );
-
-                item.className =
-                    "projeto-item criterio";
-
-                item.innerHTML = `
-                    <span>
-                        ${index + 1}
-                    </span>
-
-                    <input
-                        type="text"
-                        class="criterio-nome"
-                        placeholder="Ex: Clareza da apresentação"
-                    >
-
-                    <input
-                        type="number"
-                        min="0"
-                        max="100"
-                        class="criterio-peso"
-                        placeholder="Peso %"
-                    >
-
-                    <button
-                        type="button"
-                        class="projeto-remover"
-                    >
-                        <i class="fi fi-rr-trash"></i>
-                    </button>
-                `;
-
-                const nome =
-                    item.querySelector(
-                        ".criterio-nome"
-                    );
-
-                const peso =
-                    item.querySelector(
-                        ".criterio-peso"
-                    );
-
-                nome.value =
-                    criterio.nome;
-
-                peso.value =
-                    criterio.peso;
-
-                nome.addEventListener(
-                    "input",
-                    () => {
-                        criterio.nome =
-                            nome.value;
-                    }
-                );
-
-                peso.addEventListener(
-                    "input",
-                    () => {
-                        criterio.peso =
-                            peso.value;
-                    }
-                );
-
-                item
-                    .querySelector(
-                        ".projeto-remover"
-                    )
-                    .addEventListener(
-                        "click",
-                        () => {
-                            atividade
-                                .conteudo
-                                .projeto
-                                .criterios =
-                                atividade
-                                    .conteudo
-                                    .projeto
-                                    .criterios
-                                    .filter(
-                                        atual =>
-                                            atual.id !==
-                                            criterio.id
-                                    );
-
-                            renderizarProjeto();
-                        }
-                    );
-
-                criteriosProjeto.appendChild(
-                    item
-                );
-            }
-        );
-}
-
-function salvarProjeto() {
-    atividade
-        .conteudo
-        .projeto
-        .orientacoes =
-        orientacoesProjeto
-            .value
-            .trim();
-
-    atividade
-        .conteudo
-        .projeto
-        .resultado =
-        resultadoProjeto
-            .value
-            .trim();
-}
-
 function validarProjeto() {
-    salvarProjeto();
-
     const projeto =
         atividade
             .conteudo
             .projeto;
 
     if (
-        !projeto
-            .orientacoes
-            .trim()
+        !projeto.orientacoes
     ) {
         mostrarToast(
             "Preencha as orientações do projeto."
         );
 
-        orientacoesProjeto.focus();
+        $("orientacoesProjeto")
+            .focus();
 
         return false;
     }
 
     if (
-        !projeto
-            .resultado
-            .trim()
+        !projeto.resultado
     ) {
         mostrarToast(
             "Informe a entrega esperada do projeto."
         );
 
-        resultadoProjeto.focus();
+        $("resultadoProjeto")
+            .focus();
 
         return false;
     }
@@ -1875,7 +1959,7 @@ function validarProjeto() {
         return false;
     }
 
-    const incompleta =
+    if (
         projeto
             .etapas
             .some(
@@ -1883,10 +1967,7 @@ function validarProjeto() {
                     !etapa
                         .titulo
                         .trim()
-            );
-
-    if (
-        incompleta
+            )
     ) {
         mostrarToast(
             "Preencha o nome de todas as etapas do projeto."
@@ -1898,271 +1979,283 @@ function validarProjeto() {
     return true;
 }
 
-/* ==============================
-IA
-============================== */
-
-function atualizarResumoIA() {
-    document
-        .querySelectorAll(
-            "[data-resumo-ia]"
-        )
-        .forEach(
-            elemento => {
-                elemento.innerHTML = `
-                    <strong>
-                        ${
-                            escapeHTML(
-                                atividade
-                                    .configuracao
-                                    .nome
-                                || "Atividade sem nome"
-                            )
-                        }
-                    </strong>
-
-                    <br>
-
-                    ${
-                        escapeHTML(
-                            atividade
-                                .configuracao
-                                .disciplinaNome
-                        )
-                    }
-
-                    •
-
-                    ${
-                        escapeHTML(
-                            atividade
-                                .configuracao
-                                .turmaNome
-                        )
-                    }
-
-                    •
-
-                    ${
-                        escapeHTML(
-                            formatarTipo(
-                                tipoAtividade
-                            )
-                        )
-                    }
-                `;
-            }
-        );
-}
-
-document
-    .querySelectorAll(
-        ".gerar-ia"
-    )
-    .forEach(
-        botao => {
-            botao.addEventListener(
-                "click",
-                () => {
-                    mostrarToast(
-                        "A geração por IA dependerá do backend."
-                    );
-                }
-            );
-        }
+function focarQuestao(id) {
+    selecionarModo(
+        "manual"
     );
 
-/* ==============================
-SALVAR CONTEÚDO LOCAL
-============================== */
+    const card =
+        document.querySelector(
+            `.questao-editor[data-id="${id}"]`
+        );
 
-function salvarConteudoAtual() {
-    if (
-        tipoAtividade ===
-        "quiz"
-    ) {
-        salvarQuiz();
-    }
+    card?.classList.remove(
+        "fechada"
+    );
 
-    if (
-        tipoAtividade ===
-        "projeto"
-    ) {
-        salvarProjeto();
-    }
+    card?.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+    });
 }
 
-/* ==============================
+/* =========================
 REVISÃO
-============================== */
+========================= */
 
-function renderizarRevisao() {
+function montarRevisao() {
     salvarConfiguracao();
     salvarConteudoAtual();
 
-    revisaoNome.textContent =
+    $("revisaoNome")
+        .textContent =
         atividade
             .configuracao
-            .nome
-        || "Sem nome";
+            .nome;
 
-    revisaoDisciplina.textContent =
+    $("revisaoDisciplina")
+        .textContent =
         atividade
             .configuracao
             .disciplinaNome;
 
-    revisaoTurma.textContent =
+    $("revisaoTurma")
+        .textContent =
         atividade
             .configuracao
             .turmaNome;
 
-    revisaoTipo.textContent =
-        formatarTipo(
-            tipoAtividade
-        );
+    $("revisaoTipo")
+        .textContent =
+        nomesTipo[
+        tipoAtividade
+        ];
 
-    revisaoDificuldade.textContent =
+    $("revisaoDificuldade")
+        .textContent =
+        atividade
+            .configuracao
+            .dificuldade ||
+        "Não definida";
+
+    const projeto =
         tipoAtividade ===
-        "projeto"
-            ? "—"
-            : formatarDificuldade(
-                atividade
-                    .configuracao
-                    .dificuldade
-            );
+        "projeto";
 
-    if (
-        tipoAtividade ===
-        "projeto"
-    ) {
-        revisaoQuestoes.classList.add(
-            "escondido"
+    $("revisaoQuestoes")
+        .classList.toggle(
+            "escondido",
+            projeto
         );
 
-        revisaoProjeto.classList.remove(
-            "escondido"
+    $("revisaoProjeto")
+        .classList.toggle(
+            "escondido",
+            !projeto
         );
 
-        labelQuantidadeRevisao.textContent =
-            "Etapas";
+    $("labelQuantidadeRevisao")
+        .textContent =
+        projeto
+            ? "Etapas"
+            : "Questões";
 
-        revisaoQuantidade.textContent =
-            atividade
+    $("revisaoQuantidade")
+        .textContent =
+        projeto
+            ? atividade
                 .conteudo
                 .projeto
                 .etapas
+                .length
+            : obterQuestoes()
                 .length;
 
-        renderizarRevisaoProjeto();
-
-        return;
+    if (
+        projeto
+    ) {
+        renderRevisaoProjeto();
+    } else {
+        renderRevisaoQuestoes();
     }
-
-    revisaoProjeto.classList.add(
-        "escondido"
-    );
-
-    revisaoQuestoes.classList.remove(
-        "escondido"
-    );
-
-    labelQuantidadeRevisao.textContent =
-        "Questões";
-
-    revisaoQuantidade.textContent =
-        obterQuestoesAtuais()
-            .length;
-
-    renderizarQuestoesRevisao();
-
-    validarQuestoesRevisao();
 }
 
-function renderizarQuestoesRevisao() {
-    questoesRevisao.innerHTML =
-        "";
+/* REORDENAR QUESTÕES */
 
-    obterQuestoesAtuais()
+function renderRevisaoQuestoes() {
+    const container =
+        $("questoesRevisao");
+
+    container.innerHTML = "";
+
+    obterQuestoes()
         .forEach(
             (
                 questao,
-                index
+                indice
             ) => {
-                const item =
+                const card =
                     document.createElement(
                         "article"
                     );
 
-                item.className =
-                    "revisao-item";
+                card.className =
+                    "questao-revisao";
 
-                item.draggable =
+                card.draggable =
                     true;
 
-                item.dataset.id =
+                card.dataset.id =
                     questao.id;
 
-                item.innerHTML = `
-                    <i class="fi fi-rr-menu-burger drag-handle"></i>
+                card.innerHTML = `
+                    <i
+                        class="fi fi-rr-grip-dots-vertical drag-handle"
+                    ></i>
 
-                    <div>
+                    <div class="revisao-conteudo">
 
                         <strong>
-                            ${index + 1}.
-                            ${
-                                escapeHTML(
-                                    questao.enunciado
-                                    || "Questão sem enunciado"
-                                )
-                            }
+                            Questão ${indice + 1}
+                            •
+                            ${nomeTipoQuestao(questao.tipo)}
                         </strong>
 
-                        ${
-                            tipoAtividade ===
-                            "diagnostica"
-                                ? `
-                                    <small>
-                                        ${
-                                            escapeHTML(
-                                                questao.habilidade
-                                                || "Sem habilidade definida"
-                                            )
-                                        }
-                                    </small>
-                                `
-                                : ""
-                        }
+                        <p>
+                            ${esc(questao.enunciado)}
+                        </p>
 
                     </div>
 
-                    <button
-                        type="button"
-                        class="revisao-acao editar"
-                    >
-                        <i class="fi fi-rr-edit"></i>
-                    </button>
+                    <div class="revisao-acoes">
 
-                    <button
-                        type="button"
-                        class="revisao-acao excluir"
-                    >
-                        <i class="fi fi-rr-trash"></i>
-                    </button>
+                        <button
+                            type="button"
+                            data-acao="editar"
+                            title="Editar"
+                        >
+                            <i class="fi fi-rr-edit"></i>
+                        </button>
+
+                        <button
+                            type="button"
+                            data-acao="excluir"
+                            title="Excluir"
+                        >
+                            <i class="fi fi-rr-trash"></i>
+                        </button>
+
+                    </div>
                 `;
 
-                item
+                card.addEventListener(
+                    "dragstart",
+                    () => {
+                        itemArrastado =
+                            questao.id;
+
+                        card.classList.add(
+                            "arrastando"
+                        );
+                    }
+                );
+
+                card.addEventListener(
+                    "dragend",
+                    () => {
+                        itemArrastado =
+                            null;
+
+                        card.classList.remove(
+                            "arrastando"
+                        );
+                    }
+                );
+
+                card.addEventListener(
+                    "dragover",
+                    event => {
+                        event.preventDefault();
+                    }
+                );
+
+                card.addEventListener(
+                    "drop",
+                    event => {
+                        event.preventDefault();
+
+                        if (
+                            itemArrastado ===
+                            questao.id
+                        ) {
+                            return;
+                        }
+
+                        const lista =
+                            atividade
+                                .conteudo[
+                                tipoAtividade
+                            ]
+                                .questoes;
+
+                        const origem =
+                            lista.findIndex(
+                                item =>
+                                    item.id ===
+                                    itemArrastado
+                            );
+
+                        const destino =
+                            lista.findIndex(
+                                item =>
+                                    item.id ===
+                                    questao.id
+                            );
+
+                        if (
+                            origem < 0
+                            ||
+                            destino < 0
+                        ) {
+                            return;
+                        }
+
+                        const [
+                            movido
+                        ] =
+                            lista.splice(
+                                origem,
+                                1
+                            );
+
+                        lista.splice(
+                            destino,
+                            0,
+                            movido
+                        );
+
+                        renderRevisaoQuestoes();
+                    }
+                );
+
+                card
                     .querySelector(
-                        ".editar"
+                        '[data-acao="editar"]'
                     )
                     .addEventListener(
                         "click",
                         () => {
                             etapaAtual = 2;
 
-                            modoCriacao =
-                                "manual";
+                            maiorEtapaLiberada =
+                                Math.max(
+                                    maiorEtapaLiberada,
+                                    3
+                                );
 
-                            prepararEtapa2();
+                            selecionarModo(
+                                "manual"
+                            );
 
                             atualizarEtapas();
 
@@ -2177,401 +2270,209 @@ function renderizarQuestoesRevisao() {
                         }
                     );
 
-                item
+                card
                     .querySelector(
-                        ".excluir"
+                        '[data-acao="excluir"]'
                     )
                     .addEventListener(
                         "click",
                         () => {
                             atividade
                                 .conteudo[
-                                    tipoAtividade
-                                ]
+                                tipoAtividade
+                            ]
                                 .questoes =
-                                atividade
-                                    .conteudo[
-                                        tipoAtividade
-                                    ]
-                                    .questoes
+                                obterQuestoes()
                                     .filter(
-                                        atual =>
-                                            atual.id !==
+                                        item =>
+                                            item.id !==
                                             questao.id
                                     );
 
-                            renderizarConteudo();
+                            renderRevisaoQuestoes();
 
-                            renderizarRevisao();
+                            $("revisaoQuantidade")
+                                .textContent =
+                                obterQuestoes()
+                                    .length;
                         }
                     );
 
-                configurarDrag(
-                    item
-                );
-
-                questoesRevisao.appendChild(
-                    item
+                container.appendChild(
+                    card
                 );
             }
         );
 }
 
-function configurarDrag(item) {
-    item.addEventListener(
-        "dragstart",
-        () => {
-            itemArrastado =
-                item;
+/* EMBARALHAR */
 
-            item.style.opacity =
-                ".5";
-        }
-    );
-
-    item.addEventListener(
-        "dragend",
-        () => {
-            item.style.opacity =
-                "1";
-
-            itemArrastado =
-                null;
-        }
-    );
-
-    item.addEventListener(
-        "dragover",
-        event => {
-            event.preventDefault();
-        }
-    );
-
-    item.addEventListener(
-        "drop",
-        event => {
-            event.preventDefault();
-
-            if (
-                !itemArrastado
-                || itemArrastado ===
-                    item
-            ) {
-                return;
-            }
-
-            const questoes =
-                obterQuestoesAtuais();
-
-            const origem =
-                questoes.findIndex(
-                    questao =>
-                        questao.id ===
-                        Number(
-                            itemArrastado
-                                .dataset
-                                .id
-                        )
-                );
-
-            const destino =
-                questoes.findIndex(
-                    questao =>
-                        questao.id ===
-                        Number(
-                            item
-                                .dataset
-                                .id
-                        )
-                );
-
-            const [movido] =
-                questoes.splice(
-                    origem,
-                    1
-                );
-
-            questoes.splice(
-                destino,
-                0,
-                movido
-            );
-
-            renderizarRevisao();
-        }
-    );
-}
-
-document
-    .getElementById(
-        "embaralharQuestoes"
-    )
+$("embaralharQuestoes")
     .addEventListener(
         "click",
         () => {
-            const questoes =
-                obterQuestoesAtuais();
+            const lista =
+                obterQuestoes();
 
             for (
-                let i =
-                    questoes.length - 1;
-                i > 0;
-                i--
+                let indice =
+                    lista.length - 1;
+                indice > 0;
+                indice--
             ) {
-                const j =
+                const aleatorio =
                     Math.floor(
-                        Math.random()
-                        * (i + 1)
+                        Math.random() *
+                        (
+                            indice + 1
+                        )
                     );
 
                 [
-                    questoes[i],
-                    questoes[j]
+                    lista[indice],
+                    lista[aleatorio]
                 ] = [
-                    questoes[j],
-                    questoes[i]
-                ];
+                        lista[aleatorio],
+                        lista[indice]
+                    ];
             }
 
-            renderizarRevisao();
+            renderRevisaoQuestoes();
         }
     );
 
-function validarQuestoesRevisao() {
-    avisosRevisao.innerHTML =
-        "";
+/* REVISÃO PROJETO */
 
-    const questoes =
-        obterQuestoesAtuais();
-
-    questoes.forEach(
-        (
-            questao,
-            index
-        ) => {
-            if (
-                !questao
-                    .enunciado
-                    .trim()
-            ) {
-                adicionarAviso(
-                    `Questão ${index + 1}: enunciado vazio.`
-                );
-            }
-        }
-    );
-}
-
-function adicionarAviso(
-    texto
-) {
-    const aviso =
-        document.createElement(
-            "div"
-        );
-
-    aviso.className =
-        "aviso";
-
-    aviso.textContent =
-        texto;
-
-    avisosRevisao.appendChild(
-        aviso
-    );
-}
-
-function renderizarRevisaoProjeto() {
+function renderRevisaoProjeto() {
     const projeto =
         atividade
             .conteudo
             .projeto;
 
-    projetoRevisao.innerHTML = `
-        <section class="projeto-revisao-bloco">
-
-            <h4>
-                Orientações
-            </h4>
+    $("projetoRevisao")
+        .innerHTML = `
+            <h4>Orientações</h4>
 
             <p>
-                ${
-                    escapeHTML(
-                        projeto.orientacoes
-                        || "Nenhuma orientação."
-                    )
-                }
+                ${esc(projeto.orientacoes)}
             </p>
 
-        </section>
-
-        <section class="projeto-revisao-bloco">
-
-            <h4>
-                Entrega esperada
-            </h4>
+            <h4>Entrega esperada</h4>
 
             <p>
-                ${
-                    escapeHTML(
-                        projeto.resultado
-                        || "Nenhuma entrega definida."
-                    )
-                }
+                ${esc(projeto.resultado)}
             </p>
 
-        </section>
+            <h4>Etapas</h4>
 
-        <section class="projeto-revisao-bloco">
+            <ol>
+                ${projeto
+            .etapas
+            .map(
+                etapa =>
+                    `<li>${esc(etapa.titulo)}</li>`
+            )
+            .join("")
+        }
+            </ol>
 
-            <h4>
-                Etapas
-            </h4>
+            ${projeto
+            .criterios
+            .length
+            ? `
+                        <h4>Critérios</h4>
 
-            ${
-                projeto.etapas.length
-                    ? `
-                        <ol class="projeto-revisao-lista">
-
-                            ${
-                                projeto
-                                    .etapas
-                                    .map(
-                                        etapa => `
-                                            <li>
-                                                ${
-                                                    escapeHTML(
-                                                        etapa.titulo
-                                                    )
-                                                }
-
-                                                ${
-                                                    etapa.prazo
-                                                        ? ` — ${escapeHTML(etapa.prazo)}`
-                                                        : ""
-                                                }
-                                            </li>
-                                        `
-                                    )
-                                    .join("")
-                            }
-
-                        </ol>
-                    `
-                    : "<p>Nenhuma etapa definida.</p>"
+                        <ul>
+                            ${projeto
+                .criterios
+                .map(
+                    criterio =>
+                        `<li>${esc(criterio.titulo)}</li>`
+                )
+                .join("")
             }
-
-        </section>
-
-        <section class="projeto-revisao-bloco">
-
-            <h4>
-                Critérios de avaliação
-            </h4>
-
-            ${
-                projeto
-                    .criterios
-                    .length
-                    ? `
-                        <ul class="projeto-revisao-lista">
-
-                            ${
-                                projeto
-                                    .criterios
-                                    .map(
-                                        criterio => `
-                                            <li>
-                                                ${
-                                                    escapeHTML(
-                                                        criterio.nome
-                                                        || "Critério sem nome"
-                                                    )
-                                                }
-
-                                                ${
-                                                    criterio.peso
-                                                        ? ` — ${escapeHTML(criterio.peso)}%`
-                                                        : ""
-                                                }
-                                            </li>
-                                        `
-                                    )
-                                    .join("")
-                            }
-
                         </ul>
                     `
-                    : "<p>Nenhum critério definido.</p>"
-            }
-
-        </section>
-    `;
+            : ""
+        }
+        `;
 }
 
-document
-    .getElementById(
-        "editarProjeto"
-    )
+$("editarProjeto")
     .addEventListener(
         "click",
         () => {
-            etapaAtual =
-                2;
+            etapaAtual = 2;
 
-            modoCriacao =
-                "manual";
-
-            prepararEtapa2();
+            selecionarModo(
+                "manual"
+            );
 
             atualizarEtapas();
         }
     );
 
-/* ==============================
-FINALIZAÇÃO
-============================== */
+function nomeTipoQuestao(tipo) {
+    return {
+        multipla:
+            "Múltipla escolha",
+
+        multiplas:
+            "Múltiplas respostas",
+
+        "verdadeiro-falso":
+            "Verdadeiro ou falso",
+
+        "resposta-curta":
+            "Resposta curta",
+
+        dissertativa:
+            "Dissertativa"
+    }[tipo] || tipo;
+}
+
+/* =========================
+FINALIZAR
+========================= */
 
 function finalizarAtividade() {
-    salvarConfiguracao();
-    salvarConteudoAtual();
+    /*
+        Não existe salvamento no banco
+        ainda.
+
+        O objeto fica pronto para ser
+        enviado ao backend futuramente.
+    */
 
     console.log(
-        "Atividade pronta:",
+        "Atividade pronta para backend:",
         atividade
     );
-
-    /*
-        FUTURAMENTE:
-        enviar atividade para o backend.
-
-        Disciplina e turma podem ser null.
-    */
 
     mostrarToast(
         "Atividade pronta. O salvamento dependerá do backend."
     );
 }
 
-/* ==============================
-BANCO FUTURO
-============================== */
+/* =========================
+DADOS DO BANCO
+========================= */
 
 function carregarDisciplinas(
-    disciplinas
+    dados
 ) {
     disciplina.innerHTML =
         '<option value="">Nenhuma</option>';
 
     if (
         !Array.isArray(
-            disciplinas
+            dados
         )
     ) {
         return;
     }
 
-    disciplinas.forEach(
+    dados.forEach(
         item => {
             const option =
                 document.createElement(
@@ -2579,7 +2480,8 @@ function carregarDisciplinas(
                 );
 
             option.value =
-                item.id;
+                item.id ??
+                item.nome;
 
             option.textContent =
                 item.nome;
@@ -2592,20 +2494,20 @@ function carregarDisciplinas(
 }
 
 function carregarTurmas(
-    turmas
+    dados
 ) {
     turma.innerHTML =
         '<option value="">Nenhuma</option>';
 
     if (
         !Array.isArray(
-            turmas
+            dados
         )
     ) {
         return;
     }
 
-    turmas.forEach(
+    dados.forEach(
         item => {
             const option =
                 document.createElement(
@@ -2613,7 +2515,8 @@ function carregarTurmas(
                 );
 
             option.value =
-                item.id;
+                item.id ??
+                item.nome;
 
             option.textContent =
                 item.nome;
@@ -2625,98 +2528,56 @@ function carregarTurmas(
     );
 }
 
-carregarDisciplinas(
-    null
-);
-
-carregarTurmas(
-    null
-);
-
-/* ==============================
+/* =========================
 UTILIDADES
-============================== */
+========================= */
 
-function formatarTipo(
-    tipo
-) {
-    const tipos = {
-        lista:
-            "Lista de exercícios",
-
-        quiz:
-            "Quiz",
-
-        diagnostica:
-            "Diagnóstica",
-
-        projeto:
-            "Projeto"
-    };
-
-    return tipos[tipo]
-        || "Não definido";
+function esc(valor) {
+    return String(
+        valor ?? ""
+    )
+        .replaceAll(
+            "&",
+            "&amp;"
+        )
+        .replaceAll(
+            "<",
+            "&lt;"
+        )
+        .replaceAll(
+            ">",
+            "&gt;"
+        );
 }
 
-function formatarDificuldade(
-    valor
-) {
-    const dificuldades = {
-        facil:
-            "Fácil",
-
-        media:
-            "Média",
-
-        dificil:
-            "Difícil"
-    };
-
-    return dificuldades[
+function escAttr(valor) {
+    return esc(
         valor
-    ] || "Não definida";
-}
-
-function escapeHTML(
-    texto
-) {
-    const div =
-        document.createElement(
-            "div"
-        );
-
-    div.textContent =
-        texto ?? "";
-
-    return div.innerHTML;
-}
-
-function mostrarToast(
-    texto
-) {
-    toastTexto.textContent =
-        texto;
-
-    toast.classList.add(
-        "show"
-    );
-
-    clearTimeout(
-        mostrarToast.timeout
-    );
-
-    mostrarToast.timeout =
-        setTimeout(
-            () => {
-                toast.classList.remove(
-                    "show"
-                );
-            },
-            2600
+    )
+        .replaceAll(
+            '"',
+            "&quot;"
         );
 }
 
-/* INICIALIZAÇÃO */
+/* =========================
+INICIALIZAÇÃO
+========================= */
 
-atualizarConfiguracaoPorTipo();
+/*
+    Sem banco:
+
+    - nenhuma disciplina falsa;
+    - nenhuma turma falsa;
+    - nenhuma geração falsa de IA;
+    - nenhuma persistência falsa.
+
+    Futuramente:
+
+    carregarDisciplinas(dadosDoBanco);
+    carregarTurmas(dadosDoBanco);
+*/
+
+carregarDisciplinas(null);
+carregarTurmas(null);
 atualizarEtapas();
