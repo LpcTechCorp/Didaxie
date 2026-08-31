@@ -77,12 +77,12 @@ O DIDAXIE é desenvolvido por:
 
 ### Álvaro
 
-* GitHub: [Álvaro]
+* GitHub: [Álvaro](https://github.com/AlvaroChiari)
 * LinkedIn: [Álvaro](https://www.linkedin.com/in/álvaro-chiari-433ba429a/)
 
 ### Pedro
 
-* GitHub: [Pedro]
+* GitHub: [Pedro](https://github.com/pedrohportodev/Pedrohportodev)
 * LinkedIn: [Pedro](https://www.linkedin.com/in/pedrohportodev/)
 
 ### Levi
